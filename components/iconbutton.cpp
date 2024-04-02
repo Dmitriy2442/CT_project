@@ -3,13 +3,13 @@
 IconButton::IconButton(QWidget *parent)
     : QPushButton{parent}
 {
-    setText("Test text");
+    setText("");
     setFixedSize(128, 128);
 
     setStyleSheet("QPushButton {"
                   "border: none;" // Убираем границу
                   "background-color: transparent;" // Делаем фон прозрачным
-                  "background-image: url(:/assets/icons/gear.png);" // Указываем путь к изображению
+                  "background-image: url(:/assets/icons/amogus.png);" // Указываем путь к изображению
                   "background-position: center;" // Размещение изображения по центру
                   "background-repeat: no-repeat;" // Отключаем повторение изображения
                   "}");

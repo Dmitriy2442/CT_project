@@ -7,12 +7,12 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    IconButton *newButton = new IconButton();
-    ui->gridLayout->addWidget(newButton, 0, 1);
+    IconButton *SettingsIcon = new IconButton();
+    ui->gridLayout->addWidget(SettingsIcon, 0, 1);
 
     //newButton->resize(128, 128);
-    newButton->setText("");
-    newButton->move(256, 256);
+    SettingsIcon->setText("");
+    SettingsIcon->move(256, 256);
 }
 
 MainWindow::~MainWindow()
