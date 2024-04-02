@@ -4,12 +4,13 @@ IconButton::IconButton(QWidget *parent)
     : QPushButton{parent}
 {
     setText("");
-    setFixedSize(128, 128);
+    setFixedSize(80, 80);
 
     setStyleSheet("QPushButton {"
                   "border: none;" // Убираем границу
                   "background-color: transparent;" // Делаем фон прозрачным
-                  "background-image: url(:/assets/icons/amogus.png);" // Указываем путь к изображению
+                  "border-image: url(:/assets/icons/amogus.png) 0 0 0 0 stretch stretch;" // Указываем путь к изображению
+                  "border-width: 0px;"
                   "background-position: center;" // Размещение изображения по центру
                   "background-repeat: no-repeat;" // Отключаем повторение изображения
                   "}");
@@ -21,7 +22,8 @@ void IconButton::changeBackgroundImage(const QString &imagePath) {
     QString styleSheet = QString("QPushButton {"
                                  "border: none;"
                                  "background-color: transparent;"
-                                 "background-image: url(%1);"
+                                 "border-image: url(%1) 0 0 0 0 stretch stretch;"
+                                 "border-width: 0px;"
                                  "background-position: center;"
                                  "background-repeat: no-repeat;"
                                  "}").arg(imagePath);

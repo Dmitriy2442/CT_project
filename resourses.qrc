@@ -2,5 +2,6 @@
     <qresource prefix="/assets/icons">
         <file alias="gear.png">assets/icons/gear.png</file>
         <file alias="amogus.png">assets/icons/amogus.png</file>
+        <file alias="x.png">assets/icons/x.png</file>
     </qresource>
 </RCC>

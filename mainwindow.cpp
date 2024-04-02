@@ -8,9 +8,13 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     IconButton *SettingsIcon = new IconButton();
-    ui->gridLayout->addWidget(SettingsIcon, 0, 1);
+    IconButton *ExitIcon = new IconButton();
 
-//SettingsIcon->changeBackgroundImage(":/assets/icons/gear.png");
+    ui->gridLayout->addWidget(SettingsIcon, 0, 1);
+    ui->gridLayout->addWidget(ExitIcon, 0, 2);
+
+    SettingsIcon->changeBackgroundImage(":/assets/icons/gear.png");
+    ExitIcon->changeBackgroundImage(":/assets/icons/x.png");
     SettingsIcon->move(256, 256);
 }
 
