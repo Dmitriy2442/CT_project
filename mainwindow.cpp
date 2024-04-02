@@ -10,8 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     IconButton *SettingsIcon = new IconButton();
     ui->gridLayout->addWidget(SettingsIcon, 0, 1);
 
-    //newButton->resize(128, 128);
-    SettingsIcon->setText("");
+//SettingsIcon->changeBackgroundImage(":/assets/icons/gear.png");
     SettingsIcon->move(256, 256);
 }
 

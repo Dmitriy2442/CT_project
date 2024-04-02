@@ -17,6 +17,17 @@ IconButton::IconButton(QWidget *parent)
     connect(this, &QPushButton::clicked, this, &IconButton::onButtonClicked);
 }
 
+void IconButton::changeBackgroundImage(const QString &imagePath) {
+    QString styleSheet = QString("QPushButton {"
+                                 "border: none;"
+                                 "background-color: transparent;"
+                                 "background-image: url(%1);"
+                                 "background-position: center;"
+                                 "background-repeat: no-repeat;"
+                                 "}").arg(imagePath);
+    setStyleSheet(styleSheet);
+}
+
 void IconButton::onButtonClicked() {
     // Логика, выполняемая при нажатии на кнопку
     qDebug() << "Кнопка нажата!";

@@ -8,6 +8,7 @@ class IconButton : public QPushButton
     Q_OBJECT
 public:
     explicit IconButton(QWidget *parent = nullptr);
+    void changeBackgroundImage(const QString &imagePath);
 
 public slots:
     void onButtonClicked();
