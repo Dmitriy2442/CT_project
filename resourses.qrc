@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/assets/icons">
+        <file alias="gear.png">assets/icons/gear.png</file>
+    </qresource>
+</RCC>
