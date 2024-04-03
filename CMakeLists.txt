@@ -26,7 +26,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 
         resourses.qrc
 
-        ui/autors.ui
+        ui/authors.ui
         ui/mainmenu.ui
     )
 # Define target properties for Android with Qt 6 as:

@@ -17,7 +17,11 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+public slots:
+    void goToAuthorsPage();
+
 private:
+    QHash<QString, int> ui2idx;
     Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H
