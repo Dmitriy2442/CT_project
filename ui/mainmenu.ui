@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainMenuForm</class>
+ <widget class="QWidget" name="MainMenuForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1280</width>
+    <height>720</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Bangers</family>
+    <pointsize>64</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QLabel" name="title">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>190</y>
+     <width>511</width>
+     <height>131</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Bangers</family>
+     <pointsize>128</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>SAY GEX</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>370</y>
+     <width>284</width>
+     <height>232</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="buttonsLayout">
+    <property name="spacing">
+     <number>20</number>
+    </property>
+    <property name="topMargin">
+     <number>20</number>
+    </property>
+    <property name="bottomMargin">
+     <number>20</number>
+    </property>
+    <item>
+     <widget class="QPushButton" name="gameButton">
+      <property name="font">
+       <font>
+        <family>Comic Sans MS</family>
+        <pointsize>64</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	border: none;
+}</string>
+      </property>
+      <property name="text">
+       <string>Game!</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="iconsLayout">
+      <property name="spacing">
+       <number>20</number>
+      </property>
+      <item>
+       <widget class="QPushButton" name="exitIcon">
+        <property name="minimumSize">
+         <size>
+          <width>80</width>
+          <height>80</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+	border: none;
+	background-color: transparent;
+	border-image: url(:/icons/x.png) 0 0 0 0 stretch stretch;
+	border-width: 0px;
+	background-position: center;
+	background-repeat: no-repeat;
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="settingsIcon">
+        <property name="minimumSize">
+         <size>
+          <width>80</width>
+          <height>80</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+	border: none;
+	background-color: transparent;
+	border-image: url(:/icons/gear.png) 0 0 0 0 stretch stretch;
+	border-width: 0px;
+	background-position: center;
+	background-repeat: no-repeat;
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="authorsIcon">
+        <property name="minimumSize">
+         <size>
+          <width>80</width>
+          <height>80</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+	border: none;
+	background-color: transparent;
+	border-image: url(:/icons/amogus.png) 0 0 0 0 stretch stretch;
+	border-width: 0px;
+	background-position: center;
+	background-repeat: no-repeat;
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
