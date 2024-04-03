@@ -218,5 +218,22 @@
   </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>exitIcon</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>539</x>
+     <y>504</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>411</x>
+     <y>539</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
