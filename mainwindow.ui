@@ -19,7 +19,7 @@
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="1" column="2">
-     <spacer name="horizontalSpacer">
+     <spacer name="horSpacer_R">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -32,7 +32,7 @@
      </spacer>
     </item>
     <item row="2" column="1">
-     <spacer name="verticalSpacer_2">
+     <spacer name="verSpacer_D">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
@@ -45,7 +45,7 @@
      </spacer>
     </item>
     <item row="0" column="1">
-     <spacer name="verticalSpacer">
+     <spacer name="verSpacer_U">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
@@ -58,12 +58,12 @@
      </spacer>
     </item>
     <item row="1" column="1">
-     <layout class="QVBoxLayout" name="verticalLayout_2">
+     <layout class="QVBoxLayout" name="menuLayout">
       <property name="spacing">
        <number>80</number>
       </property>
       <item alignment="Qt::AlignVCenter">
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="title">
         <property name="font">
          <font>
           <family>Papyrus</family>
@@ -79,7 +79,7 @@
        </widget>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout">
+       <layout class="QVBoxLayout" name="buttonsLayout">
         <property name="spacing">
          <number>20</number>
         </property>
@@ -96,7 +96,7 @@
          <number>20</number>
         </property>
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="gameButton">
           <property name="font">
            <font>
             <family>Snap ITC</family>
@@ -116,12 +116,12 @@
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
+         <layout class="QHBoxLayout" name="iconsLayout">
           <property name="spacing">
            <number>20</number>
           </property>
           <item>
-           <widget class="QPushButton" name="pushButton_2">
+           <widget class="QPushButton" name="exitIcon">
             <property name="minimumSize">
              <size>
               <width>80</width>
@@ -132,7 +132,7 @@
              <string notr="true">QPushButton {
 	border: none;
 	background-color: transparent;
-	border-image: url(:/assets/icons/x.png) 0 0 0 0 stretch stretch;
+	border-image: url(:/icons/x.png) 0 0 0 0 stretch stretch;
 	border-width: 0px;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -144,7 +144,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_3">
+           <widget class="QPushButton" name="settingsIcon">
             <property name="minimumSize">
              <size>
               <width>80</width>
@@ -155,7 +155,7 @@
              <string notr="true">QPushButton {
 	border: none;
 	background-color: transparent;
-	border-image: url(:/assets/icons/gear.png) 0 0 0 0 stretch stretch;
+	border-image: url(:/icons/gear.png) 0 0 0 0 stretch stretch;
 	border-width: 0px;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -167,7 +167,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_4">
+           <widget class="QPushButton" name="autorsIcon">
             <property name="minimumSize">
              <size>
               <width>80</width>
@@ -184,7 +184,7 @@
              <string notr="true">QPushButton {
 	border: none;
 	background-color: transparent;
-	border-image: url(:/assets/icons/amogus.png) 0 0 0 0 stretch stretch;
+	border-image: url(:/icons/amogus.png) 0 0 0 0 stretch stretch;
 	border-width: 0px;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -202,7 +202,7 @@
      </layout>
     </item>
     <item row="1" column="0">
-     <spacer name="horizontalSpacer_2">
+     <spacer name="horSpacer_L">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
