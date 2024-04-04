@@ -16,8 +16,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui2idx["authors"] = 1;
 
     // Задание интерфейсные формы:
-    auto mainMenuUi = new Ui::MainMenuForm();
-    auto authorsUi = new Ui::AuthorsForm();
+    Ui::MainMenuForm* mainMenuUi = new Ui::MainMenuForm();
+    Ui::AuthorsForm* authorsUi = new Ui::AuthorsForm();
 
     ui->setupUi(this);
     mainMenuUi->setupUi(ui->mainMenu);
@@ -33,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Подгрузка шрифта для названия:
     int bangerstId = QFontDatabase::addApplicationFont(":/fonts/bangers.ttf");
-    QString bangersFamily = QFontDatabase::applicationFontFamilies(bangerstId).at(0);;
+    QString bangersFamily = QFontDatabase::applicationFontFamilies(bangerstId).at(0);
     mainMenuUi->title->setFont(QFont(bangersFamily, 128));
 
 }
