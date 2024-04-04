@@ -10,10 +10,16 @@
     <height>720</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>Myanmar Text</family>
+    <pointsize>12</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="lonelyLabel">
    <property name="geometry">
     <rect>
      <x>120</x>
@@ -24,11 +30,16 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>48</pointsize>
+     <pointsize>20</pointsize>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+	font-size: 24 px;
+}</string>
+   </property>
    <property name="text">
-    <string>Тут одиноко</string>
+    <string>It's lonely here</string>
    </property>
   </widget>
   <widget class="QPushButton" name="backIcon">

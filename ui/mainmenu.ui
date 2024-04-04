@@ -231,7 +231,7 @@
             <string notr="true">QPushButton {
 	border: none;
 	background-color: transparent;
-	border-image: url(:/icons/amogus.png) 0 0 0 0 stretch stretch;
+	border-image: url(:/icons/scroll.png) 0 0 0 0 stretch stretch;
 	border-width: 0px;
 	background-position: center;
 	background-repeat: no-repeat;
