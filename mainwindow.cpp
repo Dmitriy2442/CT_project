@@ -11,11 +11,11 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    // Определим словарь соответствий названия интерфейса и его индекса в stackedWidget:
+    // Определение словарь соответствий названия интерфейса и его индекса в stackedWidget:
     ui2idx["mainMenu"] = 0;
     ui2idx["authors"] = 1;
 
-    //
+    // Задание интерфейсные формы:
     auto mainMenuUi = new Ui::MainMenuForm();
     auto authorsUi = new Ui::AuthorsForm();
 
@@ -31,9 +31,9 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     // Подгрузка шрифта для названия:
-    //int bangerstId = QFontDatabase::addApplicationFont(":/fonts/bangers.ttf");
-    //QString bangersFamily = QFontDatabase::applicationFontFamilies(bangerstId).at(0);;
-    //ui->title->setFont(QFont(bangersFamily, 128));
+    int bangerstId = QFontDatabase::addApplicationFont(":/fonts/bangers.ttf");
+    QString bangersFamily = QFontDatabase::applicationFontFamilies(bangerstId).at(0);;
+    mainMenuUi->title->setFont(QFont(bangersFamily, 128));
 
 }
 
