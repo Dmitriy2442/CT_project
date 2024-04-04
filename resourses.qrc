@@ -3,6 +3,7 @@
         <file alias="gear.png">assets/icons/gear.png</file>
         <file alias="amogus.png">assets/icons/amogus.png</file>
         <file alias="x.png">assets/icons/x.png</file>
+        <file alias="arrow.png">assets/icons/arrow.png</file>
     </qresource>
     <qresource prefix="/fonts">
         <file alias="bangers.ttf">assets/fonts/Bangers-Regular.ttf</file>
