@@ -21,7 +21,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="1" column="0">
-    <spacer name="horizontalSpacer">
+    <spacer name="horSpacer_L">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -34,7 +34,7 @@
     </spacer>
    </item>
    <item row="0" column="1">
-    <spacer name="verticalSpacer">
+    <spacer name="verSpacer_U">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
@@ -47,7 +47,7 @@
     </spacer>
    </item>
    <item row="1" column="1">
-    <layout class="QVBoxLayout" name="verticalLayout_2">
+    <layout class="QVBoxLayout" name="menuLayout">
      <property name="spacing">
       <number>160</number>
      </property>
@@ -80,7 +80,7 @@
       </widget>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout">
+      <layout class="QVBoxLayout" name="buttonsLayout">
        <property name="spacing">
         <number>20</number>
        </property>
@@ -91,7 +91,7 @@
         <number>20</number>
        </property>
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="gameButton">
          <property name="font">
           <font>
            <family>Cascadia Mono SemiBold</family>
@@ -111,7 +111,7 @@
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
+        <layout class="QHBoxLayout" name="iconsLayout">
          <property name="spacing">
           <number>20</number>
          </property>
@@ -215,7 +215,7 @@
     </layout>
    </item>
    <item row="1" column="2">
-    <spacer name="horizontalSpacer_2">
+    <spacer name="horSpacer_R">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -228,7 +228,7 @@
     </spacer>
    </item>
    <item row="2" column="1">
-    <spacer name="verticalSpacer_2">
+    <spacer name="verSpacer_D">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
