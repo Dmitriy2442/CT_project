@@ -20,8 +20,8 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="0">
-    <spacer name="horSpacer_L">
+   <item row="1" column="2">
+    <spacer name="horSpacer_R">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -46,10 +46,36 @@
      </property>
     </spacer>
    </item>
+   <item row="2" column="1">
+    <spacer name="verSpacer_D">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="1" column="0">
+    <spacer name="horSpacer_L">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
    <item row="1" column="1">
     <layout class="QVBoxLayout" name="menuLayout">
      <property name="spacing">
-      <number>160</number>
+      <number>120</number>
      </property>
      <property name="leftMargin">
       <number>20</number>
@@ -67,9 +93,15 @@
       <widget class="QLabel" name="title">
        <property name="font">
         <font>
-         <family>Bangers</family>
-         <pointsize>128</pointsize>
+         <family>Bauhaus 93</family>
+         <pointsize>-1</pointsize>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+	font-size: 128px;
+	color: blue;
+}</string>
        </property>
        <property name="text">
         <string>SAY GEX</string>
@@ -95,14 +127,16 @@
          <property name="font">
           <font>
            <family>Cascadia Mono SemiBold</family>
-           <pointsize>64</pointsize>
+           <pointsize>-1</pointsize>
            <italic>true</italic>
            <bold>true</bold>
           </font>
          </property>
          <property name="styleSheet">
           <string notr="true">QPushButton {
+	font-size: 72px;
 	border: none;
+	color: green;
 }</string>
          </property>
          <property name="text">
@@ -213,32 +247,6 @@
       </layout>
      </item>
     </layout>
-   </item>
-   <item row="1" column="2">
-    <spacer name="horSpacer_R">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="2" column="1">
-    <spacer name="verSpacer_D">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
    </item>
   </layout>
  </widget>

@@ -17,6 +17,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void updateAllFonts();
+
 public slots:
     void goToMainMenuPage();
     void goToAuthorsPage();

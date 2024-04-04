@@ -15,28 +15,31 @@ MainWindow::MainWindow(QWidget *parent)
     ui2idx["mainMenu"] = 0;
     ui2idx["authors"] = 1;
 
-    // Задание интерфейсные формы:
+    // Задание интерфейсных форм:
     Ui::MainMenuForm* mainMenuUi = new Ui::MainMenuForm();
     Ui::AuthorsForm* authorsUi = new Ui::AuthorsForm();
 
     ui->setupUi(this);
-    this->setStyleSheet("background-color: #222222");
     mainMenuUi->setupUi(ui->mainMenu);
     authorsUi->setupUi(ui->authors);
     setCentralWidget(ui->stackedWidget);
+
+    this->setStyleSheet("background-color: #222222");
+    this->updateAllFonts();
 
     // Задание функций кнопкам:
     connect(mainMenuUi->exitIcon, SIGNAL(clicked()), this, SLOT(close()));
     connect(mainMenuUi->authorsIcon, SIGNAL(clicked()), this, SLOT(goToAuthorsPage()));
 
     connect(authorsUi->backIcon, SIGNAL(clicked()), this, SLOT(goToMainMenuPage()));
+}
 
-
-    // Подгрузка шрифта для названия:
-    int bangerstId = QFontDatabase::addApplicationFont(":/fonts/bangers.ttf");
-    QString bangersFamily = QFontDatabase::applicationFontFamilies(bangerstId).at(0);
-    mainMenuUi->title->setFont(QFont(bangersFamily, 128));
-
+void MainWindow::updateAllFonts()
+{
+    foreach (QWidget *widget, QApplication::allWidgets()) {
+        widget->setFont(QApplication::font());
+        widget->update();
+    }
 }
 
 void MainWindow::goToAuthorsPage()
