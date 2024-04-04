@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
     Ui::AuthorsForm* authorsUi = new Ui::AuthorsForm();
 
     ui->setupUi(this);
+    this->setStyleSheet("background-color: #222222");
     mainMenuUi->setupUi(ui->mainMenu);
     authorsUi->setupUi(ui->authors);
     setCentralWidget(ui->stackedWidget);
