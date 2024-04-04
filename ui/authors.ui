@@ -31,6 +31,41 @@
     <string>Тут одиноко</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="backIcon">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>620</y>
+     <width>80</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>80</width>
+     <height>80</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>80</width>
+     <height>80</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+	border: none;
+	background-color: transparent;
+	border-image: url(:/icons/arrow.png) 0 0 0 0 stretch stretch;
+	border-width: 0px;
+	background-position: center;
+	background-repeat: no-repeat;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

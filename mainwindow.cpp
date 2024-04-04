@@ -28,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(mainMenuUi->exitIcon, SIGNAL(clicked()), this, SLOT(close()));
     connect(mainMenuUi->authorsIcon, SIGNAL(clicked()), this, SLOT(goToAuthorsPage()));
 
+    connect(authorsUi->backIcon, SIGNAL(clicked()), this, SLOT(goToMainMenuPage()));
 
 
     // Подгрузка шрифта для названия:
@@ -40,6 +41,11 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::goToAuthorsPage()
 {
     ui->stackedWidget->setCurrentIndex(ui2idx["authors"]);
+}
+
+void MainWindow::goToMainMenuPage()
+{
+    ui->stackedWidget->setCurrentIndex(ui2idx["mainMenu"]);
 }
 
 MainWindow::~MainWindow()

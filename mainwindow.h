@@ -18,6 +18,7 @@ public:
     ~MainWindow();
 
 public slots:
+    void goToMainMenuPage();
     void goToAuthorsPage();
 
 private:
