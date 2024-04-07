@@ -30,12 +30,14 @@
    </property>
    <property name="font">
     <font>
+     <family>Segoe UI</family>
      <pointsize>20</pointsize>
     </font>
    </property>
    <property name="styleSheet">
     <string notr="true">QLabel {
 	font-size: 24 px;
+	color: white;
 }</string>
    </property>
    <property name="text">

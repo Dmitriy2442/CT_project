@@ -1,7 +1,7 @@
-#include "mainwindow.h"
-#include "./ui/ui_mainwindow.h"
-#include "./ui/ui_mainmenu.h"
-#include "./ui/ui_authors.h"
+#include "../headers/mainwindow.h"
+#include "../ui/ui_mainwindow.h"
+#include "../ui/ui_mainmenu.h"
+#include "../ui/ui_authors.h"
 
 #include <QLabel>
 #include <QFontDatabase>
