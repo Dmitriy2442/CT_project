@@ -1,7 +1,9 @@
 #include "../headers/mainwindow.h"
+
 #include "../ui/ui_mainwindow.h"
 #include "../ui/ui_mainmenu.h"
 #include "../ui/ui_authors.h"
+#include "../ui/ui_settings.h"
 
 #include <QLabel>
 #include <QFontDatabase>
@@ -14,14 +16,17 @@ MainWindow::MainWindow(QWidget *parent)
     // Определение словарь соответствий названия интерфейса и его индекса в stackedWidget:
     ui2idx["mainMenu"] = 0;
     ui2idx["authors"] = 1;
+    ui2idx["settings"] = 2;
 
     // Задание интерфейсных форм:
     Ui::MainMenuForm* mainMenuUi = new Ui::MainMenuForm();
     Ui::AuthorsForm* authorsUi = new Ui::AuthorsForm();
+    Ui::SettingsForm* settingsUi = new Ui::SettingsForm();
 
     ui->setupUi(this);
     mainMenuUi->setupUi(ui->mainMenu);
     authorsUi->setupUi(ui->authors);
+    settingsUi->setupUi(ui->settings);
     setCentralWidget(ui->stackedWidget);
 
     this->setStyleSheet("background-color: #222222");
@@ -30,8 +35,11 @@ MainWindow::MainWindow(QWidget *parent)
     // Задание функций кнопкам:
     connect(mainMenuUi->exitIcon, SIGNAL(clicked()), this, SLOT(close()));
     connect(mainMenuUi->authorsIcon, SIGNAL(clicked()), this, SLOT(goToAuthorsPage()));
+    connect(mainMenuUi->settingsIcon, SIGNAL(clicked()), this, SLOT(goToSettingsPage()));
 
     connect(authorsUi->backIcon, SIGNAL(clicked()), this, SLOT(goToMainMenuPage()));
+
+    connect(settingsUi->backIcon, SIGNAL(clicked()), this, SLOT(goToMainMenuPage()));
 }
 
 void MainWindow::updateAllFonts()
@@ -50,6 +58,11 @@ void MainWindow::goToAuthorsPage()
 void MainWindow::goToMainMenuPage()
 {
     ui->stackedWidget->setCurrentIndex(ui2idx["mainMenu"]);
+}
+
+void MainWindow::goToSettingsPage()
+{
+    ui->stackedWidget->setCurrentIndex(ui2idx["settings"]);
 }
 
 MainWindow::~MainWindow()

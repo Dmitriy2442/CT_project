@@ -22,6 +22,7 @@ public:
 public slots:
     void goToMainMenuPage();
     void goToAuthorsPage();
+    void goToSettingsPage();
 
 private:
     QHash<QString, int> ui2idx;

@@ -1,14 +1,14 @@
 #include "../headers/settings.h"
 #include "../ui/ui_settings.h"
 
-Settings::Settings(QWidget *parent)
+SettingsForm::SettingsForm(QWidget *parent)
     : QWidget(parent)
-    , ui(new Ui::Settings)
+    , ui(new Ui::SettingsForm)
 {
     ui->setupUi(this);
 }
 
-Settings::~Settings()
+SettingsForm::~SettingsForm()
 {
     delete ui;
 }
