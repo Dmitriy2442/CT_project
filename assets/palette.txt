@@ -1,0 +1,7 @@
+red #ba1012
+orange #ffa500
+yellow #eddc06
+green #619c10
+blue #1c5ad6
+indigo #43318d
+purple #65318d

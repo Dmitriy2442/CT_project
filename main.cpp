@@ -1,4 +1,5 @@
 #include "headers/mainwindow.h"
+#include "headers/colorpalette.h"
 #include "qapplication.h"
 
 #include <QApplication>
@@ -7,27 +8,15 @@
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlError>
-
-
-void initializeDatabase() {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-
-    // Устанавливаем название файла базы данных
-    db.setDatabaseName("gamedata.db");
-
-    // Пытаемся открыть базу данных
-    if (!db.open()) {
-        qDebug() << "Ошибка при открытии базы данных:" << db.lastError().text();
-        return;
-    }
-}
+#include <QSqlTableModel>
+#include <QTableView>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    // Инициализация базы данных
-    initializeDatabase();
+    // Инициализация палитры цветов приложения
+    ColorPalette* Palette = new ColorPalette(":/palette/palette.txt");
 
     // Установка шрифта по умолчанию
     int fontId = QFontDatabase::addApplicationFont(":/fonts/nightmare.ttf");

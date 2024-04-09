@@ -10,4 +10,7 @@
         <file alias="bangers.ttf">assets/fonts/Bangers-Regular.ttf</file>
         <file alias="nightmare.ttf">assets/fonts/nightmare.ttf</file>
     </qresource>
+    <qresource prefix="/palette">
+        <file alias="palette.txt">assets/palette.txt</file>
+    </qresource>
 </RCC>
