@@ -63,15 +63,12 @@ void MainWindow::updateAllColors()
 {
     foreach (QWidget *widget, QApplication::allWidgets()) {
         const char* widgetType = widget->metaObject()->className();
-        // qDebug() << "Widget type:  " << widgetType;
+        qDebug() << widgetType;
         if (strcmp(widgetType, "QLabel") == 0)
         {
-            qDebug() << "Found QLabel! Applying new style:";
-            qDebug() << widget->styleSheet();
             widget->setStyleSheet(updateStyleSheet(widget->styleSheet(), QString("color"), palette.getColor()));
-            qDebug() << widget->styleSheet();
-            widget->update();
         }
+        widget->update();
     }
 }
 

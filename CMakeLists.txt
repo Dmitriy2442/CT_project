@@ -24,12 +24,16 @@ file(GLOB SOURCE_FILES "sources/*.cpp")
 # Добавление всех .ui файлов из директории ui
 file(GLOB UI_FILES "ui/*.ui")
 
+# Добавление всех компонент из директории components
+file(GLOB COMPONENTS_FILES "components/*.h" "components/*.cpp")
+
 set(PROJECT_SOURCES
         main.cpp
 
         ${HEADER_FILES}
         ${SOURCE_FILES}
         ${UI_FILES}
+        ${COMPONENTS_FILES}
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -38,6 +42,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${PROJECT_SOURCES}
 
         resourses.qrc
+
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET CT_project APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

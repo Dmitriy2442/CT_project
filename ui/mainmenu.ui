@@ -156,7 +156,7 @@
           <number>120</number>
          </property>
          <item>
-          <widget class="QPushButton" name="authorsIcon">
+          <widget class="IconButton" name="authorsIcon">
            <property name="minimumSize">
             <size>
              <width>80</width>
@@ -250,6 +250,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>IconButton</class>
+   <extends>QPushButton</extends>
+   <header location="global">components/iconbutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
