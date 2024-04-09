@@ -26,7 +26,7 @@ public:
     ~MainWindow();
 
     void updateAllFonts();
-    void updateAllColors();
+    void updateAllColors(QWidget *page);
 
 public slots:
     void goToMainMenuPage();

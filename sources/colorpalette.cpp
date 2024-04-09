@@ -9,6 +9,10 @@ void ColorPalette::resetIterator() {
     colorIterator = QRandomGenerator::global()->bounded(colors.size());
 }
 
+qint8 ColorPalette::getIterator() {
+    return colorIterator;
+}
+
 ColorPalette::ColorPalette(const QString &filePath)
 {
     QFile file(filePath);

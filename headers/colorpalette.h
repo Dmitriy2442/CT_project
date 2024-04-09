@@ -16,6 +16,7 @@ public:
 
     void resetIterator();
     QString getColor();
+    qint8 getIterator();
 
 private:
     QVector<QString> colors;

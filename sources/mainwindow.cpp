@@ -26,9 +26,9 @@ MainWindow::MainWindow(QWidget *parent)
     settingsUi->setupUi(ui->settings);
     setCentralWidget(ui->stackedWidget);
 
-    this->setStyleSheet("background-color: #222222");
-    this->updateAllFonts();
-    this->updateAllColors();
+    setStyleSheet("background-color: #222222");
+    updateAllFonts();
+    updateAllColors(ui->mainMenu);
 
     // Задание функций кнопкам:
     connect(mainMenuUi->exitIcon, SIGNAL(clicked()), this, SLOT(close()));
@@ -59,40 +59,48 @@ void MainWindow::updateAllFonts()
     }
 }
 
-void MainWindow::updateAllColors()
+void MainWindow::updateAllColors(QWidget *page)
 {
+    qDebug() << "New update initialized!";
     palette.resetIterator();
-    foreach (QWidget *widget, QApplication::allWidgets()) {
-        const char* widgetType = widget->metaObject()->className();
-        if ((strcmp(widgetType, "QLabel") == 0) || (strcmp(widgetType, "QPushButton") == 0))
+    foreach (QObject *object, page->children()) {
+        const char* objectType = object->metaObject()->className();
+        QWidget* widget = qobject_cast<QWidget*>(object);
+        if ((strcmp(objectType, "QLabel") == 0) || (strcmp(objectType, "QPushButton") == 0))
         {
 
             widget->setStyleSheet(updateStyleSheet(widget->styleSheet(), QString("color"), palette.getColor()));
+            widget->update();
+            qDebug() << objectType << palette.getIterator();
 
-        } else if (strcmp(widgetType, "IconButton") == 0) {
+        } else if (strcmp(objectType, "IconButton") == 0) {
+
             IconButton* iconButton = qobject_cast<IconButton*>(widget);
             iconButton->updateColor(widget->styleSheet(), palette.getColor(), widget->size());
+            widget->update();
+            qDebug() << objectType << palette.getIterator();
+
         }
-        widget->update();
     }
+}
+
+
+void MainWindow::goToMainMenuPage()
+{
+    updateAllColors(ui->mainMenu);
+    ui->stackedWidget->setCurrentIndex(ui2idx["mainMenu"]);
 }
 
 void MainWindow::goToAuthorsPage()
 {
+    updateAllColors(ui->authors);
     ui->stackedWidget->setCurrentIndex(ui2idx["authors"]);
-    this->updateAllColors();
-}
-
-void MainWindow::goToMainMenuPage()
-{
-    ui->stackedWidget->setCurrentIndex(ui2idx["mainMenu"]);
-    this->updateAllColors();
 }
 
 void MainWindow::goToSettingsPage()
 {
+    updateAllColors(ui->settings);
     ui->stackedWidget->setCurrentIndex(ui2idx["settings"]);
-    this->updateAllColors();
 }
 
 MainWindow::~MainWindow()
