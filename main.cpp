@@ -1,4 +1,5 @@
 #include "headers/mainwindow.h"
+#include "headers/character_database.h"
 #include "qapplication.h"
 
 #include <QApplication>
@@ -9,6 +10,7 @@
 #include <QtSql/QSqlError>
 #include <QSqlTableModel>
 #include <QTableView>
+
 
 int main(int argc, char *argv[])
 {
