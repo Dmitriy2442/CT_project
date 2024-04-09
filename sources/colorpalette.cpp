@@ -5,6 +5,10 @@ ColorPalette::ColorPalette()
     qDebug() << "ColorPalette Error: Palette path not specified!";
 }
 
+void ColorPalette::resetIterator() {
+    colorIterator = QRandomGenerator::global()->bounded(colors.size());
+}
+
 ColorPalette::ColorPalette(const QString &filePath)
 {
     QFile file(filePath);
@@ -19,10 +23,13 @@ ColorPalette::ColorPalette(const QString &filePath)
         }
         file.close();
     }
+
+    colorIterator = QRandomGenerator::global()->bounded(colors.size());
+    paletteSize = colors.size();
 }
 
 QString ColorPalette::getColor()
 {
-    int randomIndex = QRandomGenerator::global()->bounded(colors.size());
-    return colors[randomIndex];
+    colorIterator = ++colorIterator % paletteSize;
+    return colors[colorIterator];
 }

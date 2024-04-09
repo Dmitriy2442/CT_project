@@ -1,10 +1,10 @@
 <RCC>
     <qresource prefix="/icons">
-        <file alias="gear.png">assets/icons/gear.png</file>
         <file alias="amogus.png">assets/icons/amogus.png</file>
-        <file alias="x.png">assets/icons/x.png</file>
-        <file alias="arrow.png">assets/icons/arrow.png</file>
-        <file alias="scroll.png">assets/icons/scroll.png</file>
+        <file alias="gear.svg">assets/icons/gear.svg</file>
+        <file alias="scroll.svg">assets/icons/scroll.svg</file>
+        <file alias="x.svg">assets/icons/x.svg</file>
+        <file alias="arrow.svg">assets/icons/arrow.svg</file>
     </qresource>
     <qresource prefix="/fonts">
         <file alias="bangers.ttf">assets/fonts/Bangers-Regular.ttf</file>

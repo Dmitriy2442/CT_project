@@ -61,12 +61,17 @@ void MainWindow::updateAllFonts()
 
 void MainWindow::updateAllColors()
 {
+    palette.resetIterator();
     foreach (QWidget *widget, QApplication::allWidgets()) {
         const char* widgetType = widget->metaObject()->className();
-        qDebug() << widgetType;
-        if (strcmp(widgetType, "QLabel") == 0)
+        if ((strcmp(widgetType, "QLabel") == 0) || (strcmp(widgetType, "QPushButton") == 0))
         {
+
             widget->setStyleSheet(updateStyleSheet(widget->styleSheet(), QString("color"), palette.getColor()));
+
+        } else if (strcmp(widgetType, "IconButton") == 0) {
+            IconButton* iconButton = qobject_cast<IconButton*>(widget);
+            iconButton->updateColor(widget->styleSheet(), palette.getColor(), widget->size());
         }
         widget->update();
     }
@@ -75,16 +80,19 @@ void MainWindow::updateAllColors()
 void MainWindow::goToAuthorsPage()
 {
     ui->stackedWidget->setCurrentIndex(ui2idx["authors"]);
+    this->updateAllColors();
 }
 
 void MainWindow::goToMainMenuPage()
 {
     ui->stackedWidget->setCurrentIndex(ui2idx["mainMenu"]);
+    this->updateAllColors();
 }
 
 void MainWindow::goToSettingsPage()
 {
     ui->stackedWidget->setCurrentIndex(ui2idx["settings"]);
+    this->updateAllColors();
 }
 
 MainWindow::~MainWindow()
