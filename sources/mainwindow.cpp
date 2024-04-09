@@ -5,13 +5,10 @@
 #include "../ui/ui_authors.h"
 #include "../ui/ui_settings.h"
 
-#include <QLabel>
-#include <QFontDatabase>
-#include <QStackedWidget>
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , palette(":/palette/palette.txt")
 {
     // Определение словарь соответствий названия интерфейса и его индекса в stackedWidget:
     ui2idx["mainMenu"] = 0;
@@ -31,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     this->setStyleSheet("background-color: #222222");
     this->updateAllFonts();
+    this->updateAllColors();
 
     // Задание функций кнопкам:
     connect(mainMenuUi->exitIcon, SIGNAL(clicked()), this, SLOT(close()));
@@ -42,11 +40,38 @@ MainWindow::MainWindow(QWidget *parent)
     connect(settingsUi->backIcon, SIGNAL(clicked()), this, SLOT(goToMainMenuPage()));
 }
 
+QString updateStyleSheet(const QString &styleSheet, const QString &field, const QString &value)
+{
+    QRegularExpression regExp(field + "\\s*:\\s*[^;]+;");
+    QString replacement = field + ": " + value + ";";
+
+    QString updatedStyleSheet = styleSheet;
+    updatedStyleSheet.replace(regExp, replacement);
+
+    return updatedStyleSheet;
+}
+
 void MainWindow::updateAllFonts()
 {
     foreach (QWidget *widget, QApplication::allWidgets()) {
         widget->setFont(QApplication::font());
         widget->update();
+    }
+}
+
+void MainWindow::updateAllColors()
+{
+    foreach (QWidget *widget, QApplication::allWidgets()) {
+        const char* widgetType = widget->metaObject()->className();
+        // qDebug() << "Widget type:  " << widgetType;
+        if (strcmp(widgetType, "QLabel") == 0)
+        {
+            qDebug() << "Found QLabel! Applying new style:";
+            qDebug() << widget->styleSheet();
+            widget->setStyleSheet(updateStyleSheet(widget->styleSheet(), QString("color"), palette.getColor()));
+            qDebug() << widget->styleSheet();
+            widget->update();
+        }
     }
 }
 

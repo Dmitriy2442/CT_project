@@ -14,10 +14,10 @@ public:
     ColorPalette();
     ColorPalette(const QString &filePath);
 
-    QColor getColor(const QString &colorName);
+    QString getColor();
 
 private:
-    QVector<QColor> colors;
+    QVector<QString> colors;
 };
 
 #endif // COLORPALETTE_H

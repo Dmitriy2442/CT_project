@@ -1,5 +1,4 @@
 #include "headers/mainwindow.h"
-#include "headers/colorpalette.h"
 #include "qapplication.h"
 
 #include <QApplication>
@@ -14,9 +13,6 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
-    // Инициализация палитры цветов приложения
-    ColorPalette* Palette = new ColorPalette(":/palette/palette.txt");
 
     // Установка шрифта по умолчанию
     int fontId = QFontDatabase::addApplicationFont(":/fonts/nightmare.ttf");
