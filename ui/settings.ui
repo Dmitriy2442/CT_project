@@ -42,7 +42,7 @@
       <number>10</number>
      </property>
      <item>
-      <widget class="QPushButton" name="backIcon">
+      <widget class="IconButton" name="backIcon">
        <property name="minimumSize">
         <size>
          <width>80</width>
@@ -59,7 +59,7 @@
         <string notr="true">QPushButton {
 	border: none;
 	background-color: transparent;
-	border-image: url(:/icons/arrow.png) 0 0 0 0 stretch stretch;
+	border-image: url(:/icons/arrow.svg);
 	border-width: 0px;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -87,6 +87,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>IconButton</class>
+   <extends>QPushButton</extends>
+   <header location="global">components/iconbutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -5,13 +5,10 @@
 #include "../ui/ui_authors.h"
 #include "../ui/ui_settings.h"
 
-#include <QLabel>
-#include <QFontDatabase>
-#include <QStackedWidget>
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , palette(":/palette/palette.txt")
 {
     // Определение словарь соответствий названия интерфейса и его индекса в stackedWidget:
     ui2idx["mainMenu"] = 0;
@@ -29,8 +26,9 @@ MainWindow::MainWindow(QWidget *parent)
     settingsUi->setupUi(ui->settings);
     setCentralWidget(ui->stackedWidget);
 
-    this->setStyleSheet("background-color: #222222");
-    this->updateAllFonts();
+    setStyleSheet("background-color: #222222");
+    updateAllFonts();
+    updateAllColors(ui->mainMenu);
 
     // Задание функций кнопкам:
     connect(mainMenuUi->exitIcon, SIGNAL(clicked()), this, SLOT(close()));
@@ -42,6 +40,17 @@ MainWindow::MainWindow(QWidget *parent)
     connect(settingsUi->backIcon, SIGNAL(clicked()), this, SLOT(goToMainMenuPage()));
 }
 
+QString updateStyleSheet(const QString &styleSheet, const QString &field, const QString &value)
+{
+    QRegularExpression regExp(field + "\\s*:\\s*[^;]+;");
+    QString replacement = field + ": " + value + ";";
+
+    QString updatedStyleSheet = styleSheet;
+    updatedStyleSheet.replace(regExp, replacement);
+
+    return updatedStyleSheet;
+}
+
 void MainWindow::updateAllFonts()
 {
     foreach (QWidget *widget, QApplication::allWidgets()) {
@@ -50,18 +59,47 @@ void MainWindow::updateAllFonts()
     }
 }
 
-void MainWindow::goToAuthorsPage()
+void MainWindow::updateAllColors(QWidget *page)
 {
-    ui->stackedWidget->setCurrentIndex(ui2idx["authors"]);
+    qDebug() << "New update initialized!";
+    palette.resetIterator();
+    foreach (QObject *object, page->children()) {
+        const char* objectType = object->metaObject()->className();
+        QWidget* widget = qobject_cast<QWidget*>(object);
+        if ((strcmp(objectType, "QLabel") == 0) || (strcmp(objectType, "QPushButton") == 0))
+        {
+
+            widget->setStyleSheet(updateStyleSheet(widget->styleSheet(), QString("color"), palette.getColor()));
+            widget->update();
+            qDebug() << objectType << palette.getIterator();
+
+        } else if (strcmp(objectType, "IconButton") == 0) {
+
+            IconButton* iconButton = qobject_cast<IconButton*>(widget);
+            iconButton->updateColor(widget->styleSheet(), palette.getColor(), widget->size());
+            widget->update();
+            qDebug() << objectType << palette.getIterator();
+
+        }
+    }
 }
+
 
 void MainWindow::goToMainMenuPage()
 {
+    updateAllColors(ui->mainMenu);
     ui->stackedWidget->setCurrentIndex(ui2idx["mainMenu"]);
+}
+
+void MainWindow::goToAuthorsPage()
+{
+    updateAllColors(ui->authors);
+    ui->stackedWidget->setCurrentIndex(ui2idx["authors"]);
 }
 
 void MainWindow::goToSettingsPage()
 {
+    updateAllColors(ui->settings);
     ui->stackedWidget->setCurrentIndex(ui2idx["settings"]);
 }
 

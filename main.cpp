@@ -5,12 +5,16 @@
 #include <QApplication>
 #include <QFontDatabase>
 
+#include <QtSql/QSqlDatabase>
+#include <QtSql/QSqlQuery>
+#include <QtSql/QSqlError>
+#include <QSqlTableModel>
+#include <QTableView>
+
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
-    // Инициализация базы данных
-    initializeDatabase();
 
     // Установка шрифта по умолчанию
     int fontId = QFontDatabase::addApplicationFont(":/fonts/nightmare.ttf");

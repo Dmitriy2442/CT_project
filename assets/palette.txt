@@ -1,0 +1,5 @@
+red #ba1012
+blue #1c5ad6
+yellow #eddc06
+green #619c10
+orange #ffa500
