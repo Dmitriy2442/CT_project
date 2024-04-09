@@ -12,6 +12,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
+# Подключение SQL
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Sql)
+
 # Добавление всех заголовочных файлов из директории headers
 file(GLOB HEADER_FILES "headers/*.h")
 
@@ -55,6 +58,7 @@ else()
 endif()
 
 target_link_libraries(CT_project PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(CT_project PRIVATE Qt${QT_VERSION_MAJOR}::Sql)
 include_directories(./)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

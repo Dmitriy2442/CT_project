@@ -4,9 +4,30 @@
 #include <QApplication>
 #include <QFontDatabase>
 
+#include <QtSql/QSqlDatabase>
+#include <QtSql/QSqlQuery>
+#include <QtSql/QSqlError>
+
+
+void initializeDatabase() {
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+
+    // Устанавливаем название файла базы данных
+    db.setDatabaseName("gamedata.db");
+
+    // Пытаемся открыть базу данных
+    if (!db.open()) {
+        qDebug() << "Ошибка при открытии базы данных:" << db.lastError().text();
+        return;
+    }
+}
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    // Инициализация базы данных
+    initializeDatabase();
 
     // Установка шрифта по умолчанию
     int fontId = QFontDatabase::addApplicationFont(":/fonts/nightmare.ttf");
