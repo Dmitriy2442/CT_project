@@ -1,26 +1,9 @@
 #include "headers/mainwindow.h"
+#include "headers/character_database.h"
 #include "qapplication.h"
 
 #include <QApplication>
 #include <QFontDatabase>
-
-#include <QtSql/QSqlDatabase>
-#include <QtSql/QSqlQuery>
-#include <QtSql/QSqlError>
-
-
-void initializeDatabase() {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-
-    // Устанавливаем название файла базы данных
-    db.setDatabaseName("gamedata.db");
-
-    // Пытаемся открыть базу данных
-    if (!db.open()) {
-        qDebug() << "Ошибка при открытии базы данных:" << db.lastError().text();
-        return;
-    }
-}
 
 int main(int argc, char *argv[])
 {
