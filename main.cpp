@@ -1,15 +1,8 @@
 #include "headers/mainwindow.h"
-#include "headers/character_database.h"
 #include "qapplication.h"
 
 #include <QApplication>
 #include <QFontDatabase>
-
-#include <QtSql/QSqlDatabase>
-#include <QtSql/QSqlQuery>
-#include <QtSql/QSqlError>
-#include <QSqlTableModel>
-#include <QTableView>
 
 
 int main(int argc, char *argv[])

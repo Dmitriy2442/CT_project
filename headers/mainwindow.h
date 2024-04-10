@@ -29,6 +29,7 @@ public:
     void updateAllColors(QWidget *page);
 
 public slots:
+    void goToCharSelectPage();
     void goToMainMenuPage();
     void goToAuthorsPage();
     void goToSettingsPage();
