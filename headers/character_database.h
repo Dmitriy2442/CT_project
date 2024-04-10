@@ -8,6 +8,4 @@
 void initializeDatabase();
 void addCharacter(const QString &name, const QString &imagePath);
 
-
-
 #endif // CHARACTER_DATABASE_H

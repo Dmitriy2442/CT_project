@@ -21,6 +21,8 @@ void initializeDatabase() {
     if (!success) {
         qDebug() << "Ошибка при создании таблицы: " << query.lastError().text();
     }
+
+    addCharacter("Dimas", "assets/characters/Dimas.png");
 }
 
 void addCharacter(const QString &name, const QString &imagePath) {

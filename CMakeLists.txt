@@ -40,6 +40,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         resourses.qrc
         sources/character_database.cpp
         headers/character_database.h
+        gamedata.db
 
     )
 # Define target properties for Android with Qt 6 as:
