@@ -15,8 +15,12 @@ public:
     explicit CharSelect(QWidget *parent = nullptr);
     ~CharSelect();
 
+signals:
+    void on_backIcon_clicked();
+
 private:
     Ui::CharSelect *ui;
+
 };
 
 #endif // CHARSELECT_H

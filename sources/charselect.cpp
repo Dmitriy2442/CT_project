@@ -6,9 +6,11 @@ CharSelect::CharSelect(QWidget *parent)
     , ui(new Ui::CharSelect)
 {
     ui->setupUi(this);
+    connect(ui->backIcon, &QPushButton::clicked, this, &CharSelect::on_backIcon_clicked);
 }
 
 CharSelect::~CharSelect()
 {
     delete ui;
 }
+

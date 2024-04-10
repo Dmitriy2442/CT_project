@@ -1,5 +1,4 @@
 #include "../headers/mainwindow.h"
-#include "../headers/charselect.h"
 
 #include "../ui/ui_mainwindow.h"
 #include "../ui/ui_mainmenu.h"
@@ -34,6 +33,8 @@ MainWindow::MainWindow(QWidget *parent)
     updateAllFonts();
     updateAllColors(ui->mainMenu);
 
+
+
     // Задание функций кнопкам:
     connect(mainMenuUi->gameButton, SIGNAL(clicked()), this, SLOT(goToCharSelectPage()));
     connect(mainMenuUi->exitIcon, SIGNAL(clicked()), this, SLOT(close()));
@@ -44,7 +45,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(settingsUi->backIcon, SIGNAL(clicked()), this, SLOT(goToMainMenuPage()));
 
-    // connect(charSelectUi->backIcon, SIGNAL(clicked()), this, SLOT(goToMainMenuPage()));
+    connect(ui->charSelect, SIGNAL(on_backIcon_clicked()), this, SLOT(goToMainMenuPage()));
 }
 
 QString updateStyleSheet(const QString &styleSheet, const QString &field, const QString &value)
