@@ -26,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
     settingsUi->setupUi(ui->settings);
     setCentralWidget(ui->stackedWidget);
 
+    this->setFixedSize(1280, 720);
     setStyleSheet("background-color: #222222");
     updateAllFonts();
     updateAllColors(ui->mainMenu);
