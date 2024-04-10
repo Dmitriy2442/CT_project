@@ -38,6 +38,7 @@
     <widget class="QWidget" name="mainMenu"/>
     <widget class="QWidget" name="authors"/>
     <widget class="QWidget" name="settings"/>
+    <widget class="QWidget" name="charSelect"/>
    </widget>
   </widget>
  </widget>

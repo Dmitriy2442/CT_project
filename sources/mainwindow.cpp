@@ -1,4 +1,5 @@
 #include "../headers/mainwindow.h"
+#include "../headers/charselect.h"
 
 #include "../ui/ui_mainwindow.h"
 #include "../ui/ui_mainmenu.h"
@@ -14,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui2idx["mainMenu"] = 0;
     ui2idx["authors"] = 1;
     ui2idx["settings"] = 2;
+    ui2idx["charSelect"] = 3;
 
     // Задание интерфейсных форм:
     Ui::MainMenuForm* mainMenuUi = new Ui::MainMenuForm();
@@ -26,12 +28,14 @@ MainWindow::MainWindow(QWidget *parent)
     settingsUi->setupUi(ui->settings);
     setCentralWidget(ui->stackedWidget);
 
+    // Общая настройка дизайна
     this->setFixedSize(1280, 720);
     setStyleSheet("background-color: #222222");
     updateAllFonts();
     updateAllColors(ui->mainMenu);
 
     // Задание функций кнопкам:
+    connect(mainMenuUi->gameButton, SIGNAL(clicked()), this, SLOT(goToCharSelectPage()));
     connect(mainMenuUi->exitIcon, SIGNAL(clicked()), this, SLOT(close()));
     connect(mainMenuUi->authorsIcon, SIGNAL(clicked()), this, SLOT(goToAuthorsPage()));
     connect(mainMenuUi->settingsIcon, SIGNAL(clicked()), this, SLOT(goToSettingsPage()));
@@ -39,6 +43,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(authorsUi->backIcon, SIGNAL(clicked()), this, SLOT(goToMainMenuPage()));
 
     connect(settingsUi->backIcon, SIGNAL(clicked()), this, SLOT(goToMainMenuPage()));
+
+    // connect(charSelectUi->backIcon, SIGNAL(clicked()), this, SLOT(goToMainMenuPage()));
 }
 
 QString updateStyleSheet(const QString &styleSheet, const QString &field, const QString &value)
@@ -82,6 +88,12 @@ void MainWindow::updateAllColors(QWidget *page)
     }
 }
 
+
+void MainWindow::goToCharSelectPage()
+{
+    updateAllColors(ui->charSelect);
+    ui->stackedWidget->setCurrentIndex(ui2idx["charSelect"]);
+}
 
 void MainWindow::goToMainMenuPage()
 {
