@@ -61,7 +61,6 @@ void MainWindow::updateAllFonts()
 
 void MainWindow::updateAllColors(QWidget *page)
 {
-    qDebug() << "New update initialized!";
     palette.resetIterator();
     foreach (QObject *object, page->children()) {
         const char* objectType = object->metaObject()->className();
@@ -71,14 +70,12 @@ void MainWindow::updateAllColors(QWidget *page)
 
             widget->setStyleSheet(updateStyleSheet(widget->styleSheet(), QString("color"), palette.getColor()));
             widget->update();
-            qDebug() << objectType << palette.getIterator();
 
         } else if (strcmp(objectType, "IconButton") == 0) {
 
             IconButton* iconButton = qobject_cast<IconButton*>(widget);
             iconButton->updateColor(widget->styleSheet(), palette.getColor(), widget->size());
             widget->update();
-            qDebug() << objectType << palette.getIterator();
 
         }
     }
