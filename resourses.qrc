@@ -13,4 +13,9 @@
     <qresource prefix="/palette">
         <file alias="palette.txt">assets/palette.txt</file>
     </qresource>
+    <qresource prefix="/testchars">
+        <file alias="skipper.png">assets/testchars/skipper.png</file>
+        <file alias="rico.png">assets/testchars/rico.png</file>
+        <file alias="peng.png">assets/testchars/peng.png</file>
+    </qresource>
 </RCC>

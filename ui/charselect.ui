@@ -112,7 +112,14 @@
      <height>301</height>
     </rect>
    </property>
-   <layout class="QHBoxLayout" name="cardLayout"/>
+   <layout class="QHBoxLayout" name="cardLayout">
+    <property name="leftMargin">
+     <number>80</number>
+    </property>
+    <property name="rightMargin">
+     <number>80</number>
+    </property>
+   </layout>
   </widget>
   <zorder>chooseLabel</zorder>
   <zorder>choiceLabel</zorder>
