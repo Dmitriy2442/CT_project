@@ -33,10 +33,14 @@ public slots:
     void goToAuthorsPage();
     void goToSettingsPage();
 
+    void getChosenCharsNames(const QString &name1, const QString &name2);
+
 
 private:
     QHash<QString, int> ui2idx;
     ColorPalette palette;
+
+    QVector<QString> chosenNames = {"", ""};
 
     Ui::MainWindow *ui;
 };

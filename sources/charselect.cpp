@@ -9,6 +9,7 @@ CharSelect::CharSelect(QWidget *parent)
     dotTimer = new QTimer(this);
     connect(dotTimer, &QTimer::timeout, this, &CharSelect::updateDots);
     connect(ui->backIcon, &QPushButton::clicked, this, &CharSelect::on_backIcon_clicked);
+    connect(this, &CharSelect::playersChose, this, &CharSelect::readyCheck);
 
     // TODO Здесь должен быть запрос в базу данных
     QVector<QString> names {"Skipper", "Rico", "Literally me"};
@@ -25,7 +26,7 @@ CharSelect::CharSelect(QWidget *parent)
 
 void CharSelect::setUpClear()
 {
-    dotTimer->start(1000);
+    dotTimer->start(700);
     choosingPlayer = 1;
 }
 
@@ -49,6 +50,10 @@ void CharSelect::handleCardClick(const QString &name) {
         qDebug() << "Character selection complete: "<< name1 << " and " << name2;
         emit playersChose(name1, name2);
     }
+}
+
+void CharSelect::readyCheck() {
+    qDebug() << "Emited and self-perceived ready check signal";
 }
 
 CharSelect::~CharSelect()

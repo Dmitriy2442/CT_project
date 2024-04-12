@@ -25,10 +25,10 @@ signals:
     void on_backIcon_clicked();
     void playersChose(const QString &name1, const QString &name2);
 
-
 private slots:
     void updateDots();
     void handleCardClick(const QString &name);
+    void readyCheck();
 
 private:
     Ui::CharSelect *ui;

@@ -47,6 +47,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(settingsUi->backIcon, SIGNAL(clicked()), this, SLOT(goToMainMenuPage()));
 
     connect(ui->charSelect, SIGNAL(on_backIcon_clicked()), this, SLOT(goToMainMenuPage()));
+    connect(ui->charSelect, &CharSelect::playersChose, this, &MainWindow::getChosenCharsNames);
 }
 
 QString updateStyleSheet(const QString &styleSheet, const QString &field, const QString &value)
@@ -114,6 +115,12 @@ void MainWindow::goToSettingsPage()
 {
     updateAllColors(ui->settings);
     ui->stackedWidget->setCurrentIndex(ui2idx["settings"]);
+}
+
+void MainWindow::getChosenCharsNames(const QString &name1, const QString &name2) {
+    chosenNames[0] = name1;
+    chosenNames[1] = name2;
+    qDebug() << "Main window got these character names: " << name1 << "and" << name2;
 }
 
 MainWindow::~MainWindow()
