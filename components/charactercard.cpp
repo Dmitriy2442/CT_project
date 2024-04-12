@@ -7,27 +7,39 @@ CharacterCard::CharacterCard(QWidget *parent)
 }
 
 CharacterCard::CharacterCard(const QString &name, const QString &imagePath, QWidget *parent)
-    : QWidget{parent}
+    : name(name)
+    , imagePath(imagePath)
+    , QWidget{parent}
 {
     QVBoxLayout *layout = new QVBoxLayout(this);
 
     // Создание и настройка QLabel для картинки
     QLabel *imageLabel = new QLabel(this);
-    imageLabel->setPixmap(QPixmap(imagePath)); // Установка пути к картинке
+    imageLabel->setPixmap(QPixmap(imagePath).scaled(100, 100));
+    imageLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    imageLabel->setAlignment(Qt::AlignBottom | Qt::AlignCenter);
     layout->addWidget(imageLabel);
 
     // Создание QLabel для текста
     QLabel *textLabel = new QLabel(name, this);
+    textLabel->setAttribute(Qt::WA_TranslucentBackground);
+    textLabel->setStyleSheet("QLabel { color : white; font-size: 32px;}");
     textLabel->setAlignment(Qt::AlignCenter);
 
     // Создание и применение эффекта прозрачности к тексту
     QGraphicsOpacityEffect *opacityEffect = new QGraphicsOpacityEffect(this);
-    opacityEffect->setOpacity(0.5);
+    opacityEffect->setOpacity(1.0);
     textLabel->setGraphicsEffect(opacityEffect);
 
-    layout->addWidget(textLabel);
+    // Добавление текстового QLabel поверх изображения
+    auto *overlayLayout = new QVBoxLayout(imageLabel);
+    overlayLayout->addWidget(textLabel, 0, Qt::AlignBottom | Qt::AlignCenter);
 
     // Настройка виджета
     setLayout(layout);
-    setFixedSize(200, 200);
+}
+
+void CharacterCard::mousePressEvent(QMouseEvent *event) {
+    Q_UNUSED(event)
+    emit cardClicked(name);
 }

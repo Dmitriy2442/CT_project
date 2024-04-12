@@ -13,9 +13,17 @@ class CharacterCard : public QWidget
     Q_OBJECT
 public:
     explicit CharacterCard(QWidget *parent = nullptr);
-    explicit CharacterCard(const QString &name, const QString &imagePath, QWidget *parent = nullptr);
+    CharacterCard(const QString &name, const QString &imagePath, QWidget *parent = nullptr);
 
 signals:
+    void cardClicked(const QString &name);
+
+protected:
+    void mousePressEvent(QMouseEvent *event) override;
+
+private:
+    QString name;
+    QString imagePath;
 };
 
 #endif // CHARACTERCARD_H

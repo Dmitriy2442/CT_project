@@ -54,6 +54,80 @@
     <string/>
    </property>
   </widget>
+  <widget class="QLabel" name="chooseLabel">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1281</width>
+     <height>198</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>-1</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+	font-size: 92px;
+	color: #077cb3;
+}</string>
+   </property>
+   <property name="text">
+    <string>Choose your fighter!</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="choiceLabel">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>497</y>
+     <width>1281</width>
+     <height>221</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+	font-size: 56px;
+	color: #077cb3;
+}</string>
+   </property>
+   <property name="text">
+    <string>Player 1 is choosing...</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QWidget" name="horizontalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>200</y>
+     <width>1281</width>
+     <height>301</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="cardLayout">
+    <property name="leftMargin">
+     <number>80</number>
+    </property>
+    <property name="rightMargin">
+     <number>80</number>
+    </property>
+   </layout>
+  </widget>
+  <zorder>chooseLabel</zorder>
+  <zorder>choiceLabel</zorder>
+  <zorder>horizontalLayoutWidget</zorder>
+  <zorder>chooseLabel</zorder>
+  <zorder>choiceLabel</zorder>
+  <zorder>backIcon</zorder>
+  <zorder>horizontalLayoutWidget</zorder>
  </widget>
  <customwidgets>
   <customwidget>

@@ -1,4 +1,5 @@
-#include "../headers/mainwindow.h"
+#include "headers/mainwindow.h"
+#include "components/iconbutton.h"
 
 #include "../ui/ui_mainwindow.h"
 #include "../ui/ui_mainmenu.h"
@@ -10,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
     , palette(":/palette/palette.txt")
 {
-    // Определение словарь соответствий названия интерфейса и его индекса в stackedWidget:
+    // Определение словаря названия интерфейса и его индекса в stackedWidget:
     ui2idx["mainMenu"] = 0;
     ui2idx["authors"] = 1;
     ui2idx["settings"] = 2;
@@ -46,6 +47,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(settingsUi->backIcon, SIGNAL(clicked()), this, SLOT(goToMainMenuPage()));
 
     connect(ui->charSelect, SIGNAL(on_backIcon_clicked()), this, SLOT(goToMainMenuPage()));
+    connect(ui->charSelect, &CharSelect::playersChose, this, &MainWindow::getChosenCharsNames);
 }
 
 QString updateStyleSheet(const QString &styleSheet, const QString &field, const QString &value)
@@ -92,6 +94,7 @@ void MainWindow::updateAllColors(QWidget *page)
 
 void MainWindow::goToCharSelectPage()
 {
+    ui->charSelect->setUpClear();
     updateAllColors(ui->charSelect);
     ui->stackedWidget->setCurrentIndex(ui2idx["charSelect"]);
 }
@@ -112,6 +115,12 @@ void MainWindow::goToSettingsPage()
 {
     updateAllColors(ui->settings);
     ui->stackedWidget->setCurrentIndex(ui2idx["settings"]);
+}
+
+void MainWindow::getChosenCharsNames(const QString &name1, const QString &name2) {
+    chosenNames[0] = name1;
+    chosenNames[1] = name2;
+    qDebug() << "Main window got these character names: " << name1 << "and" << name2;
 }
 
 MainWindow::~MainWindow()
