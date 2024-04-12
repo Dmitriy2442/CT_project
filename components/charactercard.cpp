@@ -7,7 +7,9 @@ CharacterCard::CharacterCard(QWidget *parent)
 }
 
 CharacterCard::CharacterCard(const QString &name, const QString &imagePath, QWidget *parent)
-    : QWidget{parent}
+    : name(name)
+    , imagePath(imagePath)
+    , QWidget{parent}
 {
     QVBoxLayout *layout = new QVBoxLayout(this);
 
@@ -35,4 +37,9 @@ CharacterCard::CharacterCard(const QString &name, const QString &imagePath, QWid
 
     // Настройка виджета
     setLayout(layout);
+}
+
+void CharacterCard::mousePressEvent(QMouseEvent *event) {
+    Q_UNUSED(event)
+    emit cardClicked(name);
 }

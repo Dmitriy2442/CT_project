@@ -19,21 +19,27 @@ public:
     explicit CharSelect(QWidget *parent = nullptr);
     ~CharSelect();
 
-    QTimer *dotTimer;
+    void setUpClear();
 
 signals:
     void on_backIcon_clicked();
+    void playersChose(const QString &name1, const QString &name2);
+
 
 private slots:
     void updateDots();
-    void playerOneChoosing();
-    void playerTwoChoosing();
+    void handleCardClick(const QString &name);
 
 private:
     Ui::CharSelect *ui;
 
+    QTimer *dotTimer;
     QString baseText = "Player 1 is choosing";
     int dotCount = 1;
+
+    int choosingPlayer = 1;
+    QString name1;
+    QString name2;
 };
 
 #endif // CHARSELECT_H

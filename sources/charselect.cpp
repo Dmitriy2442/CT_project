@@ -9,37 +9,46 @@ CharSelect::CharSelect(QWidget *parent)
     dotTimer = new QTimer(this);
     connect(dotTimer, &QTimer::timeout, this, &CharSelect::updateDots);
     connect(ui->backIcon, &QPushButton::clicked, this, &CharSelect::on_backIcon_clicked);
-    dotTimer->start(1000);
 
+    // TODO Здесь должен быть запрос в базу данных
     QVector<QString> names {"Skipper", "Rico", "Literally me"};
     QVector<QString> imagePaths {":/testchars/skipper.png", ":/testchars/rico.png", ":/testchars/peng.png"};
-    // Здесь должен быть запрос в базу данных
     for (int i = 0; i < names.size(); ++i) {
         QString name = names.at(i);
         QString imagePath = imagePaths.at(i);
 
         CharacterCard* card = new CharacterCard(name, imagePath);
         ui->cardLayout->addWidget(card);
+        connect(card, &CharacterCard::cardClicked, this, &CharSelect::handleCardClick);
     }
+}
+
+void CharSelect::setUpClear()
+{
+    dotTimer->start(1000);
+    choosingPlayer = 1;
 }
 
 void CharSelect::updateDots()
 {
     QString dots = QString(".").repeated(dotCount);
+    baseText = QStringLiteral("Player %1 is choosing").arg(choosingPlayer);
     ui->choiceLabel->setText(baseText + dots);
     dotCount = (dotCount % 3) + 1;
 }
 
-void CharSelect::playerOneChoosing() {
-    baseText = "Player 1 is choosing";
-    dotCount = 1;
-    ui->choiceLabel->setText(baseText + ".");
-}
-
-void CharSelect::playerTwoChoosing() {
-    baseText = "Player 2 is choosing";
-    dotCount = 1;
-    ui->choiceLabel->setText(baseText + ".");
+void CharSelect::handleCardClick(const QString &name) {
+    switch(choosingPlayer)
+    {
+    case 1:
+        name1 = name;
+        choosingPlayer = 2;
+        break;
+    case 2:
+        name2 = name;
+        qDebug() << "Character selection complete: "<< name1 << " and " << name2;
+        emit playersChose(name1, name2);
+    }
 }
 
 CharSelect::~CharSelect()
