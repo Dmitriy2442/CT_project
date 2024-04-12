@@ -5,6 +5,7 @@
 
 #include <QWidget>
 #include <QVector>
+#include <QTimer>
 
 namespace Ui {
 class CharSelect;
@@ -18,12 +19,21 @@ public:
     explicit CharSelect(QWidget *parent = nullptr);
     ~CharSelect();
 
+    QTimer *dotTimer;
+
 signals:
     void on_backIcon_clicked();
+
+private slots:
+    void updateDots();
+    void playerOneChoosing();
+    void playerTwoChoosing();
 
 private:
     Ui::CharSelect *ui;
 
+    QString baseText = "Player 1 is choosing";
+    int dotCount = 1;
 };
 
 #endif // CHARSELECT_H

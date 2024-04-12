@@ -93,6 +93,7 @@ void MainWindow::updateAllColors(QWidget *page)
 
 void MainWindow::goToCharSelectPage()
 {
+    //Ui::CharSelect
     updateAllColors(ui->charSelect);
     ui->stackedWidget->setCurrentIndex(ui2idx["charSelect"]);
 }
