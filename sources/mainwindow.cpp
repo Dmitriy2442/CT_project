@@ -1,4 +1,5 @@
-#include "../headers/mainwindow.h"
+#include "headers/mainwindow.h"
+#include "components/iconbutton.h"
 
 #include "../ui/ui_mainwindow.h"
 #include "../ui/ui_mainmenu.h"
@@ -10,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
     , palette(":/palette/palette.txt")
 {
-    // Определение словарь соответствий названия интерфейса и его индекса в stackedWidget:
+    // Определение словаря названия интерфейса и его индекса в stackedWidget:
     ui2idx["mainMenu"] = 0;
     ui2idx["authors"] = 1;
     ui2idx["settings"] = 2;

@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include "headers/colorpalette.h"
-#include "components/iconbutton.h"
 
 #include <QMainWindow>
 #include <QPalette>
