@@ -7,6 +7,10 @@ DBController::DBController() {
 };
 
 void DBController::getCharactersData(QVector<int> &ids, QVector<QString> &names, QVector<QString> &imagePaths) {
+    /* Функция, возвращающая заполненные массивы с именами и путями к картинке для всех элементов таблицы characters:
+     * names, imagePaths - ссылки на пустые массивы
+     * можно ей будет начхать на айдишники, пожалуйста, мне просто нужны все элементы этой таблицы для экрана выбора персонажей
+    */
     db.open();
     QSqlQuery query;
 

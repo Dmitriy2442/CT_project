@@ -53,7 +53,7 @@ void CharSelect::handleCardClick(const QString &name) {
 }
 
 void CharSelect::readyCheck() {
-    qDebug() << "Emited and self-perceived ready check signal";
+    qDebug() << "Emited and self-perceived 'ready check' signal";
 }
 
 CharSelect::~CharSelect()
