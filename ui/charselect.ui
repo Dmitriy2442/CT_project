@@ -121,7 +121,7 @@
     </property>
    </layout>
   </widget>
-  <widget class="QWidget" name="widget" native="true">
+  <widget class="QWidget" name="readyOverlay" native="true">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -197,7 +197,7 @@
   <zorder>choosingLabel</zorder>
   <zorder>backIcon</zorder>
   <zorder>horizontalLayoutWidget</zorder>
-  <zorder>widget</zorder>
+  <zorder>readyOverlay</zorder>
  </widget>
  <customwidgets>
   <customwidget>

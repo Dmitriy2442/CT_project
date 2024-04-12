@@ -6,10 +6,13 @@ CharSelect::CharSelect(QWidget *parent)
     , ui(new Ui::CharSelect)
 {
     ui->setupUi(this);
+    ui->readyOverlay->hide();
     dotTimer = new QTimer(this);
     connect(dotTimer, &QTimer::timeout, this, &CharSelect::updateDots);
     connect(ui->backIcon, &QPushButton::clicked, this, &CharSelect::on_backIcon_clicked);
     connect(this, &CharSelect::playersChose, this, &CharSelect::readyCheck);
+    connect(ui->noButton, &QPushButton::clicked, this, &CharSelect::setUpClear);
+    connect(ui->yesButton, &QPushButton::clicked, this, &CharSelect::beginGame);
 
     // TODO Здесь должен быть запрос в базу данных
     QVector<QString> names {"Skipper", "Rico", "Literally me"};
@@ -28,13 +31,14 @@ void CharSelect::setUpClear()
 {
     dotTimer->start(700);
     choosingPlayer = 1;
+    ui->readyOverlay->hide();
 }
 
 void CharSelect::updateDots()
 {
     QString dots = QString(".").repeated(dotCount);
     baseText = QStringLiteral("Player %1 is choosing").arg(choosingPlayer);
-    ui->choiceLabel->setText(baseText + dots);
+    ui->choosingLabel->setText(baseText + dots);
     dotCount = (dotCount % 3) + 1;
 }
 
@@ -47,13 +51,13 @@ void CharSelect::handleCardClick(const QString &name) {
         break;
     case 2:
         name2 = name;
-        qDebug() << "Character selection complete: "<< name1 << " and " << name2;
         emit playersChose(name1, name2);
+        qDebug() << "Character selection complete: "<< name1 << " and " << name2;
     }
 }
 
 void CharSelect::readyCheck() {
-    qDebug() << "Emited and self-perceived 'ready check' signal";
+    ui->readyOverlay->show();
 }
 
 CharSelect::~CharSelect()
