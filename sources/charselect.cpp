@@ -38,6 +38,8 @@ void CharSelect::setUpClear()
     dotTimer->start(700);
     choosingPlayer = 1;
     ui->readyOverlay->hide();
+
+    update();
 }
 
 void CharSelect::updateDots()
