@@ -47,7 +47,7 @@ void CharacterCard::clearCardColor()
     update();
 }
 
-void CharacterCard::fixCardColor(const QColor &color)
+void CharacterCard::fixCardColor(const QString &color)
 {
     fixColor = true;
     this->color = color;

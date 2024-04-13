@@ -50,23 +50,20 @@ void CharSelect::updateDots()
 
 void CharSelect::handleCardClick(const QString &name) {
     CharacterCard* card = qobject_cast<CharacterCard*>(sender());
-    connect(this, &CharSelect::cardSelected, card, &CharacterCard::fixCardColor);
+    card->fixCardColor(player2color[choosingPlayer]);
 
     switch(choosingPlayer)
     {
     case 1:
         name1 = name;
-        choosingPlayer = 2;
-        emit cardSelected(Qt::red);
+        choosingPlayer++;
         break;
     case 2:
         name2 = name;
-        emit cardSelected(Qt::blue);
         dotTimer->stop();
         selectionTimer->start();
+        break;
     }
-
-    disconnect(this, &CharSelect::cardSelected, card, &CharacterCard::fixCardColor);
 }
 
 void CharSelect::handleSelectionDelay() {

@@ -23,7 +23,7 @@ public:
 
 signals:
     void on_backIcon_clicked();
-    void cardSelected(const QColor &color);
+    void cardSelected(const QString &color);
     void playersChose(const QString &name1, const QString &name2);
     void beginGame();
 
@@ -41,6 +41,7 @@ private:
     int dotCount = 1;
 
     int choosingPlayer = 1;
+    QHash<int, QString> player2color = {{1, "#ba1012"}, {2, "#1c5ad6"}};
     QString name1;
     QString name2;
 
