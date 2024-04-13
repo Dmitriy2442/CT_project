@@ -23,12 +23,14 @@ public:
 
 signals:
     void on_backIcon_clicked();
+    void cardSelected(const QColor &color);
     void playersChose(const QString &name1, const QString &name2);
     void beginGame();
 
 private slots:
     void updateDots();
     void handleCardClick(const QString &name);
+    void handleSelectionDelay();
     void readyCheck();
 
 private:
@@ -41,6 +43,8 @@ private:
     int choosingPlayer = 1;
     QString name1;
     QString name2;
+
+    QTimer *selectionTimer;
 };
 
 #endif // CHARSELECT_H

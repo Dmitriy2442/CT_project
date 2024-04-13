@@ -8,7 +8,12 @@ CharSelect::CharSelect(QWidget *parent)
     ui->setupUi(this);
     ui->readyOverlay->hide();
     dotTimer = new QTimer(this);
+    selectionTimer = new QTimer(this);
+    selectionTimer->setSingleShot(true);
+    selectionTimer->setInterval(1000);
     connect(dotTimer, &QTimer::timeout, this, &CharSelect::updateDots);
+    connect(selectionTimer, &QTimer::timeout, this, &CharSelect::handleSelectionDelay);
+
     connect(ui->backIcon, &QPushButton::clicked, this, &CharSelect::on_backIcon_clicked);
     connect(this, &CharSelect::playersChose, this, &CharSelect::readyCheck);
     connect(ui->noButton, &QPushButton::clicked, this, &CharSelect::setUpClear);
@@ -24,6 +29,7 @@ CharSelect::CharSelect(QWidget *parent)
         CharacterCard* card = new CharacterCard(name, imagePath);
         ui->cardLayout->addWidget(card);
         connect(card, &CharacterCard::cardClicked, this, &CharSelect::handleCardClick);
+        connect(ui->noButton, &QPushButton::clicked, card, &CharacterCard::clearCardColor);
     }
 }
 
@@ -43,17 +49,28 @@ void CharSelect::updateDots()
 }
 
 void CharSelect::handleCardClick(const QString &name) {
+    CharacterCard* card = qobject_cast<CharacterCard*>(sender());
+    connect(this, &CharSelect::cardSelected, card, &CharacterCard::fixCardColor);
+
     switch(choosingPlayer)
     {
     case 1:
         name1 = name;
         choosingPlayer = 2;
+        emit cardSelected(Qt::red);
         break;
     case 2:
         name2 = name;
-        emit playersChose(name1, name2);
-        qDebug() << "Character selection complete: "<< name1 << " and " << name2;
+        emit cardSelected(Qt::blue);
+        dotTimer->stop();
+        selectionTimer->start();
     }
+
+    disconnect(this, &CharSelect::cardSelected, card, &CharacterCard::fixCardColor);
+}
+
+void CharSelect::handleSelectionDelay() {
+    emit playersChose(name1, name2);
 }
 
 void CharSelect::readyCheck() {
