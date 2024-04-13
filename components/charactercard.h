@@ -17,7 +17,8 @@ public:
     CharacterCard(const QString &name, const QString &imagePath, QWidget *parent = nullptr);
 
     void clearCardColor();
-    void fixCardColor(const QString &color);
+    void fixCard(const QString &color);
+    bool isBlocked();
 
 signals:
     void cardClicked(const QString &name);
@@ -35,6 +36,7 @@ private:
 
     bool hover = false;
     bool fixColor = false;
+    bool blocked = false;
 };
 
 #endif // CHARACTERCARD_H

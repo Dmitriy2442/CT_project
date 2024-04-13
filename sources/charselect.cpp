@@ -50,19 +50,21 @@ void CharSelect::updateDots()
 
 void CharSelect::handleCardClick(const QString &name) {
     CharacterCard* card = qobject_cast<CharacterCard*>(sender());
-    card->fixCardColor(player2color[choosingPlayer]);
-
-    switch(choosingPlayer)
+    if (!card->isBlocked())
     {
-    case 1:
-        name1 = name;
-        choosingPlayer++;
-        break;
-    case 2:
-        name2 = name;
-        dotTimer->stop();
-        selectionTimer->start();
-        break;
+        card->fixCard(player2color[choosingPlayer]);
+        switch(choosingPlayer)
+        {
+        case 1:
+            name1 = name;
+            choosingPlayer++;
+            break;
+        case 2:
+            name2 = name;
+            dotTimer->stop();
+            selectionTimer->start();
+            break;
+        }
     }
 }
 

@@ -47,11 +47,18 @@ void CharacterCard::clearCardColor()
     update();
 }
 
-void CharacterCard::fixCardColor(const QString &color)
+void CharacterCard::fixCard(const QString &color)
 {
-    fixColor = true;
     this->color = color;
+    fixColor = true;
+    blocked = true;
+
     update();
+}
+
+bool CharacterCard::isBlocked()
+{
+    return blocked;
 }
 
 void CharacterCard::mousePressEvent(QMouseEvent *event)
