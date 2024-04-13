@@ -11,6 +11,7 @@ CharacterCard::CharacterCard(const QString &name, const QString &imagePath, QWid
     , imagePath(imagePath)
     , QWidget{parent}
 {
+    setMouseTracking(true);
     QVBoxLayout *layout = new QVBoxLayout(this);
 
     // Создание и настройка QLabel для картинки
@@ -39,7 +40,62 @@ CharacterCard::CharacterCard(const QString &name, const QString &imagePath, QWid
     setLayout(layout);
 }
 
-void CharacterCard::mousePressEvent(QMouseEvent *event) {
+void CharacterCard::clearCardColor()
+{
+    hover = false;
+    fixColor = false;
+    update();
+}
+
+void CharacterCard::fixCard(const QString &color)
+{
+    this->color = color;
+    fixColor = true;
+    blocked = true;
+
+    update();
+}
+
+bool CharacterCard::isBlocked()
+{
+    return blocked;
+}
+
+void CharacterCard::mousePressEvent(QMouseEvent *event)
+{
     Q_UNUSED(event)
+
     emit cardClicked(name);
+}
+
+void CharacterCard::paintEvent(QPaintEvent *event)
+{
+    Q_UNUSED(event);
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+
+    QPen pen(Qt::white, 3);
+    if (fixColor) {
+        pen.setColor(color);
+        pen.setStyle(Qt::SolidLine);
+    } else if (hover) {
+        pen.setColor(Qt::white);
+        pen.setStyle(Qt::SolidLine);
+    } else {
+        pen.setStyle(Qt::NoPen);
+    }
+    painter.setPen(pen);
+    painter.drawRoundedRect(rect().adjusted(1, 1, -1, -1), 10, 10);
+}
+
+void CharacterCard::enterEvent(QEnterEvent *event) {
+    Q_UNUSED(event)
+    hover = true;
+    update();
+}
+
+void CharacterCard::leaveEvent(QEvent *event) {
+    Q_UNUSED(event)
+    hover = false;
+    update();
 }

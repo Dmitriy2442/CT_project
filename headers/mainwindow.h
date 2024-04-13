@@ -32,9 +32,9 @@ public slots:
     void goToMainMenuPage();
     void goToAuthorsPage();
     void goToSettingsPage();
+    void beginGame();
 
     void getChosenCharsNames(const QString &name1, const QString &name2);
-
 
 private:
     QHash<QString, int> ui2idx;

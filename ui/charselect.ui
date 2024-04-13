@@ -81,7 +81,7 @@
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QLabel" name="choiceLabel">
+  <widget class="QLabel" name="choosingLabel">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -121,13 +121,83 @@
     </property>
    </layout>
   </widget>
+  <widget class="QWidget" name="readyOverlay" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1280</width>
+     <height>720</height>
+    </rect>
+   </property>
+   <widget class="QLabel" name="readyLabel">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1281</width>
+      <height>361</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+	font-size: 72px;
+	color: #077cb3;
+}</string>
+    </property>
+    <property name="text">
+     <string>Ready to SMASH?</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="yesButton">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>360</y>
+      <width>641</width>
+      <height>361</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	font-size: 72px;
+	border: none;
+	color: #11ab51;
+}</string>
+    </property>
+    <property name="text">
+     <string>Yes</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="noButton">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>360</y>
+      <width>641</width>
+      <height>361</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	font-size: 72px;
+	border: none;
+	color: #11ab51;
+}</string>
+    </property>
+    <property name="text">
+     <string>No</string>
+    </property>
+   </widget>
+  </widget>
   <zorder>chooseLabel</zorder>
-  <zorder>choiceLabel</zorder>
-  <zorder>horizontalLayoutWidget</zorder>
-  <zorder>chooseLabel</zorder>
-  <zorder>choiceLabel</zorder>
+  <zorder>choosingLabel</zorder>
   <zorder>backIcon</zorder>
   <zorder>horizontalLayoutWidget</zorder>
+  <zorder>readyOverlay</zorder>
  </widget>
  <customwidgets>
   <customwidget>
