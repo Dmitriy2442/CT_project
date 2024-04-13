@@ -25,6 +25,7 @@ signals:
     void on_backIcon_clicked();
     void cardSelected(const QString &color);
     void playersChose(const QString &name1, const QString &name2);
+    void resetAllCards();
     void beginGame();
 
 private slots:

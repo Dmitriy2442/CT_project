@@ -40,10 +40,11 @@ CharacterCard::CharacterCard(const QString &name, const QString &imagePath, QWid
     setLayout(layout);
 }
 
-void CharacterCard::clearCardColor()
+void CharacterCard::resetCard()
 {
     hover = false;
     fixColor = false;
+    blocked = false;
     update();
 }
 

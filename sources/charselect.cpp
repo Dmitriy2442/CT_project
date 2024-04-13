@@ -29,7 +29,7 @@ CharSelect::CharSelect(QWidget *parent)
         CharacterCard* card = new CharacterCard(name, imagePath);
         ui->cardLayout->addWidget(card);
         connect(card, &CharacterCard::cardClicked, this, &CharSelect::handleCardClick);
-        connect(ui->noButton, &QPushButton::clicked, card, &CharacterCard::clearCardColor);
+        connect(this, &CharSelect::resetAllCards, card, &CharacterCard::resetCard);
     }
 }
 
@@ -38,7 +38,7 @@ void CharSelect::setUpClear()
     dotTimer->start(700);
     choosingPlayer = 1;
     ui->readyOverlay->hide();
-
+    emit resetAllCards();
     update();
 }
 

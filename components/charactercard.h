@@ -16,9 +16,11 @@ public:
     explicit CharacterCard(QWidget *parent = nullptr);
     CharacterCard(const QString &name, const QString &imagePath, QWidget *parent = nullptr);
 
-    void clearCardColor();
     void fixCard(const QString &color);
     bool isBlocked();
+
+public slots:
+    void resetCard();
 
 signals:
     void cardClicked(const QString &name);
