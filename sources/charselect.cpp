@@ -81,14 +81,11 @@ void CharSelect::readyCheck() {
 
 void CharSelect::updateVersusText()
 {
-    QString coloredName1 = QString("<font color='%1'>" + name1).arg(player2color[1]);
-    QString vs = QString("</font> <font color='white'>VS</font> <font color='%2'>");
-    QString coloredName2 = QString("<font color='%1'>" + name2).arg(player2color[2]);
+    ui->name1Label->setText(QString("<font color='%1'>" + name1).arg(player2color[1]));
+    ui->name2Label->setText(QString("<font color='%1'>" + name2).arg(player2color[2]));
 
-    QString versusText = coloredName1 + vs + coloredName2;
-
-    ui->versusLabel->setText(versusText);
-    ui->versusLabel->update();
+    ui->name1Label->update();
+    ui->name2Label->update();
 }
 
 CharSelect::~CharSelect()

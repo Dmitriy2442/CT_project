@@ -195,20 +195,67 @@
    <widget class="QLabel" name="versusLabel">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>520</x>
       <y>200</y>
-      <width>1281</width>
+      <width>241</width>
       <height>301</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">QLabel {
 	font-size: 100px;
-	color: #077cb3;
+	color: #ffffff;
 }</string>
     </property>
     <property name="text">
-     <string>Name1 vs Name2</string>
+     <string>VS</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="name1Label">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>200</y>
+      <width>521</width>
+      <height>301</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+	font-size: 80px;
+	color: #ba1012;
+}</string>
+    </property>
+    <property name="text">
+     <string>VS</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="margin">
+     <number>10</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="name2Label">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>200</y>
+      <width>521</width>
+      <height>301</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+	font-size: 80px;
+	color: #1c5ad6;
+}</string>
+    </property>
+    <property name="text">
+     <string>VS</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
