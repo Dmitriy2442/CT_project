@@ -136,13 +136,13 @@
       <x>0</x>
       <y>0</y>
       <width>1281</width>
-      <height>361</height>
+      <height>191</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">QLabel {
 	font-size: 72px;
-	color: #077cb3;
+	color: #ffffff;
 }</string>
     </property>
     <property name="text">
@@ -156,16 +156,16 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>360</y>
+      <y>500</y>
       <width>641</width>
-      <height>361</height>
+      <height>221</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {
 	font-size: 72px;
 	border: none;
-	color: #11ab51;
+	color: #ffffff;
 }</string>
     </property>
     <property name="text">
@@ -176,20 +176,42 @@
     <property name="geometry">
      <rect>
       <x>640</x>
-      <y>360</y>
+      <y>500</y>
       <width>641</width>
-      <height>361</height>
+      <height>221</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {
 	font-size: 72px;
 	border: none;
-	color: #11ab51;
+	color: #ffffff;
 }</string>
     </property>
     <property name="text">
      <string>No</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="versusLabel">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>200</y>
+      <width>1281</width>
+      <height>301</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+	font-size: 100px;
+	color: #077cb3;
+}</string>
+    </property>
+    <property name="text">
+     <string>Name1 vs Name2</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
   </widget>

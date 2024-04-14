@@ -35,10 +35,12 @@ private slots:
     void readyCheck();
 
 private:
+    void updateVersusText();
+
     Ui::CharSelect *ui;
 
     QTimer *dotTimer;
-    QString baseText = "Player 1 is choosing";
+    QString choosingText = "Player 1 is choosing";
     int dotCount = 1;
 
     int choosingPlayer = 1;

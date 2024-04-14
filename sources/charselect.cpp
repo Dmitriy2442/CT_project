@@ -45,8 +45,8 @@ void CharSelect::setUpClear()
 void CharSelect::updateDots()
 {
     QString dots = QString(".").repeated(dotCount);
-    baseText = QStringLiteral("Player %1 is choosing").arg(choosingPlayer);
-    ui->choosingLabel->setText(baseText + dots);
+    choosingText = QStringLiteral("Player %1 is choosing").arg(choosingPlayer);
+    ui->choosingLabel->setText(choosingText + dots);
     dotCount = (dotCount % 3) + 1;
 }
 
@@ -63,6 +63,7 @@ void CharSelect::handleCardClick(const QString &name) {
             break;
         case 2:
             name2 = name;
+            updateVersusText();
             dotTimer->stop();
             selectionTimer->start();
             break;
@@ -76,6 +77,18 @@ void CharSelect::handleSelectionDelay() {
 
 void CharSelect::readyCheck() {
     ui->readyOverlay->show();
+}
+
+void CharSelect::updateVersusText()
+{
+    QString coloredName1 = QString("<font color='%1'>" + name1).arg(player2color[1]);
+    QString vs = QString("</font> <font color='white'>VS</font> <font color='%2'>");
+    QString coloredName2 = QString("<font color='%1'>" + name2).arg(player2color[2]);
+
+    QString versusText = coloredName1 + vs + coloredName2;
+
+    ui->versusLabel->setText(versusText);
+    ui->versusLabel->update();
 }
 
 CharSelect::~CharSelect()
