@@ -1,4 +1,6 @@
 #include "headers/charselect.h"
+#include "components/charactercard.h"
+
 #include "../ui/ui_charselect.h"
 
 CharSelect::CharSelect(QWidget *parent)
@@ -7,6 +9,8 @@ CharSelect::CharSelect(QWidget *parent)
 {
     ui->setupUi(this);
     ui->readyOverlay->hide();
+    readyOverlay = ui->readyOverlay;
+
     dotTimer = new QTimer(this);
     selectionTimer = new QTimer(this);
     selectionTimer->setSingleShot(true);

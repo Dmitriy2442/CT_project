@@ -100,7 +100,7 @@
        <property name="styleSheet">
         <string notr="true">QLabel {
 	font-size: 128px;
-	color: #077cb3;
+	color: #ffffff;
 }</string>
        </property>
        <property name="text">
@@ -136,7 +136,7 @@
           <string notr="true">QPushButton {
 	font-size: 72px;
 	border: none;
-	color: #11ab51;
+	color: #1c5ad6;
 }</string>
          </property>
          <property name="text">

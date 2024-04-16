@@ -43,6 +43,21 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 
         resourses.qrc
     )
+
+# Перенос актуального файла базы данных в build-папку
+set(SOURCE_DB "${CMAKE_SOURCE_DIR}/gamedata.db")
+set(DEST_DB "${CMAKE_BINARY_DIR}/gamedata.db")
+add_custom_command(
+    OUTPUT ${DEST_DB}
+    COMMAND ${CMAKE_COMMAND} -E copy ${SOURCE_DB} ${DEST_DB}
+    DEPENDS ${SOURCE_DB}
+    COMMENT "Copying gamedata.db to build directory"
+)
+add_custom_target(CopyDB ALL
+    DEPENDS ${DEST_DB}
+)
+
+
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET CT_project APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
 #                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
