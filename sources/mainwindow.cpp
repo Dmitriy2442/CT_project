@@ -1,4 +1,5 @@
 #include "headers/mainwindow.h"
+#include "headers/dbcontroller.h"
 #include "components/iconbutton.h"
 
 #include "../ui/ui_mainwindow.h"
@@ -9,13 +10,16 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-    , palette(":/palette/palette.txt")
 {
     // Определение словаря названия интерфейса и его индекса в stackedWidget:
     ui2idx["mainMenu"] = 0;
     ui2idx["authors"] = 1;
     ui2idx["settings"] = 2;
     ui2idx["charSelect"] = 3;
+
+    // Инициализация базы данных приложения
+    DBController db;
+    palette = db.getColorPalette("pink");
 
     // Задание интерфейсных форм:
     Ui::MainMenuForm* mainMenuUi = new Ui::MainMenuForm();
@@ -72,23 +76,24 @@ void MainWindow::updateAllFonts()
 
 void MainWindow::updateAllColors(QWidget *page)
 {
-    palette.resetIterator();
+    paletteIterator = 0;
     foreach (QObject *object, page->children()) {
         const char* objectType = object->metaObject()->className();
         QWidget* widget = qobject_cast<QWidget*>(object);
         if ((strcmp(objectType, "QLabel") == 0) || (strcmp(objectType, "QPushButton") == 0))
         {
 
-            widget->setStyleSheet(updateStyleSheet(widget->styleSheet(), QString("color"), palette.getColor()));
+            widget->setStyleSheet(updateStyleSheet(widget->styleSheet(), QString("color"), palette[paletteIterator]));
             widget->update();
 
         } else if (strcmp(objectType, "IconButton") == 0) {
 
             IconButton* iconButton = qobject_cast<IconButton*>(widget);
-            iconButton->updateColor(widget->styleSheet(), palette.getColor(), widget->size());
-            widget->update();
+            iconButton->updateColor(widget->styleSheet(), palette[paletteIterator], widget->size());
 
+            widget->update();
         }
+        paletteIterator = (paletteIterator + 1) % palette.length();
     }
 }
 
@@ -97,6 +102,7 @@ void MainWindow::goToCharSelectPage()
 {
     ui->charSelect->setUpClear();
     updateAllColors(ui->charSelect);
+    updateAllColors(ui->charSelect->readyOverlay);
     ui->stackedWidget->setCurrentIndex(ui2idx["charSelect"]);
 }
 

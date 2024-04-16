@@ -1,6 +1,5 @@
 #include "headers/mainwindow.h"
 #include "qapplication.h"
-#include "headers/dbcontroller.h"
 
 #include <QApplication>
 #include <QFontDatabase>
@@ -21,6 +20,5 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
-    DBController db;
     return a.exec();
 }

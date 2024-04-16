@@ -1,8 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "headers/colorpalette.h"
-
 #include <QMainWindow>
 #include <QPalette>
 #include <QLabel>
@@ -38,7 +36,9 @@ public slots:
 
 private:
     QHash<QString, int> ui2idx;
-    ColorPalette palette;
+
+    QVector<QString> palette;
+    int paletteIterator = 0;
 
     QVector<QString> chosenNames = {"", ""};
 

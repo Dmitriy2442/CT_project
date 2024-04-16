@@ -1,8 +1,6 @@
 #ifndef CHARSELECT_H
 #define CHARSELECT_H
 
-#include "components/charactercard.h"
-
 #include <QWidget>
 #include <QVector>
 #include <QTimer>
@@ -20,6 +18,8 @@ public:
     ~CharSelect();
 
     void setUpClear();
+
+    QWidget *readyOverlay;
 
 signals:
     void on_backIcon_clicked();
