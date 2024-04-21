@@ -47,6 +47,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->charSelect, SIGNAL(on_backIcon_clicked()), this, SLOT(goToMainMenuPage()));
     connect(ui->charSelect, &CharSelect::playersChose, this, &MainWindow::getChosenCharsNames);
     connect(ui->charSelect, &CharSelect::beginGame, this, &MainWindow::beginGame);
+
+    connect(ui->game, SIGNAL(on_debugButton_clicked()), this, SLOT(goToMainMenuPage()));
 }
 
 QString updateStyleSheet(const QString &styleSheet, const QString &field, const QString &value)
@@ -120,7 +122,8 @@ void MainWindow::goToSettingsPage()
 
 void MainWindow::beginGame()
 {
-    qDebug() << "Begin game signal recieved by the main window";
+    updateAllColors(ui->game);
+    ui->stackedWidget->setCurrentIndex(ui2idx["game"]);
 }
 
 void MainWindow::getChosenCharsNames(const QString &name1, const QString &name2) {

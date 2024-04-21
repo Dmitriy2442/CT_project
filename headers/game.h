@@ -11,6 +11,9 @@ class Game : public QWidget
 {
     Q_OBJECT
 
+signals:
+    void on_debugButton_clicked();
+
 public:
     explicit Game(QWidget *parent = nullptr);
     ~Game();

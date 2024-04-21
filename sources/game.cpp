@@ -6,6 +6,8 @@ Game::Game(QWidget *parent)
     , ui(new Ui::Game)
 {
     ui->setupUi(this);
+
+    connect(ui->debugButton, &QPushButton::clicked, this, &Game::on_debugButton_clicked);
 }
 
 Game::~Game()
