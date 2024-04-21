@@ -35,7 +35,8 @@ public slots:
     void getChosenCharsNames(const QString &name1, const QString &name2);
 
 private:
-    QHash<QString, int> ui2idx;
+    QHash<QString, int> const ui2idx = {{"mainMenu", 0}, {"authors", 1}, {"settings", 2},
+                                        {"charSelect", 3}, {"game", 4}};
 
     QVector<QString> palette;
     int paletteIterator = 0;

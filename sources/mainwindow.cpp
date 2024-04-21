@@ -11,12 +11,6 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    // Определение словаря названия интерфейса и его индекса в stackedWidget:
-    ui2idx["mainMenu"] = 0;
-    ui2idx["authors"] = 1;
-    ui2idx["settings"] = 2;
-    ui2idx["charSelect"] = 3;
-
     // Инициализация базы данных приложения
     DBController db;
     palette = db.getColorPalette("pink");
