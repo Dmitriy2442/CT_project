@@ -16,16 +16,22 @@ class Game : public QWidget
     Q_OBJECT
 
 signals:
-    void on_debugButton_clicked();
+    void endGame();
 
 public:
     explicit Game(QWidget *parent = nullptr);
     ~Game();
 
+public slots:
+    void on_endGameButton_clicked();
+
 protected:
     void keyPressEvent(QKeyEvent *event) override;
 
 private:
+    void hidePauseMenu();
+    void showPauseMenu();
+
     Ui::Game *ui;
     QGraphicsScene *scene;
     QGraphicsView *view;

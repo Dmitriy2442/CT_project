@@ -1,5 +1,7 @@
 #include "headers/mainwindow.h"
 #include "headers/dbcontroller.h"
+#include "headers/charSelect.h"
+#include "headers/game.h"
 #include "components/iconbutton.h"
 
 #include "../ui/ui_mainwindow.h"
@@ -48,7 +50,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->charSelect, &CharSelect::playersChose, this, &MainWindow::getChosenCharsNames);
     connect(ui->charSelect, &CharSelect::beginGame, this, &MainWindow::beginGame);
 
-    connect(ui->game, SIGNAL(on_debugButton_clicked()), this, SLOT(goToMainMenuPage()));
+    connect(ui->game, &Game::endGame, this, &MainWindow::goToMainMenuPage);
 }
 
 QString updateStyleSheet(const QString &styleSheet, const QString &field, const QString &value)
