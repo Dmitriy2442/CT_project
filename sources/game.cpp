@@ -1,4 +1,5 @@
 #include "headers/game.h"
+
 #include "../ui/ui_game.h"
 #include "../ui/ui_pausemenu.h"
 
@@ -9,12 +10,18 @@ Game::Game(QWidget *parent)
     ui->setupUi(this);
     scene = new QGraphicsScene(this); // Вот эта...
     view = new QGraphicsView(scene, this); // ...и вот эта штуки нужны для отрисовки самой игры
+
     pauseMenu = new QWidget(this);
     Ui::PauseMenuForm* pauseMenuUi = new Ui::PauseMenuForm();
     pauseMenuUi->setupUi(pauseMenu);
-    hidePauseMenu();
+    pauseMenu->hide();
 
-    connect(pauseMenuUi->resumeButton, &QPushButton::clicked, this, &Game::hidePauseMenu);
+    model = new GameModel();
+    QTimer *updateTimer = new QTimer(this);
+    connect(updateTimer, &QTimer::timeout, this, &Game::updateView);
+    updateTimer->start(16);
+
+    connect(pauseMenuUi->resumeButton, &QPushButton::clicked, this, &Game::resumeGame);
     connect(pauseMenuUi->endGameButton, &QPushButton::clicked, this, &Game::on_endGameButton_clicked);
 }
 
@@ -29,23 +36,31 @@ void Game::keyPressEvent(QKeyEvent *event)
     if (event->key() == Qt::Key_Escape)
     {
         if (pauseMenu->isHidden())
-            showPauseMenu();
+            pauseGame();
         else
-            hidePauseMenu();
+            resumeGame();
     }
 }
 
-void Game::hidePauseMenu()
+void Game::resumeGame()
 {
+    model->resume();
     pauseMenu->hide();
 }
 
-void Game::showPauseMenu()
+void Game::pauseGame()
 {
+    model->pause();
     pauseMenu->show();
+}
+
+void Game::updateView()
+{
+    model->update();
 }
 
 Game::~Game()
 {
     delete ui;
+    delete model;
 }
