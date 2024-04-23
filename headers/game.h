@@ -27,7 +27,7 @@ public:
     ~Game();
 
 public slots:
-    void on_endGameButton_clicked();
+    void endGameButtonClicked();
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;

@@ -22,10 +22,10 @@ Game::Game(QWidget *parent)
     updateTimer->start(16);
 
     connect(pauseMenuUi->resumeButton, &QPushButton::clicked, this, &Game::resumeGame);
-    connect(pauseMenuUi->endGameButton, &QPushButton::clicked, this, &Game::on_endGameButton_clicked);
+    connect(pauseMenuUi->endGameButton, &QPushButton::clicked, this, &Game::endGameButtonClicked);
 }
 
-void Game::on_endGameButton_clicked()
+void Game::endGameButtonClicked()
 {
     qDebug() << "Game ended!";
     emit endGame();
