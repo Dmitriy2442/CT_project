@@ -1,8 +1,4 @@
 #include "headers/mainwindow.h"
-#include "headers/dbcontroller.h"
-#include "headers/charSelect.h"
-#include "headers/game.h"
-#include "components/iconbutton.h"
 
 #include "../ui/ui_mainwindow.h"
 #include "../ui/ui_mainmenu.h"
@@ -17,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     DBController db;
     palette = db.getColorPalette("pink");
     qDebug() << db.getCharactersData();
+    charSelect = new CharSelect(db.getCharactersData());
 
     // Задание интерфейсных форм:
     Ui::MainMenuForm* mainMenuUi = new Ui::MainMenuForm();
@@ -27,6 +24,8 @@ MainWindow::MainWindow(QWidget *parent)
     mainMenuUi->setupUi(ui->mainMenu);
     authorsUi->setupUi(ui->authors);
     settingsUi->setupUi(ui->settings);
+    ui->stackedWidget->removeWidget(ui->charSelect);
+    ui->stackedWidget->insertWidget(ui2idx["charSelect"], charSelect);
     setCentralWidget(ui->stackedWidget);
 
     // Общая настройка дизайна
@@ -47,9 +46,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(settingsUi->backIcon, SIGNAL(clicked()), this, SLOT(goToMainMenuPage()));
 
-    connect(ui->charSelect, SIGNAL(on_backIcon_clicked()), this, SLOT(goToMainMenuPage()));
-    connect(ui->charSelect, &CharSelect::playersChose, this, &MainWindow::getChosenCharsNames);
-    connect(ui->charSelect, &CharSelect::beginGame, this, &MainWindow::beginGame);
+    connect(charSelect, SIGNAL(on_backIcon_clicked()), this, SLOT(goToMainMenuPage()));
+    connect(charSelect, &CharSelect::playersChose, this, &MainWindow::getChosenCharsNames);
+    connect(charSelect, &CharSelect::beginGame, this, &MainWindow::beginGame);
 
     connect(ui->game, &Game::endGame, this, &MainWindow::goToMainMenuPage);
 }
@@ -99,9 +98,9 @@ void MainWindow::updateAllColors(QWidget *page)
 
 void MainWindow::goToCharSelectPage()
 {
-    ui->charSelect->setUpClear();
-    updateAllColors(ui->charSelect);
-    updateAllColors(ui->charSelect->readyOverlay);
+    charSelect->setUpClear();
+    updateAllColors(charSelect);
+    updateAllColors(charSelect->readyOverlay);
     ui->stackedWidget->setCurrentIndex(ui2idx["charSelect"]);
 }
 

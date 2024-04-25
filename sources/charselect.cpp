@@ -5,6 +5,10 @@
 
 CharSelect::CharSelect(QWidget *parent)
     : QWidget(parent)
+{}
+
+CharSelect::CharSelect(QVector<QPair<QString, QString>> charData, QWidget *parent)
+    : QWidget(parent)
     , ui(new Ui::CharSelect)
 {
     ui->setupUi(this);

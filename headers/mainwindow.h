@@ -1,6 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "headers/dbcontroller.h"
+#include "headers/charSelect.h"
+#include "headers/game.h"
+#include "components/iconbutton.h"
+
 #include <QMainWindow>
 #include <QPalette>
 #include <QLabel>
@@ -44,6 +49,7 @@ private:
     QVector<QString> chosenNames = {"", ""};
 
     Ui::MainWindow *ui;
+    CharSelect *charSelect;
 };
 
 QString updateStyleSheet(const QString &styleSheet, const QString &field, const QString &value);

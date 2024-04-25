@@ -15,6 +15,7 @@ class CharSelect : public QWidget
 
 public:
     explicit CharSelect(QWidget *parent = nullptr);
+    explicit CharSelect(QVector<QPair<QString, QString>> charData, QWidget *parent = nullptr);
     ~CharSelect();
 
     void setUpClear();
