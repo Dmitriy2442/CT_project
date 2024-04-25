@@ -8,15 +8,12 @@ Game::Game(QWidget *parent)
     , ui(new Ui::Game)
 {
     ui->setupUi(this);
-    scene = new QGraphicsScene(this); // Вот эта...
-    view = new QGraphicsView(scene, this); // ...и вот эта штуки нужны для отрисовки самой игры
 
     pauseMenu = new QWidget(this);
     Ui::PauseMenuForm* pauseMenuUi = new Ui::PauseMenuForm();
     pauseMenuUi->setupUi(pauseMenu);
     pauseMenu->hide();
 
-    model = new GameModel();
     QTimer *updateTimer = new QTimer(this);
     connect(updateTimer, &QTimer::timeout, this, &Game::updateView);
     updateTimer->start(16);
@@ -28,7 +25,7 @@ Game::Game(QWidget *parent)
 void Game::endGameButtonClicked()
 {
     qDebug() << "Game ended!";
-    emit endGame();
+    emit endGameSignal();
 }
 
 void Game::keyPressEvent(QKeyEvent *event)
@@ -42,25 +39,32 @@ void Game::keyPressEvent(QKeyEvent *event)
     }
 }
 
-void Game::resumeGame()
+void Game::updateView()
 {
-    model->resume();
-    pauseMenu->hide();
+    // Update view here
+}
+
+void Game::startGame()
+{
+    // Start game here
 }
 
 void Game::pauseGame()
 {
-    model->pause();
     pauseMenu->show();
 }
 
-void Game::updateView()
+void Game::resumeGame()
 {
-    model->update();
+    pauseMenu->hide();
+}
+
+void Game::endGame()
+{
+    // End game here
 }
 
 Game::~Game()
 {
     delete ui;
-    delete model;
 }

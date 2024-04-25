@@ -2,14 +2,13 @@
 #define GAME_H
 
 #include <QWidget>
-
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QKeyEvent>
 #include <QGraphicsTextItem>
 #include <QTimer>
 
-#include "headers/gamemodel.h"
+
 
 namespace Ui {
 class Game;
@@ -20,11 +19,16 @@ class Game : public QWidget
     Q_OBJECT
 
 signals:
-    void endGame();
+    void endGameSignal();
 
 public:
     explicit Game(QWidget *parent = nullptr);
     ~Game();
+
+    void startGame();
+    void pauseGame();
+    void resumeGame();
+    void endGame();
 
 public slots:
     void endGameButtonClicked();
@@ -33,18 +37,16 @@ protected:
     void keyPressEvent(QKeyEvent *event) override;
 
 private:
-    void resumeGame();
-    void pauseGame();
     void updateView();
 
     Ui::Game *ui;
 
-    QGraphicsScene *scene;
-    QGraphicsView *view;
-    QWidget *pauseMenu;
+    // Arena *arena;
+    // QVector<Character*> characters;
+    // GameController *gameController;
+    QTimer *gameTimer;
 
-    GameModel *model; // Модель игры, не должна содержать никакой логики отрисовки (GUI)
-    QTimer *updateTime; // Таймер обновления игры (60 FPS)
+    QWidget *pauseMenu;
 };
 
 #endif // GAME_H

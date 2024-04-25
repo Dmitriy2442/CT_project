@@ -34,7 +34,6 @@ MainWindow::MainWindow(QWidget *parent)
     updateAllColors(ui->mainMenu);
 
 
-
     // Задание функций кнопкам:
     connect(mainMenuUi->gameButton, SIGNAL(clicked()), this, SLOT(goToCharSelectPage()));
     connect(mainMenuUi->exitIcon, SIGNAL(clicked()), this, SLOT(close()));
@@ -49,7 +48,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(charSelect, &CharSelect::playersChose, this, &MainWindow::getChosenCharsNames);
     connect(charSelect, &CharSelect::beginGame, this, &MainWindow::beginGame);
 
-    connect(ui->game, &Game::endGame, this, &MainWindow::goToMainMenuPage);
+    connect(ui->game, &Game::endGameSignal, this, &MainWindow::goToMainMenuPage);
 }
 
 QString updateStyleSheet(const QString &styleSheet, const QString &field, const QString &value)
