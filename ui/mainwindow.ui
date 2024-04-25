@@ -38,18 +38,12 @@
     <widget class="QWidget" name="mainMenu"/>
     <widget class="QWidget" name="authors"/>
     <widget class="QWidget" name="settings"/>
-    <widget class="CharSelect" name="charSelect"/>
+    <widget class="QWidget" name="charSelect"/>
     <widget class="Game" name="game"/>
    </widget>
   </widget>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>CharSelect</class>
-   <extends>QWidget</extends>
-   <header location="global">headers/charselect.h</header>
-   <container>1</container>
-  </customwidget>
   <customwidget>
    <class>Game</class>
    <extends>QWidget</extends>

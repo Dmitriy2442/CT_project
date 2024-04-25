@@ -27,13 +27,7 @@ CharSelect::CharSelect(QVector<QPair<QString, QString>> charData, QWidget *paren
     connect(ui->noButton, &QPushButton::clicked, this, &CharSelect::setUpClear);
     connect(ui->yesButton, &QPushButton::clicked, this, &CharSelect::beginGame);
 
-    // TODO Здесь должен быть запрос в базу данных
-    QVector<QString> names {"Skipper", "Rico", "Literally me"};
-    QVector<QString> imagePaths {":/testchars/skipper.png", ":/testchars/rico.png", ":/testchars/peng.png"};
-    for (int i = 0; i < names.size(); ++i) {
-        QString name = names.at(i);
-        QString imagePath = imagePaths.at(i);
-
+    for (auto& [name, imagePath] : charData) {
         CharacterCard* card = new CharacterCard(name, imagePath);
         ui->cardLayout->addWidget(card);
         connect(card, &CharacterCard::cardClicked, this, &CharSelect::handleCardClick);
