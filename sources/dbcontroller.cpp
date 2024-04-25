@@ -10,28 +10,34 @@ DBController::DBController() {
     }
 };
 
-void DBController::getCharactersData(QVector<int> &ids, QVector<QString> &names, QVector<QString> &imagePaths) {
-    /* Функция, возвращающая заполненные массивы с именами и путями к картинке для всех элементов таблицы characters:
-     * names, imagePaths - ссылки на пустые массивы
-     * можно ей будет начхать на айдишники, пожалуйста, мне просто нужны все элементы этой таблицы для экрана выбора персонажей
-    */
+QVector<QPair<QString, QString>> DBController::getCharactersData(QVector<QString> names) {
     db.open();
     QSqlQuery query;
 
-    query.prepare("SELECT name, imagePath FROM your_table WHERE id = :id");
-    for (int i = 0; i < ids.size(); i++) {
-        query.bindValue(":id", ids[i]);
-
-        if (!query.exec()) {
-            qDebug() << "Error executing query";
-        }
-        else {
-            names[i] = query.value(0).toString();
-            imagePaths[i] = query.value(1).toString();
-            qDebug() << "Name:" << names[i] << ", Image Path:" << imagePaths[i];
-        }
+    if (names.isEmpty()) {
+        query.prepare("SELECT name, imagePath FROM characters");
+    } else {
+        query.prepare("SELECT name, imagePath FROM characters WHERE name = :name");
+        query.bindValue(":name", names);
     }
+
+    if (!query.exec()) {
+        qDebug() << "Query failed:" << query.lastError().text();
+        return QVector<QPair<QString, QString>>();
+    }
+
+    int resultCount = 0;
+    QVector<QPair<QString, QString>> charactersData;
+    while (query.next()) {
+        charactersData.append(qMakePair(query.value(0).toString(), query.value(1).toString()));
+        ++resultCount;
+    }
+    if (resultCount == 0) {
+        qDebug() << "No results found for the given query (characters)";
+    }
+
     db.close();
+    return charactersData;
 }
 
 QVector<QString> DBController::getColorPalette(QString color)

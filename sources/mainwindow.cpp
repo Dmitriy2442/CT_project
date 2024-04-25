@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     // Инициализация базы данных приложения
     DBController db;
     palette = db.getColorPalette("pink");
+    qDebug() << db.getCharactersData();
 
     // Задание интерфейсных форм:
     Ui::MainMenuForm* mainMenuUi = new Ui::MainMenuForm();
