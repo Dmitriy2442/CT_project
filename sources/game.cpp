@@ -14,6 +14,15 @@ Game::Game(QWidget *parent)
     pauseMenuUi->setupUi(pauseMenu);
     pauseMenu->hide();
 
+    view = new QGraphicsView(this);
+    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->setGeometry(0, 0, 1280, 720);
+
+    arena = new Arena(this);
+    view->setScene(arena);
+    arena->setupArena(QSize(1280, 720));
+
     QTimer *updateTimer = new QTimer(this);
     connect(updateTimer, &QTimer::timeout, this, &Game::updateView);
     updateTimer->start(16);
@@ -52,6 +61,7 @@ void Game::startGame()
 void Game::pauseGame()
 {
     pauseMenu->show();
+    pauseMenu->raise();
 }
 
 void Game::resumeGame()

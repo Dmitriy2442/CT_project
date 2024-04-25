@@ -8,6 +8,7 @@
 #include <QGraphicsTextItem>
 #include <QTimer>
 
+#include "game/arena.h"
 
 
 namespace Ui {
@@ -41,10 +42,11 @@ private:
 
     Ui::Game *ui;
 
-    // Arena *arena;
+    Arena *arena;
     // QVector<Character*> characters;
     // GameController *gameController;
     QTimer *gameTimer;
+    QGraphicsView *view;
 
     QWidget *pauseMenu;
 };

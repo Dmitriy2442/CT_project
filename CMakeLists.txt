@@ -27,6 +27,9 @@ file(GLOB UI_FILES "ui/*.ui")
 # Добавление всех компонент из директории components
 file(GLOB COMPONENTS_FILES "components/*.h" "components/*.cpp")
 
+# Добавление всех компонент из директории game
+file(GLOB GAME_FILES "game/*.h" "game/*.cpp")
+
 set(PROJECT_SOURCES
         main.cpp
 
@@ -34,6 +37,7 @@ set(PROJECT_SOURCES
         ${SOURCE_FILES}
         ${UI_FILES}
         ${COMPONENTS_FILES}
+        ${GAME_FILES}
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
