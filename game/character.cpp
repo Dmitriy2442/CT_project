@@ -45,7 +45,7 @@ void Character::block() {
     // Это может включать изменение изображения на анимацию блокирования и уменьшение получаемого урона
 }
 
-void Character::movement() {
+void Character::acceleration() {
     setPos(x() + speedX, y() + speedY);
     if (speedX < 0)
         speedX++;
