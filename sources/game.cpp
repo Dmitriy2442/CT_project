@@ -23,6 +23,18 @@ Game::Game(QWidget *parent)
     view->setScene(arena);
     arena->setupArena(QSize(1280, 720));
 
+    Character* character = new Character(":/testchars/skipper.png");
+    arena->addItem(character);  // Добавляем персонажа на арену
+    character->setPos(640, 360);
+
+    Character* character2 = new Character(":/icons/amogus.png");
+    arena->addItem(character2);  // Добавляем персонажа на арену
+    character2->setPos(300, 360);
+
+    // player1Controller = new PlayerController(player1);
+    // installEventFilter(player1Controller);
+
+
     QTimer *updateTimer = new QTimer(this);
     connect(updateTimer, &QTimer::timeout, this, &Game::updateView);
     updateTimer->start(16);

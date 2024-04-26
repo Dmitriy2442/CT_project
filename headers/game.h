@@ -9,7 +9,8 @@
 #include <QTimer>
 
 #include "game/arena.h"
-
+#include "game/character.h"
+#include "game/playercontroller.h"
 
 namespace Ui {
 class Game;
@@ -43,8 +44,11 @@ private:
     Ui::Game *ui;
 
     Arena *arena;
-    // QVector<Character*> characters;
-    // GameController *gameController;
+    Character *player1;
+    Character *player2;
+    PlayerController *player1Controller;
+    PlayerController *player2Controller;
+
     QTimer *gameTimer;
     QGraphicsView *view;
 
