@@ -25,7 +25,7 @@ Game::Game(QWidget *parent)
     arena->setupArena(QSize(1280, 720));
 
     // Создание 1-го игрока
-    player1 = new Character(":/testchars/skipper.png");
+    player1 = new Character(":/samurai");
     arena->addItem(player1);
     player1->setPos(640, 360);
     // Создание контроллера для 1-го игрока
