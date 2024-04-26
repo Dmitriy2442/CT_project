@@ -5,6 +5,7 @@
 #include <QPainter>
 #include <QObject>
 #include <QtGlobal>
+#include <QTransform>
 
 #include <QtMath>
 
@@ -21,6 +22,8 @@ public:
 
     void updateState();
     void updateImage();
+
+    void fixPosition(); // Костыль метод
 
     void jump();
     void accLeft();
@@ -51,11 +54,16 @@ protected:
 
     QString currentState = "Standing";
     int frameUpdateRate = 5;
-    int attackFrames = 30;
-    int currentAttackFrame = 0;
+    int attackFrames = 15;
+    int attackCooldown = 15;
+    int attackCooldownCounter = 0;
+    int runFrames = 5;
+    int currentFrame = 0;
 
 
     int health = 100;
+    short lookDirection = 1;
+    bool isBlocking = false;
     qreal accelerationX = 2;
     qreal acceleartionY = -2;
     qreal speedX = 0;

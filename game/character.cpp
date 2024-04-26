@@ -49,29 +49,80 @@ QRectF Character::calculateHitbox(const QImage &image) {
 }
 
 void Character::updateState() {
-    if (currentState == "Attacking" && currentAttackFrame < attackFrames) {
-        ++currentAttackFrame;
+    if (currentState == "Attacking" && currentFrame < attackFrames) {
+        ++currentFrame;
         return;
-    } else if (currentState == "Attacking" && currentAttackFrame == attackFrames) {
-        currentAttackFrame = 0;
+    } else if (currentState == "Attacking" && currentFrame == attackFrames) {
+        currentFrame = 0;
+        attackCooldownCounter = attackCooldown;
         currentState = "Standing";
     }
+    attackCooldownCounter = qMax(0, attackCooldownCounter - 1);
 
+    if (speedY > 0) {
+        currentState = "Falling";
+        return;
+    }
 
+    if (speedY < 0) {
+        currentState = "Jumping";
+        return;
+    }
+
+    if (speedX != 0) {
+        if (currentState != "Running!" && currentState != "Running2") {
+            currentState = "Running1";
+            currentFrame = 0;
+        } else if (currentFrame < runFrames) {
+            ++currentFrame;
+        } else {
+            currentFrame = 0;
+            currentState = (currentState == "Running1") ? "Running2" : "Running1";
+        }
+        return;
+    }
+
+    if (isBlocking) {
+        currentState = "Blocking";
+        return;
+    }
+
+    currentState = "Standing";
 }
 
 void Character::updateImage() {
-    setPixmap(stateImages[currentState].scaled(stateImages[currentState].width()*imageScale.width(), stateImages[currentState].height()*imageScale.height()));
+    updateState();
+
+    QTransform transform;
+    transform.scale(lookDirection, 1);
+    QPixmap image = stateImages[currentState].transformed(transform);
+    setPixmap(image.scaled(image.width()*imageScale.width(), image.height()*imageScale.height()));
 
     hitbox = calculateHitbox(pixmap().toImage());
 }
 
+void Character::fixPosition() {
+    // Функция проверяет hitbox и сдвигает его, если он выходит за границы экранаq
+    if (x() + hitbox.x() < 0) {
+        setPos(0 - hitbox.x(), y());
+    } else if (x() + hitbox.x() + hitbox.width() > 1280) {
+        setPos(1280 - hitbox.width() - hitbox.x(), y());
+    }
+    if (y() + hitbox.y() < 0) {
+        setPos(x(), 0 - hitbox.y());
+    } else if (y() + hitbox.y() + hitbox.height() > 720) {
+        setPos(x(), 720 - hitbox.height() - hitbox.y());
+    }
+}
+
 void Character::accLeft() {
+    lookDirection = -1;
     if (speedX > (-1) * maxSpeedX)
         speedX = speedX - accelerationX;
 }
 
 void Character::accRight() {
+    lookDirection = 1;
     if (speedX < maxSpeedX)
         speedX = speedX + accelerationX;
 }
@@ -82,6 +133,11 @@ void Character::jump() {    // Реализация прыжка
 }
 
 void Character::attack() {
+    if (attackCooldownCounter > 0 || currentState == "Attacking") {
+        return;
+    }
+    currentState = "Attacking";
+    currentFrame = 0;
     // Реализация атаки
     // Это может включать изменение изображения на анимацию атаки и проверку попадания
 }

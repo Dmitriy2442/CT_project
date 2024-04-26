@@ -28,6 +28,8 @@ void PlayerController::update() {
         character->attack();
     }
     character->acceleration();
+    character->updateImage();
+    character->fixPosition(); // ЭТО ЧЕРТОВ КОСТЫЛЬ, НО ПУСТЬ ОН БУДЕТ ХОТЯ БЫ НА ЭКРАНЕ
 }
 
 bool PlayerController::eventFilter(QObject* obj, QEvent* event) {
@@ -42,7 +44,7 @@ bool PlayerController::eventFilter(QObject* obj, QEvent* event) {
             jumping = true; break;
         case Qt::Key_Down:   // Блокирование
             blocking = true; break;
-        case Qt::Key_Backslash:  // Атака
+        case Qt::Key_Slash:  // Атака
             attacking = true; break;
         default:
             return QObject::eventFilter(obj, event);
@@ -59,7 +61,7 @@ bool PlayerController::eventFilter(QObject* obj, QEvent* event) {
             jumping = false; break;
         case Qt::Key_Down:
             blocking = false; break;
-        case Qt::Key_Backslash:
+        case Qt::Key_Slash:
             attacking = false; break;
         default:
             return QObject::eventFilter(obj, event);
