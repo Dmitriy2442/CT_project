@@ -6,6 +6,8 @@
 #include <QObject>
 #include <QtGlobal>
 
+#include <QtMath>
+
 class Character : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
@@ -21,10 +23,11 @@ public:
     void updateImage();
 
     void jump();
-    void moveLeft();
-    void moveRight();
+    void accLeft();
+    void accRight();
     void attack();
     void block();
+    void acceleration();
 
     int getHealth() const;
     void setHealth(int value);
@@ -53,9 +56,14 @@ protected:
 
 
     int health = 100;
-    int speed = 5;
-    int maxSpeed = 20;
-    int jumpHeight;
+    qreal accelerationX = 2;
+    qreal acceleartionY = -2;
+    qreal speedX = 0;
+    qreal speedY = 0;
+    int maxSpeedX = 20;
+    int maxSpeedY = 20;
+    int jumpSpeed = 10;
+    int gravAcc = 1;
     int attackDamage;
 };
 
