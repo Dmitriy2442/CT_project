@@ -23,24 +23,31 @@ Game::Game(QWidget *parent)
     view->setScene(arena);
     arena->setupArena(QSize(1280, 720));
 
-    Character* character = new Character(":/testchars/skipper.png");
-    arena->addItem(character);  // Добавляем персонажа на арену
-    character->setPos(640, 360);
+    player1 = new Character(":/testchars/skipper.png");
+    arena->addItem(player1);
+    player1->setPos(640, 360);
+    player1Controller = new PlayerController(player1);
+    view->installEventFilter(player1Controller);
+    connect(this, &Game::updateTick, player1Controller, &PlayerController::update);
 
-    Character* character2 = new Character(":/icons/amogus.png");
-    arena->addItem(character2);  // Добавляем персонажа на арену
-    character2->setPos(300, 360);
-
-    // player1Controller = new PlayerController(player1);
-    // installEventFilter(player1Controller);
+    player2 = new Character(":/icons/amogus.png");
+    arena->addItem(player2);
+    player2->setPos(300, 360);
 
 
-    QTimer *updateTimer = new QTimer(this);
-    connect(updateTimer, &QTimer::timeout, this, &Game::updateView);
-    updateTimer->start(16);
+
+
+    gameTimer = new QTimer(this);
+    connect(gameTimer, &QTimer::timeout, this, &Game::updateGame);
+    gameTimer->start(16);
 
     connect(pauseMenuUi->resumeButton, &QPushButton::clicked, this, &Game::resumeGame);
     connect(pauseMenuUi->endGameButton, &QPushButton::clicked, this, &Game::endGameButtonClicked);
+}
+
+void Game::updateGame()
+{
+    emit(updateTick());
 }
 
 void Game::endGameButtonClicked()
@@ -58,11 +65,6 @@ void Game::keyPressEvent(QKeyEvent *event)
         else
             resumeGame();
     }
-}
-
-void Game::updateView()
-{
-    // Update view here
 }
 
 void Game::startGame()

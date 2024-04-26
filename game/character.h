@@ -18,6 +18,7 @@ public:
     void moveLeft();
     void moveRight();
     void attack();
+    void block();
 
     int getHealth() const;
     void setHealth(int value);
@@ -25,8 +26,9 @@ public:
 protected:
     QRectF hitbox;
 
-    int health;
-    int speed;
+    int health = 100;
+    int speed = 5;
+    int maxSpeed = 20;
     int jumpHeight;
     int attackDamage;
 };

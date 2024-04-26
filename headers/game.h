@@ -21,6 +21,7 @@ class Game : public QWidget
     Q_OBJECT
 
 signals:
+    void updateTick();
     void endGameSignal();
 
 public:
@@ -33,13 +34,13 @@ public:
     void endGame();
 
 public slots:
+    void updateGame();
     void endGameButtonClicked();
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
 
 private:
-    void updateView();
 
     Ui::Game *ui;
 

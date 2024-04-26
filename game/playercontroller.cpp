@@ -2,33 +2,63 @@
 
 PlayerController::PlayerController(Character* character, QObject* parent)
     : QObject(parent), character(character) {
-    // Устанавливаем фильтр событий на объект, который будет принимать ввод с клавиатуры.
-    // В обычной ситуации это может быть окно или виджет, где происходит игровой процесс.
+    // Убедитесь, что контроллер устанавливается как фильтр событий для объекта, который получает ввод с клавиатуры.
+}
+
+void PlayerController::update() {
+    if (movingLeft) {
+        character->moveLeft();
+    }
+    if (movingRight) {
+        character->moveRight();
+    }
+    if (jumping) {
+        character->jump();
+    }
+    if (blocking) {
+        character->block();
+    }
+    if (attacking) {
+        character->attack();
+    }
 }
 
 bool PlayerController::eventFilter(QObject* obj, QEvent* event) {
-    // Проверяем, что событие является событием нажатия клавиши
     if (event->type() == QEvent::KeyPress) {
         QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
         switch (keyEvent->key()) {
+        case Qt::Key_Left:   // Движение влево
+            movingLeft = true; break;
+        case Qt::Key_Right:  // Движение вправо
+            movingRight = true; break;
+        case Qt::Key_Up:     // Прыжок
+            jumping = true; break;
+        case Qt::Key_Down:   // Блокирование
+            blocking = true; break;
+        case Qt::Key_Backslash:  // Атака
+            attacking = true; break;
+        default:
+            return QObject::eventFilter(obj, event);  // Пропустить необработанные клавиши
+        }
+        return true;
+    } else if (event->type() == QEvent::KeyRelease) { // Отпускание клавиши
+        QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
+        switch (keyEvent->key()) {
         case Qt::Key_Left:
-            character->moveLeft();
-            break;
+            movingLeft = false; break;
         case Qt::Key_Right:
-            character->moveRight();
-            break;
+            movingRight = false; break;
         case Qt::Key_Up:
-            character->jump();
-            break;
-        case Qt::Key_Control:
-            character->attack();
-            break;
+            jumping = false; break;
+        case Qt::Key_Down:
+            blocking = false; break;
+        case Qt::Key_Backslash:
+            attacking = false; break;
         default:
             return QObject::eventFilter(obj, event);
         }
-        return true; // Событие обработано
+        return true;
     } else {
-        // Передать обработку другим обработчикам, если событие не является нажатием клавиши
-        return QObject::eventFilter(obj, event);
+        return QObject::eventFilter(obj, event);  // Пропустить другие типы событий
     }
 }
