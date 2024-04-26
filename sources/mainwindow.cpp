@@ -32,6 +32,7 @@ MainWindow::MainWindow(QWidget *parent)
     setStyleSheet("background-color: #222222");
     updateAllFonts();
     updateAllColors(ui->mainMenu);
+    beginGame();
 
 
     // Задание функций кнопкам:

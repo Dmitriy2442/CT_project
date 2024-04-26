@@ -40,8 +40,10 @@ void Arena::setupArena(const QSize size) {
     background->setZValue(-1);
 
     // Добавление платформ
-    addPlatform(50, 600, 1000, 30);
-    addPlatform(500, 150, 250, 20);
+    addPlatform(100, 600, 1080, 20); // Главная платформа
+    addPlatform(515, 200, 250, 20); // Верхняя платформа
+    addPlatform(200, 400, 250, 20); // Левая платформа
+    addPlatform(830, 400, 250, 20); // Правая платформа
 }
 
 void Arena::addPlatform(qreal x, qreal y, qreal width, qreal height) {
