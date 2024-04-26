@@ -4,6 +4,7 @@
 #include <QGraphicsPixmapItem>
 #include <QPainter>
 #include <QObject>
+#include <QtGlobal>
 
 #include <QtMath>
 
@@ -11,10 +12,15 @@ class Character : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
-    Character(QString imagePath, QRectF hitbox = QRectF(0, 0, 100, 100), QGraphicsItem *parent = nullptr);
+    Character(QString imagePath, QGraphicsItem *parent = nullptr);
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+
+    QRectF calculateHitbox(const QImage &image);
+
+    void updateState();
+    void updateImage();
 
     void jump();
     void accLeft();
@@ -26,8 +32,28 @@ public:
     int getHealth() const;
     void setHealth(int value);
 
+    QVector<QString> State {
+        "Attacking",
+        "Falling",
+        "Jumping",
+        "Running1",
+        "Running2",
+        "Blocking",
+        "Standing"
+    };
+
+
 protected:
+
     QRectF hitbox;
+    QSize imageScale = {2, 2};
+    QMap<QString, QPixmap> stateImages;
+
+    QString currentState = "Standing";
+    int frameUpdateRate = 5;
+    int attackFrames = 30;
+    int currentAttackFrame = 0;
+
 
     int health = 100;
     qreal accelerationX = 2;

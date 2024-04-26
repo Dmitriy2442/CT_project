@@ -1,12 +1,17 @@
-#include "Character.h"
+#include "game/character.h"
 
-Character::Character(QString imagePath, QRectF hitbox, QGraphicsItem *parent) :
-    QGraphicsPixmapItem(parent),
-    hitbox(hitbox) {
-    if (imagePath != "")
-        setPixmap(QPixmap(imagePath).scaled(hitbox.width(), hitbox.height())); // Устанавливаем изображение персонажа
-    else
-        setPixmap(QPixmap(":testchars/skipper.png").scaled(hitbox.width(), hitbox.height())); // Дефолтное изображение
+
+Character::Character(QString imagePath, QGraphicsItem *parent) :
+    QGraphicsPixmapItem(parent)
+{
+    for (int i = 0; i < State.size(); ++i) {
+        stateImages[State[i]] = QPixmap(imagePath + "/" + State[i] + ".png");
+    }
+
+    setPixmap(stateImages["Standing"].scaled(stateImages["Standing"].width()*imageScale.width(), stateImages["Standing"].height()*imageScale.height()));
+
+    hitbox = calculateHitbox(pixmap().toImage());
+
     setZValue(1); // Устанавливаем слой отрисовки
 }
 
@@ -18,6 +23,47 @@ void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     QGraphicsPixmapItem::paint(painter, option, widget);  // Рисуем изображение персонажа
     painter->setPen(Qt::red);  // Устанавливаем красный цвет для хитбокса
     painter->drawRect(hitbox);  // Рисуем хитбокс вокруг персонажа
+}
+
+QRectF Character::calculateHitbox(const QImage &image) {
+    int minX = image.width();
+    int maxX = 0;
+    int minY = image.height();
+    int maxY = 0;
+
+    for (int y = 0; y < image.height(); ++y) {
+        for (int x = 0; x < image.width(); ++x) {
+            if (qAlpha(image.pixel(x, y)) != 0) {  // Проверка на непрозрачность пикселя
+                minX = qMin(minX, x);
+                maxX = qMax(maxX, x);
+                minY = qMin(minY, y);
+                maxY = qMax(maxY, y);
+            }
+        }
+    }
+
+    if (minX <= maxX && minY <= maxY) {
+        return QRectF(minX, minY, maxX - minX + 1, maxY - minY + 1);
+    }
+    return QRectF();  // В случае, если все пиксели прозрачные
+}
+
+void Character::updateState() {
+    if (currentState == "Attacking" && currentAttackFrame < attackFrames) {
+        ++currentAttackFrame;
+        return;
+    } else if (currentState == "Attacking" && currentAttackFrame == attackFrames) {
+        currentAttackFrame = 0;
+        currentState = "Standing";
+    }
+
+
+}
+
+void Character::updateImage() {
+    setPixmap(stateImages[currentState].scaled(stateImages[currentState].width()*imageScale.width(), stateImages[currentState].height()*imageScale.height()));
+
+    hitbox = calculateHitbox(pixmap().toImage());
 }
 
 void Character::accLeft() {
