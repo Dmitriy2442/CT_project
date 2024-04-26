@@ -9,7 +9,8 @@
 #include <QTimer>
 
 #include "game/arena.h"
-
+#include "game/character.h"
+#include "game/playercontroller.h"
 
 namespace Ui {
 class Game;
@@ -20,6 +21,7 @@ class Game : public QWidget
     Q_OBJECT
 
 signals:
+    void updateTick();
     void endGameSignal();
 
 public:
@@ -32,19 +34,22 @@ public:
     void endGame();
 
 public slots:
+    void updateGame();
     void endGameButtonClicked();
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
 
 private:
-    void updateView();
 
     Ui::Game *ui;
 
     Arena *arena;
-    // QVector<Character*> characters;
-    // GameController *gameController;
+    Character *player1;
+    Character *player2;
+    PlayerController *player1Controller;
+    PlayerController *player2Controller;
+
     QTimer *gameTimer;
     QGraphicsView *view;
 
