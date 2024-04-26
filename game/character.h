@@ -5,6 +5,8 @@
 #include <QPainter>
 #include <QObject>
 
+#include <QtMath>
+
 class Character : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
@@ -15,10 +17,11 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     void jump();
-    void moveLeft();
-    void moveRight();
+    void accLeft();
+    void accRight();
     void attack();
     void block();
+    void movement();
 
     int getHealth() const;
     void setHealth(int value);
@@ -27,9 +30,14 @@ protected:
     QRectF hitbox;
 
     int health = 100;
-    int speed = 5;
-    int maxSpeed = 20;
-    int jumpHeight;
+    int accelerationX = 2;
+    int acceleartionY = -2;
+    int speedX = 0;
+    int speedY = 0;
+    int maxSpeedX = 20;
+    int maxSpeedY = 20;
+    int jumpSpeed = 10;
+    int gravAcc = 1;
     int attackDamage;
 };
 

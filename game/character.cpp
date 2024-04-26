@@ -20,16 +20,19 @@ void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->drawRect(hitbox);  // Рисуем хитбокс вокруг персонажа
 }
 
-void Character::moveLeft() {
-    setPos(x() - speed, y()); // Плохая логика движения влево
+void Character::accLeft() {
+    if (speedX > (-1) * maxSpeedX)
+        speedX = speedX - accelerationX;
 }
 
-void Character::moveRight() {
-    setPos(x() + speed, y()); // Плохая логика движения вправо
+void Character::accRight() {
+    if (speedX < maxSpeedX)
+        speedX = speedX + accelerationX;
 }
 
-void Character::jump() {
-    // Реализация прыжка
+void Character::jump() {    // Реализация прыжка
+    if (1)          //TODO: флаг нижней коллизии
+        speedY = (-1) * jumpSpeed;
 }
 
 void Character::attack() {
@@ -40,6 +43,17 @@ void Character::attack() {
 void Character::block() {
     // Реализация блокирования
     // Это может включать изменение изображения на анимацию блокирования и уменьшение получаемого урона
+}
+
+void Character::movement() {
+    setPos(x() + speedX, y() + speedY);
+    if (speedX < 0)
+        speedX++;
+    else if (speedX > 0)
+        speedX--;
+
+    if (speedY < maxSpeedY)
+        speedY += gravAcc;
 }
 
 int Character::getHealth() const {

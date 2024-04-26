@@ -13,10 +13,10 @@ PlayerController::PlayerController(Character* character, QObject* parent)
 void PlayerController::update() {
     // Это плохая реализация, её нужно улучшить (переделать)
     if (movingLeft) {
-        character->moveLeft();
+        character->accLeft();
     }
     if (movingRight) {
-        character->moveRight();
+        character->accRight();
     }
     if (jumping) {
         character->jump();
@@ -27,6 +27,7 @@ void PlayerController::update() {
     if (attacking) {
         character->attack();
     }
+    character->movement();
 }
 
 bool PlayerController::eventFilter(QObject* obj, QEvent* event) {
