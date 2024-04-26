@@ -28,7 +28,7 @@ Platform::Platform(int x, int y, int width, int height, QGraphicsItem *parent)
 
 
 Arena::Arena(QObject *parent) : QGraphicsScene(parent), background(nullptr) {
-    // Инициализация сцены может быть выполнена здесь
+    // Инициализация сцены
 }
 
 void Arena::setupArena(const QSize size) {

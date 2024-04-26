@@ -1,11 +1,17 @@
 #include "PlayerController.h"
 
 PlayerController::PlayerController(Character* character, QObject* parent)
-    : QObject(parent), character(character) {
-    // Убедитесь, что контроллер устанавливается как фильтр событий для объекта, который получает ввод с клавиатуры.
+    : QObject(parent), character(character)
+{
+    movingLeft = false;
+    movingRight = false;
+    jumping = false;
+    blocking = false;
+    attacking = false;
 }
 
 void PlayerController::update() {
+    // Это плохая реализация, её нужно улучшить (переделать)
     if (movingLeft) {
         character->moveLeft();
     }
@@ -38,7 +44,7 @@ bool PlayerController::eventFilter(QObject* obj, QEvent* event) {
         case Qt::Key_Backslash:  // Атака
             attacking = true; break;
         default:
-            return QObject::eventFilter(obj, event);  // Пропустить необработанные клавиши
+            return QObject::eventFilter(obj, event);
         }
         return true;
     } else if (event->type() == QEvent::KeyRelease) { // Отпускание клавиши
@@ -59,6 +65,6 @@ bool PlayerController::eventFilter(QObject* obj, QEvent* event) {
         }
         return true;
     } else {
-        return QObject::eventFilter(obj, event);  // Пропустить другие типы событий
+        return QObject::eventFilter(obj, event);
     }
 }

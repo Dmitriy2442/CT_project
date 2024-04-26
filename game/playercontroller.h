@@ -12,19 +12,23 @@ public:
     explicit PlayerController(Character* character, QObject* parent = nullptr);
 
 public slots:
+    // Установка флагов обновления состояния персонажа
     void update();
 
 protected:
+    // Перехват событий клавиатуры
     bool eventFilter(QObject* obj, QEvent* event) override;
 
 private:
+    // Графическая модель персонажа (внутри есть хитбокс)
     Character* character;
 
-    bool movingLeft = false;
-    bool movingRight = false;
-    bool jumping = false;
-    bool blocking = false;
-    bool attacking = false;
+    // Флаги обновления состояния персонажа
+    bool movingLeft;
+    bool movingRight;
+    bool jumping;
+    bool blocking;
+    bool attacking;
 };
 
 #endif // PLAYERCONTROLLER_H
