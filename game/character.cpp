@@ -12,17 +12,18 @@ Character::Character(QString imagePath, QGraphicsItem *parent) :
 
     hitbox = calculateHitbox(pixmap().toImage());
 
+    // int blockRadius = qMax(pixmap().width(), pixmap().height()) / 2 + 10;
+
     setZValue(1); // Устанавливаем слой отрисовки
 }
 
-QRectF Character::boundingRect() const {
-    return hitbox; // Возвращаем хитбокс персонажа
-}
 
 void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     QGraphicsPixmapItem::paint(painter, option, widget);  // Рисуем изображение персонажа
     painter->setPen(Qt::red);  // Устанавливаем красный цвет для хитбокса
     painter->drawRect(hitbox);  // Рисуем хитбокс вокруг персонажа
+
+    // if (currentState == "Blocking")
 }
 
 QRectF Character::calculateHitbox(const QImage &image) {
@@ -70,7 +71,7 @@ void Character::updateState() {
     }
 
     if (speedX != 0) {
-        if (currentState != "Running!" && currentState != "Running2") {
+        if (currentState != "Running1" && currentState != "Running2") {
             currentState = "Running1";
             currentFrame = 0;
         } else if (currentFrame < runFrames) {
@@ -95,10 +96,14 @@ void Character::updateImage() {
 
     QTransform transform;
     transform.scale(lookDirection, 1);
-    QPixmap image = stateImages[currentState].transformed(transform);
-    setPixmap(image.scaled(image.width()*imageScale.width(), image.height()*imageScale.height()));
 
-    hitbox = calculateHitbox(pixmap().toImage());
+    QPixmap image = stateImages[currentState].transformed(transform);
+    image = image.scaled(image.width()*imageScale.width(), image.height()*imageScale.height());
+    setPixmap(image);
+
+    if (currentState != "Attacking") {
+        hitbox = calculateHitbox(image.toImage());
+    }
 }
 
 void Character::fixPosition() {
@@ -154,8 +159,9 @@ void Character::acceleration() {
     else if (speedX > 0)
         speedX--;
 
-    if (speedY < maxSpeedY)
-        speedY += gravAcc;
+    if (speedY < maxSpeedY) {
+        // speedY += gravAcc;
+    }
 }
 
 int Character::getHealth() const {

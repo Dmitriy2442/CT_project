@@ -36,15 +36,15 @@ bool PlayerController::eventFilter(QObject* obj, QEvent* event) {
     if (event->type() == QEvent::KeyPress) {
         QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
         switch (keyEvent->key()) {
-        case Qt::Key_Left:   // Движение влево
+        case Qt::Key_A:   // Движение влево
             movingLeft = true; break;
-        case Qt::Key_Right:  // Движение вправо
+        case Qt::Key_D:  // Движение вправо
             movingRight = true; break;
-        case Qt::Key_Up:     // Прыжок
+        case Qt::Key_W:     // Прыжок
             jumping = true; break;
-        case Qt::Key_Down:   // Блокирование
+        case Qt::Key_S:   // Блокирование
             blocking = true; break;
-        case Qt::Key_Slash:  // Атака
+        case Qt::Key_Space:  // Атака
             attacking = true; break;
         default:
             return QObject::eventFilter(obj, event);
@@ -53,15 +53,15 @@ bool PlayerController::eventFilter(QObject* obj, QEvent* event) {
     } else if (event->type() == QEvent::KeyRelease) { // Отпускание клавиши
         QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
         switch (keyEvent->key()) {
-        case Qt::Key_Left:
+        case Qt::Key_A:
             movingLeft = false; break;
-        case Qt::Key_Right:
+        case Qt::Key_D:
             movingRight = false; break;
-        case Qt::Key_Up:
+        case Qt::Key_W:
             jumping = false; break;
-        case Qt::Key_Down:
+        case Qt::Key_S:
             blocking = false; break;
-        case Qt::Key_Slash:
+        case Qt::Key_Space:
             attacking = false; break;
         default:
             return QObject::eventFilter(obj, event);

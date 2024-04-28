@@ -15,7 +15,6 @@ class Character : public QObject, public QGraphicsPixmapItem
 public:
     Character(QString imagePath, QGraphicsItem *parent = nullptr);
 
-    QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     QRectF calculateHitbox(const QImage &image);
@@ -57,9 +56,10 @@ protected:
     int attackFrames = 15;
     int attackCooldown = 15;
     int attackCooldownCounter = 0;
-    int runFrames = 5;
+    int runFrames = 7;
     int currentFrame = 0;
 
+    // int blockRadius = 25; // Default value, assigned dynamically in constructor
 
     int health = 100;
     short lookDirection = 1;
