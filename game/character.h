@@ -28,7 +28,7 @@ public:
     void accLeft();
     void accRight();
     void attack();
-    void block();
+    void block(bool value);
     void acceleration();
 
     int getHealth() const;
@@ -59,7 +59,7 @@ protected:
     int runFrames = 7;
     int currentFrame = 0;
 
-    // int blockRadius = 25; // Default value, assigned dynamically in constructor
+    int blockRadius = 25; // Default value, assigned dynamically in constructor
 
     int health = 100;
     short lookDirection = 1;

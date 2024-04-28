@@ -8,11 +8,13 @@ Character::Character(QString imagePath, QGraphicsItem *parent) :
         stateImages[State[i]] = QPixmap(imagePath + "/" + State[i] + ".png");
     }
 
-    setPixmap(stateImages["Standing"].scaled(stateImages["Standing"].width()*imageScale.width(), stateImages["Standing"].height()*imageScale.height()));
+    QPixmap basePixmap = stateImages["Standing"];
+    basePixmap = basePixmap.scaled(basePixmap.width()*imageScale.width(), basePixmap.height()*imageScale.height());
+    setPixmap(basePixmap);
 
     hitbox = calculateHitbox(pixmap().toImage());
 
-    // int blockRadius = qMax(pixmap().width(), pixmap().height()) / 2 + 10;
+    blockRadius = qMax(hitbox.width(), hitbox.height()) / 2 + 5;
 
     setZValue(1); // Устанавливаем слой отрисовки
 }
@@ -23,7 +25,11 @@ void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->setPen(Qt::red);  // Устанавливаем красный цвет для хитбокса
     painter->drawRect(hitbox);  // Рисуем хитбокс вокруг персонажа
 
-    // if (currentState == "Blocking")
+    if (currentState == "Blocking") {
+        painter->setPen(QPen(Qt::red, 3));
+        painter->setBrush(Qt::NoBrush);
+        painter->drawEllipse(hitbox.center(), blockRadius, blockRadius);
+    }
 }
 
 QRectF Character::calculateHitbox(const QImage &image) {
@@ -147,9 +153,12 @@ void Character::attack() {
     // Это может включать изменение изображения на анимацию атаки и проверку попадания
 }
 
-void Character::block() {
-    // Реализация блокирования
-    // Это может включать изменение изображения на анимацию блокирования и уменьшение получаемого урона
+void Character::block(bool value) {
+    this->isBlocking = value;
+    if (value) {
+        // Реализация блокирования
+        // Это может включать изменение изображения на анимацию блокирования и уменьшение получаемого урона
+    }
 }
 
 void Character::acceleration() {

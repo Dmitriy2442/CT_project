@@ -12,6 +12,8 @@ PlayerController::PlayerController(Character* character, QObject* parent)
 
 void PlayerController::update() {
     // Это плохая реализация, её нужно улучшить (переделать)
+
+    // IDEA: Написать персонажу метод, который будет принимать флаги контроллера и обрабатывать их сам
     if (movingLeft) {
         character->accLeft();
     }
@@ -21,15 +23,14 @@ void PlayerController::update() {
     if (jumping) {
         character->jump();
     }
-    if (blocking) {
-        character->block();
-    }
     if (attacking) {
         character->attack();
     }
+    character->block(blocking);
+
     character->acceleration();
     character->updateImage();
-    character->fixPosition(); // ЭТО ЧЕРТОВ КОСТЫЛЬ, НО ПУСТЬ ОН БУДЕТ ХОТЯ БЫ НА ЭКРАНЕ
+    character->fixPosition(); // ЭТО ЧЕРТОВ КОСТЫЛЬ, НО ПУСТЬ ПЕРСОНАЖ ХОТЯ БЫ БУДЕТ НА ЭКРАНЕ
 }
 
 bool PlayerController::eventFilter(QObject* obj, QEvent* event) {
