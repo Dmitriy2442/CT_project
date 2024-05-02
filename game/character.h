@@ -6,6 +6,9 @@
 #include <QObject>
 #include <QtGlobal>
 #include <QTransform>
+#include <QVector>
+#include <QRectF>
+#include <QPair>
 
 #include <QtMath>
 
@@ -13,7 +16,7 @@ class Character : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
-    Character(QString imagePath, QGraphicsItem *parent = nullptr);
+    Character(QString imagePath, QVector<QRectF> arena_platforms, QGraphicsItem *parent = nullptr);
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
@@ -30,6 +33,9 @@ public:
     void attack();
     void block(bool value);
     void acceleration();
+
+    int checkCollision();
+    void movement();
 
     int getHealth() const;
     void setHealth(int value);
@@ -73,6 +79,8 @@ protected:
     int jumpSpeed = 10;
     int gravAcc = 1;
     int attackDamage;
+
+    QVector<QRectF> platforms;
 };
 
 #endif // CHARACTER_H

@@ -25,7 +25,7 @@ Game::Game(QWidget *parent)
     arena->setupArena(QSize(1280, 720));
 
     // Создание 1-го игрока
-    player1 = new Character(":/samurai");
+    player1 = new Character(":/samurai", arena->getPlatforms());
     arena->addItem(player1);
     player1->setPos(640, 360);
     // Создание контроллера для 1-го игрока
@@ -34,7 +34,7 @@ Game::Game(QWidget *parent)
     connect(this, &Game::updateTick, player1Controller, &PlayerController::update);
 
     // Создание 2-го игрока
-    player2 = new Character(":/icons/amogus.png");
+    player2 = new Character(":/icons/amogus.png", arena->getPlatforms());
     arena->addItem(player2);
     player2->setPos(300, 360);
 
