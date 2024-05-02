@@ -8,23 +8,30 @@ Character::Character(QString imagePath, QVector<QRectF> arena_platforms, QGraphi
         stateImages[State[i]] = QPixmap(imagePath + "/" + State[i] + ".png");
     }
 
-    setPixmap(stateImages["Standing"].scaled(stateImages["Standing"].width()*imageScale.width(), stateImages["Standing"].height()*imageScale.height()));
+    QPixmap basePixmap = stateImages["Standing"];
+    basePixmap = basePixmap.scaled(basePixmap.width()*imageScale.width(), basePixmap.height()*imageScale.height());
+    setPixmap(basePixmap);
 
     hitbox = calculateHitbox(pixmap().toImage());
+
+    blockRadius = qMax(hitbox.width(), hitbox.height()) / 2 + 5;
 
     setZValue(1); // Устанавливаем слой отрисовки
 
     platforms = arena_platforms;
 }
 
-QRectF Character::boundingRect() const {
-    return hitbox; // Возвращаем хитбокс персонажа
-}
 
 void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     QGraphicsPixmapItem::paint(painter, option, widget);  // Рисуем изображение персонажа
     painter->setPen(Qt::red);  // Устанавливаем красный цвет для хитбокса
     painter->drawRect(hitbox);  // Рисуем хитбокс вокруг персонажа
+
+    if (currentState == "Blocking") {
+        painter->setPen(QPen(Qt::red, 3));
+        painter->setBrush(Qt::NoBrush);
+        painter->drawEllipse(hitbox.center(), blockRadius, blockRadius);
+    }
 }
 
 QRectF Character::calculateHitbox(const QImage &image) {
@@ -51,29 +58,84 @@ QRectF Character::calculateHitbox(const QImage &image) {
 }
 
 void Character::updateState() {
-    if (currentState == "Attacking" && currentAttackFrame < attackFrames) {
-        ++currentAttackFrame;
+    if (currentState == "Attacking" && currentFrame < attackFrames) {
+        ++currentFrame;
         return;
-    } else if (currentState == "Attacking" && currentAttackFrame == attackFrames) {
-        currentAttackFrame = 0;
+    } else if (currentState == "Attacking" && currentFrame == attackFrames) {
+        currentFrame = 0;
+        attackCooldownCounter = attackCooldown;
         currentState = "Standing";
     }
+    attackCooldownCounter = qMax(0, attackCooldownCounter - 1);
 
+    if (speedY > 0) {
+        currentState = "Falling";
+        return;
+    }
 
+    if (speedY < 0) {
+        currentState = "Jumping";
+        return;
+    }
+
+    if (speedX != 0) {
+        if (currentState != "Running1" && currentState != "Running2") {
+            currentState = "Running1";
+            currentFrame = 0;
+        } else if (currentFrame < runFrames) {
+            ++currentFrame;
+        } else {
+            currentFrame = 0;
+            currentState = (currentState == "Running1") ? "Running2" : "Running1";
+        }
+        return;
+    }
+
+    if (isBlocking) {
+        currentState = "Blocking";
+        return;
+    }
+
+    currentState = "Standing";
 }
 
 void Character::updateImage() {
-    setPixmap(stateImages[currentState].scaled(stateImages[currentState].width()*imageScale.width(), stateImages[currentState].height()*imageScale.height()));
+    updateState();
 
-    hitbox = calculateHitbox(pixmap().toImage());
+    QTransform transform;
+    transform.scale(lookDirection, 1);
+
+    QPixmap image = stateImages[currentState].transformed(transform);
+    image = image.scaled(image.width()*imageScale.width(), image.height()*imageScale.height());
+    setPixmap(image);
+
+    if (currentState != "Attacking") {
+        hitbox = calculateHitbox(image.toImage());
+    }
+}
+
+void Character::fixPosition() {
+    // Функция проверяет hitbox и сдвигает его, если он выходит за границы экранаq
+    if (x() + hitbox.x() < 0) {
+        setPos(0 - hitbox.x(), y());
+    } else if (x() + hitbox.x() + hitbox.width() > 1280) {
+        setPos(1280 - hitbox.width() - hitbox.x(), y());
+    }
+    if (y() + hitbox.y() < 0) {
+        setPos(x(), 0 - hitbox.y());
+    } else if (y() + hitbox.y() + hitbox.height() > 720) {
+        setPos(x(), 720 - hitbox.height() - hitbox.y());
+    }
 }
 
 void Character::accLeft() {
+    lookDirection = -1;
     if (speedX > (-1) * maxSpeedX)
         speedX = speedX - accelerationX;
 }
 
 void Character::accRight() {
+    lookDirection = 1;
     if (speedX < maxSpeedX)
         speedX = speedX + accelerationX;
 }
@@ -84,13 +146,21 @@ void Character::jump() {    // Реализация прыжка
 }
 
 void Character::attack() {
+    if (attackCooldownCounter > 0 || currentState == "Attacking") {
+        return;
+    }
+    currentState = "Attacking";
+    currentFrame = 0;
     // Реализация атаки
     // Это может включать изменение изображения на анимацию атаки и проверку попадания
 }
 
-void Character::block() {
-    // Реализация блокирования
-    // Это может включать изменение изображения на анимацию блокирования и уменьшение получаемого урона
+void Character::block(bool value) {
+    this->isBlocking = value;
+    if (value) {
+        // Реализация блокирования
+        // Это может включать изменение изображения на анимацию блокирования и уменьшение получаемого урона
+    }
 }
 
 void Character::acceleration() {
@@ -100,8 +170,9 @@ void Character::acceleration() {
     else if (speedX > 0)
         speedX--;
 
-    if (speedY < maxSpeedY)
-        speedY += gravAcc;
+    if (speedY < maxSpeedY) {
+        // speedY += gravAcc;
+    }
 }
 
 int Character::checkCollision() {

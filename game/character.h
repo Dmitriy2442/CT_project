@@ -5,6 +5,7 @@
 #include <QPainter>
 #include <QObject>
 #include <QtGlobal>
+#include <QTransform>
 #include <QVector>
 #include <QRectF>
 #include <QPair>
@@ -17,7 +18,6 @@ class Character : public QObject, public QGraphicsPixmapItem
 public:
     Character(QString imagePath, QVector<QRectF> arena_platforms, QGraphicsItem *parent = nullptr);
 
-    QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     QRectF calculateHitbox(const QImage &image);
@@ -25,11 +25,13 @@ public:
     void updateState();
     void updateImage();
 
+    void fixPosition(); // Костыль метод
+
     void jump();
     void accLeft();
     void accRight();
     void attack();
-    void block();
+    void block(bool value);
     void acceleration();
 
     int checkCollision();
@@ -57,10 +59,17 @@ protected:
 
     QString currentState = "Standing";
     int frameUpdateRate = 5;
-    int attackFrames = 30;
-    int currentAttackFrame = 0;
+    int attackFrames = 15;
+    int attackCooldown = 15;
+    int attackCooldownCounter = 0;
+    int runFrames = 7;
+    int currentFrame = 0;
+
+    int blockRadius = 25; // Default value, assigned dynamically in constructor
 
     int health = 100;
+    short lookDirection = 1;
+    bool isBlocking = false;
     qreal accelerationX = 2;
     qreal acceleartionY = -2;
     qreal speedX = 0;
