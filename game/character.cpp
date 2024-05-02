@@ -1,7 +1,7 @@
 #include "game/character.h"
 
 
-Character::Character(QString imagePath, QGraphicsItem *parent) :
+Character::Character(QString imagePath, QVector<QRectF> arena_platforms, QGraphicsItem *parent) :
     QGraphicsPixmapItem(parent)
 {
     for (int i = 0; i < State.size(); ++i) {
@@ -13,6 +13,8 @@ Character::Character(QString imagePath, QGraphicsItem *parent) :
     hitbox = calculateHitbox(pixmap().toImage());
 
     setZValue(1); // Устанавливаем слой отрисовки
+
+    platforms = arena_platforms;
 }
 
 QRectF Character::boundingRect() const {
@@ -100,6 +102,36 @@ void Character::acceleration() {
 
     if (speedY < maxSpeedY)
         speedY += gravAcc;
+}
+
+int Character::checkCollision() {
+    for (int i = 0; i < platforms.size(); i++) {
+        QRectF current_hitbox(x()+hitbox.x(), y()+hitbox.y(), hitbox.width(), hitbox.height());
+        qDebug() << hitbox;
+        if (current_hitbox.intersects(platforms[i])) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void Character::movement() {
+    qreal varSpeedX, varSpeedY;
+    varSpeedX = speedX;
+    varSpeedY = speedY;
+
+    setPos(x() + varSpeedX, y());
+    if (checkCollision() > -1) {
+        setPos(x() - varSpeedX, y());
+        varSpeedX = 0;
+    }
+    setPos(x(), y() + varSpeedY);
+    if (checkCollision() > -1) {
+        setPos(x(), y() - varSpeedY);
+        varSpeedY = 0;
+    }
+    speedX = varSpeedX;
+    speedY = varSpeedY;
 }
 
 int Character::getHealth() const {

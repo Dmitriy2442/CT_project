@@ -28,6 +28,7 @@ void PlayerController::update() {
         character->attack();
     }
     character->acceleration();
+    character->movement();
 }
 
 bool PlayerController::eventFilter(QObject* obj, QEvent* event) {

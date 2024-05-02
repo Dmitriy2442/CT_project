@@ -46,7 +46,13 @@ void Arena::setupArena(const QSize size) {
     addPlatform(830, 400, 250, 20); // Правая платформа
 }
 
+QVector<QRectF> Arena::getPlatforms() {
+    return platforms;
+}
+
 void Arena::addPlatform(qreal x, qreal y, qreal width, qreal height) {
     Platform *platform = new Platform(x, y, width, height);
     addItem(platform);
+    QRectF hitbox(x, y, width, height);
+    platforms.push_back(hitbox);
 }
