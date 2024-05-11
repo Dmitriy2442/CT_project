@@ -141,7 +141,7 @@ void Character::accRight() {
 }
 
 void Character::jump() {    // Реализация прыжка
-    if (1)          //TODO: флаг нижней коллизии
+    if (standingCondition())
         speedY = (-1) * jumpSpeed;
 }
 
@@ -164,21 +164,19 @@ void Character::block(bool value) {
 }
 
 void Character::acceleration() {
-    setPos(x() + speedX, y() + speedY);
     if (speedX < 0)
         speedX++;
     else if (speedX > 0)
         speedX--;
 
-    if (speedY < maxSpeedY) {
-        // speedY += gravAcc;
+    if ((speedY < maxSpeedY) && (!standingCondition())) {
+         speedY += gravAcc;
     }
 }
 
 int Character::checkCollision() {
     for (int i = 0; i < platforms.size(); i++) {
         QRectF current_hitbox(x()+hitbox.x(), y()+hitbox.y(), hitbox.width(), hitbox.height());
-        qDebug() << hitbox;
         if (current_hitbox.intersects(platforms[i])) {
             return i;
         }
@@ -186,15 +184,28 @@ int Character::checkCollision() {
     return -1;
 }
 
+bool Character::standingCondition() {
+    setPos(x(), y() + 1);
+    if (checkCollision() > -1) {
+        setPos(x(), y() - 1);
+        return 1;
+    }
+    else
+        return 0;
+}
+
 void Character::movement() {
     qreal varSpeedX, varSpeedY;
     varSpeedX = speedX;
     varSpeedY = speedY;
 
+    qDebug() << x() << varSpeedX;
     setPos(x() + varSpeedX, y());
+    qDebug() << x() << varSpeedX;
     if (checkCollision() > -1) {
         setPos(x() - varSpeedX, y());
         varSpeedX = 0;
+        qDebug() << x() << varSpeedX;
     }
     setPos(x(), y() + varSpeedY);
     if (checkCollision() > -1) {
@@ -203,6 +214,9 @@ void Character::movement() {
     }
     speedX = varSpeedX;
     speedY = varSpeedY;
+
+    while (checkCollision() > -1)
+        setPos(x(), y() - 1);
 }
 
 int Character::getHealth() const {

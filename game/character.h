@@ -35,6 +35,7 @@ public:
     void acceleration();
 
     int checkCollision();
+    bool standingCondition();
     void movement();
 
     int getHealth() const;
@@ -76,8 +77,8 @@ protected:
     qreal speedY = 0;
     int maxSpeedX = 20;
     int maxSpeedY = 20;
-    int jumpSpeed = 10;
-    int gravAcc = 1;
+    int jumpSpeed = 20;
+    qreal gravAcc = 0.6;
     int attackDamage;
 
     QVector<QRectF> platforms;
