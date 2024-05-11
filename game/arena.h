@@ -7,6 +7,8 @@
 #include <QBrush>
 #include <QPen>
 #include <QGraphicsDropShadowEffect>
+#include <QVector>
+#include <QRectF>
 
 class Platform : public QGraphicsPathItem {
 public:
@@ -19,10 +21,12 @@ class Arena : public QGraphicsScene
 public:
     explicit Arena(QObject *parent = nullptr);
     void setupArena(const QSize size={1280, 720});
+    QVector<QRectF> getPlatforms();
 
 private:
     void addPlatform(qreal x, qreal y, qreal width, qreal height);
 
+    QVector<QRectF> platforms;
     QGraphicsPixmapItem *background;
 };
 
