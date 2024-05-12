@@ -3,6 +3,8 @@
 
 #include <QApplication>
 #include <QFontDatabase>
+#include <QMediaPlayer>
+#include <QAudioOutput>
 
 int main(int argc, char *argv[])
 {
@@ -16,6 +18,16 @@ int main(int argc, char *argv[])
     } else {
         qDebug() << "Warning, failed to load font.";
     }
+
+    QMediaPlayer * player = new QMediaPlayer;
+    QAudioOutput * output = new QAudioOutput;
+
+    player->setAudioOutput(output);
+    player->setSource(QUrl::fromLocalFile(":/sounds/music.wav"));
+
+    output->setVolume(50);
+
+    player->play();
 
     MainWindow w;
     w.show();
