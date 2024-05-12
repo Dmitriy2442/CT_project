@@ -30,4 +30,7 @@
         <file alias="Standing.png">assets/chars/samurai/Standing.png</file>
         <file alias="Blocking.png">assets/chars/samurai/Blocking.png</file>
     </qresource>
+    <qresource prefix="/music">
+        <file>assets/music/music.mp3</file>
+    </qresource>
 </RCC>

@@ -1,4 +1,5 @@
 #include "game/character.h"
+#include <cmath>
 
 
 Character::Character(QString imagePath, QVector<QRectF> arena_platforms, QGraphicsItem *parent) :
@@ -220,12 +221,17 @@ void Character::movement() {
 }
 
 int Character::getHealth() const {
-    return health;
+    return 100 - damage;
 }
 
 void Character::setHealth(int value) {
-    health = value;
-    if (health <= 0) {
+    damage = 100 - value;
+    if (damage >= 100) {
         // Обработка смерти персонажа, возможно, отправка сигнала
     }
+}
+
+void Character::damaged(int power=20) {
+    damage += abs(power);
+    speedX *= (damage / 10);
 }

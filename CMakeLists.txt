@@ -15,6 +15,8 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 # Подключение SQL
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Sql)
 
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS MultimediaWidgets)
+
 # Добавление всех заголовочных файлов из директории headers
 file(GLOB HEADER_FILES "headers/*.h")
 
@@ -82,6 +84,8 @@ endif()
 
 target_link_libraries(CT_project PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 target_link_libraries(CT_project PRIVATE Qt${QT_VERSION_MAJOR}::Sql)
+target_link_libraries(CT_project PRIVATE Qt${QT_VERSION_MAJOR}::MultimediaWidgets)
+
 include_directories(./)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

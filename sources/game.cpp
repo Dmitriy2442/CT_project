@@ -48,6 +48,16 @@ Game::Game(QWidget *parent)
     // Подключение кнопок
     connect(pauseMenuUi->resumeButton, &QPushButton::clicked, this, &Game::resumeGame);
     connect(pauseMenuUi->endGameButton, &QPushButton::clicked, this, &Game::endGameButtonClicked);
+
+    QMediaPlayer * player = new QMediaPlayer(this);
+    QAudioOutput * output = new QAudioOutput();
+
+    player->setAudioOutput(output);
+    player->setSource(QUrl("qrc:/music/music.mp3"));
+
+    output->setVolume(0.5);
+
+    player->play();
 }
 
 void Game::updateGame()
