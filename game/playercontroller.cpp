@@ -28,6 +28,7 @@ void PlayerController::update() {
     }
     character->block(blocking);
 
+    character->attackUpdate();
     character->acceleration();
     character->movement();
     character->updateImage();

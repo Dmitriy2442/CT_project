@@ -1,4 +1,5 @@
 #include "game/character.h"
+#include <cmath>
 
 Character::Character(int char_id, QString imagePath, QVector<QRectF> arena_platforms, QVector<attackZone> *attackZonesVec, QGraphicsItem *parent) :
     QGraphicsPixmapItem(parent)
@@ -142,6 +143,7 @@ void Character::deathConditions() {
         setPos(640 - hitbox.x() - hitbox.width()/2, 200);
         speedX = 0;
         speedY = 0;
+	damage = 0;
 
         if (health <= 0)
             emit death(id);
@@ -213,13 +215,15 @@ int Character::checkCollision() {
 }
 
 bool Character::standingCondition() {
-    setPos(x(), y() + 1);
+    setPos(x(), y() + 20);
     if (checkCollision() > -1) {
-        setPos(x(), y() - 1);
+        setPos(x(), y() - 20);
         return 1;
     }
-    else
+    else {
+	setPos(x(), y() - 20);
         return 0;
+    }
 }
 
 void Character::movement() {
@@ -249,16 +253,21 @@ void Character::movement() {
 void Character::attackUpdate() {
     QRectF current_hitbox(x()+hitbox.x(), y()+hitbox.y(), hitbox.width(), hitbox.height());
     if (current_hitbox.intersects((*attackZones)[!id].hitbox))
-        return;   //Место для функции Кирпича
+        damaged((*attackZones)[!id].attackPower);
 }
 
 int Character::getHealth() const {
-    return health;
+    return 100 - damage;
 }
 
 void Character::setHealth(int value) {
-    health = value;
-    if (health <= 0) {
+    damage = 100 - value;
+    if (damage >= 100) {
         // Обработка смерти персонажа, возможно, отправка сигнала
     }
+}
+
+void Character::damaged(int power) {
+    damage += abs(power);
+    speedX = damage * power/abs(power);
 }
