@@ -249,7 +249,7 @@ void Character::movement() {
 void Character::attackUpdate() {
     QRectF current_hitbox(x()+hitbox.x(), y()+hitbox.y(), hitbox.width(), hitbox.height());
     if (current_hitbox.intersects((*attackZones)[!id].hitbox))
-        return;   //Место для функции Кирпича
+        damaged((*attackZones)[!id].attackPower);
 }
 
 int Character::getHealth() const {
