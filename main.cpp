@@ -23,9 +23,9 @@ int main(int argc, char *argv[])
     QAudioOutput * output = new QAudioOutput;
 
     player->setAudioOutput(output);
-    player->setSource(QUrl::fromLocalFile(":/sounds/music.wav"));
+    player->setSource(QUrl("qrc:/sounds/music.wav"));
 
-    output->setVolume(50);
+    output->setVolume(100);
 
     player->play();
 
