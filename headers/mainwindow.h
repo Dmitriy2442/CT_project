@@ -5,6 +5,7 @@
 #include "headers/charSelect.h"
 #include "headers/game.h"
 #include "components/iconbutton.h"
+#include "headers/history.h"
 
 #include <QMainWindow>
 #include <QPalette>
@@ -12,6 +13,7 @@
 #include <QFontDatabase>
 #include <QStackedWidget>
 #include <QRegularExpression>
+#include <QThread>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -33,18 +35,25 @@ public:
 public slots:
     void goToCharSelectPage();
     void goToMainMenuPage();
-    void goToAuthorsPage();
+    void goToHistoryPage();
     void goToSettingsPage();
     void beginGame();
+    void gameEnded(QString name1, QString name2, QString winner);
+
+signals:
+    void updateHistory(QVector<QVector<QString>> matches);
 
 private:
-    QHash<QString, int> const ui2idx = {{"mainMenu", 0}, {"authors", 1}, {"settings", 2},
+    QHash<QString, int> const ui2idx = {{"mainMenu", 0}, {"history", 1}, {"settings", 2},
                                         {"charSelect", 3}, {"game", 4}};
 
     QVector<QString> palette;
     int paletteIterator = 0;
 
+    DBController *db;
+
     Ui::MainWindow *ui;
+    HistoryForm *history;
     CharSelect *charSelect;
 };
 

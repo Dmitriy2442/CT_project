@@ -9,18 +9,18 @@
 #include <QString>
 #include <QSqlError>
 
-class DBController {
+class DBController : public QObject  {
+    Q_OBJECT
 private:
     QSqlDatabase db;
 
 public:
     DBController();
+
     QVector<QPair<QString, QString>> getCharactersData(QVector<QString> names = {});
-    /* TODO: Функция, которая получает из одного или сразу из двух имен всю необходимую для создания игровых персонажей информацию
-        (я не знаю какая информация нужна для этого, это целиком на игровой логике висит) */
-
-
     QVector<QString> getColorPalette(QString color = "");
+    void insertMatchResults(const QString &name1, const QString &name2, const QString &winner);
+    QVector<QVector<QString>> getLast5MatchResults();
 };
 
 #endif // DBCONTROLLER_H

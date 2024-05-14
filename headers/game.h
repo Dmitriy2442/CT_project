@@ -24,7 +24,7 @@ class Game : public QWidget
 
 signals:
     void updateTick();
-    void endGameSignal();
+    void endGameSignal(QString name1, QString name2, QString winner="");
 
 public:
     explicit Game(QWidget *parent = nullptr);
@@ -58,6 +58,7 @@ private:
     PlayerController *player2Controller;
 
     QVector<QString> names = {"", ""};
+    QString winner = "";
 
     QTimer *gameTimer;
     QGraphicsView *view;
