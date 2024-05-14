@@ -37,16 +37,12 @@ public slots:
     void goToSettingsPage();
     void beginGame();
 
-    void getChosenCharsNames(const QString &name1, const QString &name2);
-
 private:
     QHash<QString, int> const ui2idx = {{"mainMenu", 0}, {"authors", 1}, {"settings", 2},
                                         {"charSelect", 3}, {"game", 4}};
 
     QVector<QString> palette;
     int paletteIterator = 0;
-
-    QVector<QString> chosenNames = {"", ""};
 
     Ui::MainWindow *ui;
     CharSelect *charSelect;

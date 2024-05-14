@@ -40,7 +40,7 @@
     <property name="styleSheet">
      <string notr="true">QLabel {
 	color: #ffffff;
-	font-size: 60px;
+	font-size: 128px;
 } </string>
     </property>
     <property name="text">

@@ -29,7 +29,7 @@ void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->drawRect(hitbox);  // Рисуем хитбокс вокруг персонажа
     if (currentState == "Attacking") {
         painter->drawRect((*attackZones)[id].hitbox);   //Хитбокс атаки
-        qDebug() << (*attackZones)[id].hitbox;
+        // qDebug() << (*attackZones)[id].hitbox;
     }
 
     painter->drawRect(boundingRect());

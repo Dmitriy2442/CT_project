@@ -14,6 +14,7 @@ Game::Game(QWidget *parent)
     pauseMenuUi->setupUi(pauseMenu);
     pauseMenu->hide();
 
+    endGameMenu = ui->endGameMenu;
     ui->endGameMenu->hide();
 
     view = new QGraphicsView(this);
@@ -74,7 +75,7 @@ void Game::updateGame()
 
 void Game::playerDead(int id)
 {
-    qDebug() << "Player " << id << " died!";
+    ui->winnerLabel->setText(names[(id+1)%2] + " wins!");
     gameTimer->stop();
     ui->endGameMenu->show();
     ui->endGameMenu->raise();
@@ -86,6 +87,12 @@ void Game::endGameButtonClicked()
     endGame();
 }
 
+void Game::getNames(const QString &name1, const QString &name2)
+{
+    names[0] = name1;
+    names[1] = name2;
+}
+
 void Game::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_Escape)
@@ -95,11 +102,6 @@ void Game::keyPressEvent(QKeyEvent *event)
         else
             resumeGame();
     }
-}
-
-void Game::startGame()
-{
-    // Start game here
 }
 
 void Game::pauseGame()
@@ -119,6 +121,14 @@ void Game::endGame()
 {
     qDebug() << "Game ended!";
     emit endGameSignal();
+}
+
+void Game::setupClear() {
+    // Reset all character locations and health
+    player1->setPos(arena->initPos1().first, arena->initPos1().second);
+    player1->setHealth(300);
+    player2->setPos(arena->initPos2().first, arena->initPos2().second);
+    player2->setHealth(300);
 }
 
 Game::~Game()

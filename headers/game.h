@@ -28,22 +28,26 @@ public:
     explicit Game(QWidget *parent = nullptr);
     ~Game();
 
-    void startGame();
     void pauseGame();
     void resumeGame();
     void endGame();
+
+    void setupClear();
+
+    QWidget *pauseMenu;
+    QWidget *endGameMenu;
 
 public slots:
     void updateGame();
     void playerDead(int id);
     void endGameButtonClicked();
 
+    void getNames(const QString &name1, const QString &name2);
+
 protected:
     void keyPressEvent(QKeyEvent *event) override;
 
 private:
-
-    Ui::Game *ui;
 
     Arena *arena;
     Character *player1;
@@ -51,10 +55,12 @@ private:
     PlayerController *player1Controller;
     PlayerController *player2Controller;
 
+    QVector<QString> names = {"", ""};
+
     QTimer *gameTimer;
     QGraphicsView *view;
 
-    QWidget *pauseMenu;
+    Ui::Game *ui;
 };
 
 #endif // GAME_H
