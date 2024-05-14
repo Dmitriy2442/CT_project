@@ -21,13 +21,22 @@
     <qresource prefix="/images">
         <file alias="background.jpg">assets/images/background.jpg</file>
     </qresource>
-    <qresource prefix="/samurai">
-        <file alias="Attacking.png">assets/chars/samurai/Attacking.png</file>
-        <file alias="Falling.png">assets/chars/samurai/Falling.png</file>
-        <file alias="Jumping.png">assets/chars/samurai/Jumping.png</file>
-        <file alias="Running1.png">assets/chars/samurai/Running1.png</file>
-        <file alias="Running2.png">assets/chars/samurai/Running2.png</file>
-        <file alias="Standing.png">assets/chars/samurai/Standing.png</file>
-        <file alias="Blocking.png">assets/chars/samurai/Blocking.png</file>
+    <qresource prefix="/samurai_blue">
+        <file alias="Attacking.png">assets/chars/samurai_blue/Attacking.png</file>
+        <file alias="Falling.png">assets/chars/samurai_blue/Falling.png</file>
+        <file alias="Jumping.png">assets/chars/samurai_blue/Jumping.png</file>
+        <file alias="Running1.png">assets/chars/samurai_blue/Running1.png</file>
+        <file alias="Running2.png">assets/chars/samurai_blue/Running2.png</file>
+        <file alias="Standing.png">assets/chars/samurai_blue/Standing.png</file>
+        <file alias="Blocking.png">assets/chars/samurai_blue/Blocking.png</file>
+    </qresource>
+    <qresource prefix="/samurai_red">
+        <file alias="Attacking.png">assets/chars/samurai_red/Attacking.png</file>
+        <file alias="Falling.png">assets/chars/samurai_red/Falling.png</file>
+        <file alias="Jumping.png">assets/chars/samurai_red/Jumping.png</file>
+        <file alias="Running1.png">assets/chars/samurai_red/Running1.png</file>
+        <file alias="Running2.png">assets/chars/samurai_red/Running2.png</file>
+        <file alias="Standing.png">assets/chars/samurai_red/Standing.png</file>
+        <file alias="Blocking.png">assets/chars/samurai_red/Blocking.png</file>
     </qresource>
 </RCC>

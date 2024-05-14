@@ -30,7 +30,7 @@ Game::Game(QWidget *parent)
     (*attackZones)[1] = {QRectF(), 0};
 
     // Создание 1-го игрока
-    player1 = new Character(0, ":/samurai", arena->getPlatforms(), attackZones);
+    player1 = new Character(0, ":/samurai_blue", arena->getPlatforms(), attackZones);
     arena->addItem(player1);
     player1->setPos(640, 360);
     // Создание контроллера для 1-го игрока
