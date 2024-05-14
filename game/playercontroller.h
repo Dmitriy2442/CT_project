@@ -9,7 +9,7 @@
 class PlayerController : public QObject {
     Q_OBJECT
 public:
-    explicit PlayerController(Character* character, QObject* parent = nullptr);
+    explicit PlayerController(int playerId, Character* character, QObject* parent = nullptr);
 
 public slots:
     // Установка флагов обновления состояния персонажа
@@ -29,6 +29,9 @@ private:
     bool jumping;
     bool blocking;
     bool attacking;
+
+    //Номер персонажа
+    int id;
 };
 
 #endif // PLAYERCONTROLLER_H

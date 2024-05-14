@@ -29,7 +29,7 @@ Game::Game(QWidget *parent)
     arena->addItem(player1);
     player1->setPos(arena->initPos1().first, arena->initPos1().second);
     // Создание контроллера для 1-го игрока
-    player1Controller = new PlayerController(player1);
+    player1Controller = new PlayerController(0, player1);
     view->installEventFilter(player1Controller); // Подключение контроллера к виджету
     connect(this, &Game::updateTick, player1Controller, &PlayerController::update);
 
@@ -37,6 +37,10 @@ Game::Game(QWidget *parent)
     player2 = new Character(":/icons/amogus.png", arena->getPlatforms());
     arena->addItem(player2);
     player2->setPos(arena->initPos2().first, arena->initPos2().second);
+    // Создание контроллера для 2-го игрока
+    player2Controller = new PlayerController(1, player2);
+    view->installEventFilter(player2Controller); // Подключение контроллера к виджету
+    connect(this, &Game::updateTick, player2Controller, &PlayerController::update);
 
 
 
