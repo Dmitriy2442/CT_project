@@ -9,6 +9,7 @@
 #include <QGraphicsDropShadowEffect>
 #include <QVector>
 #include <QRectF>
+#include <QPair>
 
 class Platform : public QGraphicsPathItem {
 public:
@@ -22,6 +23,8 @@ public:
     explicit Arena(QObject *parent = nullptr);
     void setupArena(const QSize size={1280, 720});
     QVector<QRectF> getPlatforms();
+    QPair<qreal, qreal> initPos1();
+    QPair<qreal, qreal> initPos2();
 
 private:
     void addPlatform(qreal x, qreal y, qreal width, qreal height);

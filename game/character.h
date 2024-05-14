@@ -12,11 +12,16 @@
 
 #include <QtMath>
 
+struct attackZone {
+    QRectF hitbox;
+    int attackPower;
+};
+
 class Character : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
-    Character(QString imagePath, QVector<QRectF> arena_platforms, QGraphicsItem *parent = nullptr);
+    Character(int char_id, QString imagePath, QVector<QRectF> arena_platforms, QVector<attackZone> *attackZonesVec, QGraphicsItem *parent = nullptr);
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
@@ -27,16 +32,19 @@ public:
 
     void fixPosition(); // Костыль метод
 
+    void deathConditions();
     void jump();
     void accLeft();
     void accRight();
     void attack();
     void block(bool value);
     void acceleration();
+    void setVelocity(qreal vx, qreal vy);
 
     int checkCollision();
     bool standingCondition();
     void movement();
+    void attackUpdate();
 
     int getHealth() const;
     void setHealth(int value);
@@ -52,9 +60,14 @@ public:
         "Standing"
     };
 
+    int id;
+    int health = 300;
+
+signals:
+    void death(int id);
+
 
 protected:
-
     QRectF hitbox;
     QSize imageScale = {2, 2};
     QMap<QString, QPixmap> stateImages;
@@ -70,6 +83,7 @@ protected:
     int blockRadius = 25; // Default value, assigned dynamically in constructor
 
     int damage = 0;
+
     short lookDirection = 1;
     bool isBlocking = false;
     qreal accelerationX = 2;
@@ -83,6 +97,7 @@ protected:
     int attackDamage;
 
     QVector<QRectF> platforms;
+    QVector<attackZone> *attackZones;
 };
 
 #endif // CHARACTER_H

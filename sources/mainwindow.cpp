@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent)
     setStyleSheet("background-color: #222222");
     updateAllFonts();
     updateAllColors(ui->mainMenu);
-    beginGame();
+    // beginGame();
 
 
     // Задание функций кнопкам:
@@ -46,8 +46,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(settingsUi->backIcon, SIGNAL(clicked()), this, SLOT(goToMainMenuPage()));
 
     connect(charSelect, SIGNAL(on_backIcon_clicked()), this, SLOT(goToMainMenuPage()));
-    connect(charSelect, &CharSelect::playersChose, this, &MainWindow::getChosenCharsNames);
+    connect(charSelect, &CharSelect::playersChose, ui->game, &Game::getNames);
     connect(charSelect, &CharSelect::beginGame, this, &MainWindow::beginGame);
+    connect(charSelect, &CharSelect::beginGame, ui->game, &Game::startGame);
 
     connect(ui->game, &Game::endGameSignal, this, &MainWindow::goToMainMenuPage);
 }
@@ -124,13 +125,9 @@ void MainWindow::goToSettingsPage()
 void MainWindow::beginGame()
 {
     updateAllColors(ui->game);
+    updateAllColors(ui->game->pauseMenu);
+    updateAllColors(ui->game->endGameMenu);
     ui->stackedWidget->setCurrentIndex(ui2idx["game"]);
-}
-
-void MainWindow::getChosenCharsNames(const QString &name1, const QString &name2) {
-    chosenNames[0] = name1;
-    chosenNames[1] = name2;
-    qDebug() << "Main window got these character names: " << name1 << "and" << name2;
 }
 
 MainWindow::~MainWindow()
