@@ -61,6 +61,9 @@ public:
     int id;
     int health = 300;
 
+signals:
+    void death(int id);
+
 
 protected:
     QRectF hitbox;

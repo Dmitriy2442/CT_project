@@ -11,6 +11,7 @@ PlayerController::PlayerController(Character* character, QObject* parent)
 }
 
 void PlayerController::update() {
+    character->deathConditions();
     if (movingLeft) {
         character->accLeft();
     }
@@ -28,7 +29,7 @@ void PlayerController::update() {
     character->acceleration();
     character->movement();
     character->updateImage();
-    character->fixPosition(); // ЭТО ЧЕРТОВ КОСТЫЛЬ, НО ПУСТЬ ПЕРСОНАЖ ХОТЯ БЫ БУДЕТ НА ЭКРАНЕ
+    // character->fixPosition(); // ЭТО ЧЕРТОВ КОСТЫЛЬ, НО ПУСТЬ ПЕРСОНАЖ ХОТЯ БЫ БУДЕТ НА ЭКРАНЕ
 }
 
 bool PlayerController::eventFilter(QObject* obj, QEvent* event) {

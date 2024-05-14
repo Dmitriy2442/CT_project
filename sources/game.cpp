@@ -33,6 +33,7 @@ Game::Game(QWidget *parent)
     player1 = new Character(0, ":/samurai_blue", arena->getPlatforms(), attackZones);
     arena->addItem(player1);
     player1->setPos(arena->initPos1().first, arena->initPos1().second);
+    connect(player1, &Character::death, this, &Game::gameEnded);
     // Создание контроллера для 1-го игрока
     player1Controller = new PlayerController(player1);
     view->installEventFilter(player1Controller); // Подключение контроллера к виджету
@@ -42,6 +43,7 @@ Game::Game(QWidget *parent)
     player2 = new Character(1, ":/samurai_red", arena->getPlatforms(), attackZones);
     arena->addItem(player2);
     player2->setPos(arena->initPos2().first, arena->initPos2().second);
+    connect(player2, &Character::death, this, &Game::gameEnded);
 
 
 
@@ -60,10 +62,16 @@ void Game::updateGame()
     emit(updateTick());
 }
 
+void Game::gameEnded(int id)
+{
+    qDebug() << "Player " << id << " died!";
+    endGame();
+}
+
 void Game::endGameButtonClicked()
 {
-    qDebug() << "Game ended!";
-    emit endGameSignal();
+    qDebug() << "End game button clicked!";
+    endGame();
 }
 
 void Game::keyPressEvent(QKeyEvent *event)
@@ -95,7 +103,8 @@ void Game::resumeGame()
 
 void Game::endGame()
 {
-    // End game here
+    qDebug() << "Game ended!";
+    emit endGameSignal();
 }
 
 Game::~Game()
