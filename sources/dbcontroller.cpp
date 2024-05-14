@@ -88,20 +88,32 @@ void DBController::insertMatchResults(const QString &name1, const QString &name2
     qDebug() << "Inserted match results: " << name1 << " vs " << name2 << " winner: " << winner;
 }
 
-void DBController::handleCharactersDataRequest(QVector<QString> names)
-{
-    QVector<QPair<QString, QString>> result = getCharactersData(names);
-    emit charactersDataReceived(result);
-}
+QVector<QVector<QString>> DBController::getLast5MatchResults() {
+    db.open();
+    QSqlQuery query;
+    query.prepare("SELECT name1, name2, winner FROM results LIMIT 5");
 
-void DBController::handleColorPaletteRequest(QString color)
-{
-    QVector<QString> result = getColorPalette(color);
-    emit colorPaletteReceived(result);
-}
+    if (!query.exec()) {
+        qDebug() << "Query failed:" << query.lastError().text();
+        return QVector<QVector<QString>>();
+    }
 
-void DBController::handleInsertMatchResultsRequest(QString name1, QString name2, QString winner)
-{
-    insertMatchResults(name1, name2, winner);
-    emit matchResultsInserted();
+    int i = 0;
+    QVector<QVector<QString>> last5MatchResults(5, QVector<QString>(3));
+
+    while (query.next()) {
+        QVector<QString> matchResults(3);
+        matchResults[0] = query.value(0).toString();
+        matchResults[1] = query.value(1).toString();
+        matchResults[2] = query.value(2).toString();
+        last5MatchResults[i] = matchResults;
+        ++i;
+    }
+
+    if (i == 0) {
+        qDebug() << "No results found for the given query (results)";
+    }
+
+    db.close();
+    return last5MatchResults;
 }

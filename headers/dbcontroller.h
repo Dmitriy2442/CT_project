@@ -9,15 +9,6 @@
 #include <QString>
 #include <QSqlError>
 
-class DataManager : public QObject {
-    Q_OBJECT
-
-signals:
-    void requestCharactersData(QVector<QString> names);
-    void requestColorPalette(QString color);
-    void requestInsertMatchResults(QString name1, QString name2, QString winner);
-};
-
 class DBController : public QObject  {
     Q_OBJECT
 private:
@@ -29,16 +20,7 @@ public:
     QVector<QPair<QString, QString>> getCharactersData(QVector<QString> names = {});
     QVector<QString> getColorPalette(QString color = "");
     void insertMatchResults(const QString &name1, const QString &name2, const QString &winner);
-
-public slots:
-    void handleCharactersDataRequest(QVector<QString> names);
-    void handleColorPaletteRequest(QString color);
-    void handleInsertMatchResultsRequest(QString name1, QString name2, QString winner);
-
-signals:
-    void charactersDataReceived(const QVector<QPair<QString, QString>>& data);
-    void colorPaletteReceived(const QVector<QString>& data);
-    void matchResultsInserted();
+    QVector<QVector<QString>> getLast5MatchResults();
 };
 
 #endif // DBCONTROLLER_H

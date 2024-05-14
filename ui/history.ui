@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>AuthorsForm</class>
- <widget class="QWidget" name="AuthorsForm">
+ <class>HistoryForm</class>
+ <widget class="QWidget" name="HistoryForm">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -9,12 +9,6 @@
     <width>1280</width>
     <height>720</height>
    </rect>
-  </property>
-  <property name="font">
-   <font>
-    <family>Myanmar Text</family>
-    <pointsize>12</pointsize>
-   </font>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -59,6 +53,39 @@
    <property name="text">
     <string/>
    </property>
+  </widget>
+  <widget class="QLabel" name="last5Matches">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1280</width>
+     <height>181</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+	color: #ffffff;
+	font-size: 72px;
+}</string>
+   </property>
+   <property name="text">
+    <string>Last 5 matches</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>180</y>
+     <width>1281</width>
+     <height>441</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="matchesLayout"/>
   </widget>
  </widget>
  <customwidgets>

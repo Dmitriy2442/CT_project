@@ -2,7 +2,6 @@
 
 #include "../ui/ui_mainwindow.h"
 #include "../ui/ui_mainmenu.h"
-#include "../ui/ui_authors.h"
 #include "../ui/ui_settings.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -11,25 +10,25 @@ MainWindow::MainWindow(QWidget *parent)
 {
     // Инициализация базы данных приложения
     db = new DBController();
-    manager = new DataManager();
     QThread* dbThread = new QThread();
     db->moveToThread(dbThread);
     dbThread->start();
 
     palette = db->getColorPalette("pink");
     charSelect = new CharSelect(db->getCharactersData());
+    history = new HistoryForm(db->getLast5MatchResults());
 
     // Задание интерфейсных форм:
     Ui::MainMenuForm* mainMenuUi = new Ui::MainMenuForm();
-    Ui::AuthorsForm* authorsUi = new Ui::AuthorsForm();
     Ui::SettingsForm* settingsUi = new Ui::SettingsForm();
 
     ui->setupUi(this);
     mainMenuUi->setupUi(ui->mainMenu);
-    authorsUi->setupUi(ui->authors);
     settingsUi->setupUi(ui->settings);
     ui->stackedWidget->removeWidget(ui->charSelect);
     ui->stackedWidget->insertWidget(ui2idx["charSelect"], charSelect);
+    ui->stackedWidget->removeWidget(ui->history);
+    ui->stackedWidget->insertWidget(ui2idx["history"], history);
     setCentralWidget(ui->stackedWidget);
 
     // Общая настройка дизайна
@@ -37,16 +36,16 @@ MainWindow::MainWindow(QWidget *parent)
     setStyleSheet("background-color: #222222");
     updateAllFonts();
     updateAllColors(ui->mainMenu);
-    // beginGame();
 
 
     // Задание функций кнопкам:
     connect(mainMenuUi->gameButton, SIGNAL(clicked()), this, SLOT(goToCharSelectPage()));
     connect(mainMenuUi->exitIcon, SIGNAL(clicked()), this, SLOT(close()));
-    connect(mainMenuUi->authorsIcon, SIGNAL(clicked()), this, SLOT(goToAuthorsPage()));
+    connect(mainMenuUi->historyIcon, SIGNAL(clicked()), this, SLOT(goToHistoryPage()));
     connect(mainMenuUi->settingsIcon, SIGNAL(clicked()), this, SLOT(goToSettingsPage()));
 
-    connect(authorsUi->backIcon, SIGNAL(clicked()), this, SLOT(goToMainMenuPage()));
+    connect(history, SIGNAL(on_backIcon_clicked()), this, SLOT(goToMainMenuPage()));
+    connect(this, &MainWindow::updateHistory, history, &HistoryForm::updateHistory);
 
     connect(settingsUi->backIcon, SIGNAL(clicked()), this, SLOT(goToMainMenuPage()));
 
@@ -115,10 +114,10 @@ void MainWindow::goToMainMenuPage()
     ui->stackedWidget->setCurrentIndex(ui2idx["mainMenu"]);
 }
 
-void MainWindow::goToAuthorsPage()
+void MainWindow::goToHistoryPage()
 {
-    updateAllColors(ui->authors);
-    ui->stackedWidget->setCurrentIndex(ui2idx["authors"]);
+    updateAllColors(history);
+    ui->stackedWidget->setCurrentIndex(ui2idx["history"]);
 }
 
 void MainWindow::goToSettingsPage()
@@ -142,6 +141,7 @@ void MainWindow::gameEnded(QString name1, QString name2, QString winner)
         // qDebug() << name1 << " vs " << name2 << " winner: " << winner;
         db->insertMatchResults(name1, name2, winner);
     }
+    emit(updateHistory(db->getLast5MatchResults()));
     goToMainMenuPage();
 }
 

@@ -156,7 +156,7 @@
           <number>120</number>
          </property>
          <item>
-          <widget class="IconButton" name="authorsIcon">
+          <widget class="IconButton" name="historyIcon">
            <property name="minimumSize">
             <size>
              <width>80</width>
