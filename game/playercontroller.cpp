@@ -30,7 +30,7 @@ void PlayerController::update() {
 
     character->acceleration();
     character->movement();
-//    character->updateImage();
+    character->updateImage();
     character->fixPosition(); // ЭТО ЧЕРТОВ КОСТЫЛЬ, НО ПУСТЬ ПЕРСОНАЖ ХОТЯ БЫ БУДЕТ НА ЭКРАНЕ
 }
 

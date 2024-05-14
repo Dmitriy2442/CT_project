@@ -12,11 +12,16 @@
 
 #include <QtMath>
 
+struct attackZone {
+    QRectF hitbox;
+    int attackPower;
+};
+
 class Character : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
-    Character(QString imagePath, QVector<QRectF> arena_platforms, QGraphicsItem *parent = nullptr);
+    Character(int char_id, QString imagePath, QVector<QRectF> arena_platforms, QVector<attackZone> *attackZonesVec, QGraphicsItem *parent = nullptr);
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
@@ -37,6 +42,7 @@ public:
     int checkCollision();
     bool standingCondition();
     void movement();
+    void attackUpdate();
 
     int getHealth() const;
     void setHealth(int value);
@@ -53,6 +59,7 @@ public:
 
 
 protected:
+    int id;
 
     QRectF hitbox;
     QSize imageScale = {2, 2};
@@ -82,6 +89,7 @@ protected:
     int attackDamage;
 
     QVector<QRectF> platforms;
+    QVector<attackZone> *attackZones;
 };
 
 #endif // CHARACTER_H
