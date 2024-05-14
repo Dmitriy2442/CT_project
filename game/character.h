@@ -48,6 +48,7 @@ public:
 
     int getHealth() const;
     void setHealth(int value);
+    void damaged(int power);
 
     QVector<QString> State {
         "Attacking",
@@ -81,6 +82,8 @@ protected:
 
     int blockRadius = 25; // Default value, assigned dynamically in constructor
 
+    int damage = 0;
+
     short lookDirection = 1;
     bool isBlocking = false;
     qreal accelerationX = 2;
@@ -91,7 +94,7 @@ protected:
     int maxSpeedY = 20;
     int jumpSpeed = 20;
     qreal gravAcc = 0.6;
-    int attackDamage;
+    int attackDamage = 2;
 
     QVector<QRectF> platforms;
     QVector<attackZone> *attackZones;

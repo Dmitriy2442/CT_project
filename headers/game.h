@@ -7,6 +7,8 @@
 #include <QKeyEvent>
 #include <QGraphicsTextItem>
 #include <QTimer>
+#include <QMediaPlayer>
+#include <QAudioOutput>
 
 #include "game/arena.h"
 #include "game/character.h"
