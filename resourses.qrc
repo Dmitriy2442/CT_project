@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/musi">
+    <qresource prefix="/icons">
         <file alias="amogus.png">assets/icons/amogus.png</file>
         <file alias="gear.svg">assets/icons/gear.svg</file>
         <file alias="scroll.svg">assets/icons/scroll.svg</file>
@@ -31,7 +31,6 @@
         <file alias="Blocking.png">assets/chars/samurai/Blocking.png</file>
     </qresource>
     <qresource prefix="/sounds">
-        <file>assets/sounds/music.mp3</file>
-        <file>assets/sounds/music.wav</file>
+        <file alias="music.mp3">assets/sounds/music.mp3</file>
     </qresource>
 </RCC>
