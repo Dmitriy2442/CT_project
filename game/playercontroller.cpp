@@ -11,9 +11,6 @@ PlayerController::PlayerController(Character* character, QObject* parent)
 }
 
 void PlayerController::update() {
-    // Это плохая реализация, её нужно улучшить (переделать)
-
-    // IDEA: Написать персонажу метод, который будет принимать флаги контроллера и обрабатывать их сам
     if (movingLeft) {
         character->accLeft();
     }
