@@ -27,17 +27,41 @@ Platform::Platform(int x, int y, int width, int height, QGraphicsItem *parent)
 
 
 
-Arena::Arena(QObject *parent) : QGraphicsScene(parent), background(nullptr) {
-    // Инициализация сцены
+Arena::Arena(QObject *parent) : QGraphicsScene(parent), background(nullptr),
+    xOffset(0),
+    speed(1)
+{
+    background.load(":/images/background.jpg");
+    timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &Arena::updateBackground);
+    timer->start(30); // обновление каждые 30 мс
+}
+
+void Arena::updateBackground() {
+    xOffset += speed;
+    if (xOffset > background.width()) {
+        xOffset -= background.width();
+    }
+    invalidate(); // Перерисовать сцену
+}
+
+void Arena::drawBackground(QPainter* painter, const QRectF& rect) {
+    QRectF source(xOffset, 0, background.width() - xOffset, background.height());
+    QRectF target(0, 0, background.width() - xOffset, background.height());
+    painter->drawImage(target, background, source);
+
+    if (xOffset > 0) {
+        QRectF source2(0, 0, xOffset, background.height());
+        QRectF target2(background.width() - xOffset, 0, xOffset, background.height());
+        painter->drawImage(target2, background, source2);
+    }
 }
 
 void Arena::setupArena(const QSize size) {
     setSceneRect(0, 0, size.width(), size.height());
 
     // Добавление фонового изображения
-    QPixmap bgPixmap(":/images/background.jpg");
-    background = addPixmap(bgPixmap);
-    background->setZValue(-1);
+    //QPixmap bgPixmap(":/images/background.jpg");
 
     // Добавление платформ
     addPlatform(100, 600, 1080, 20); // Главная платформа
