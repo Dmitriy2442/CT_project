@@ -24,23 +24,33 @@ Game::Game(QWidget *parent)
     view->setScene(arena);
     arena->setupArena(QSize(1280, 720));
 
+    //Настройка зон атаки
+    QVector<attackZone> *attackZones = new QVector<attackZone>(2);
+    (*attackZones)[0] = {QRectF(), 0};
+    (*attackZones)[1] = {QRectF(), 0};
+
     // Создание 1-го игрока
-    player1 = new Character(":/samurai", arena->getPlatforms());
+    player1 = new Character(0, ":/samurai_blue", arena->getPlatforms(), attackZones);
     arena->addItem(player1);
     player1->setPos(arena->initPos1().first, arena->initPos1().second);
+    connect(player1, &Character::death, this, &Game::gameEnded);
     // Создание контроллера для 1-го игрока
     player1Controller = new PlayerController(0, player1);
     view->installEventFilter(player1Controller); // Подключение контроллера к виджету
     connect(this, &Game::updateTick, player1Controller, &PlayerController::update);
 
     // Создание 2-го игрока
-    player2 = new Character(":/icons/amogus.png", arena->getPlatforms());
+    player2 = new Character(1, ":/samurai_red", arena->getPlatforms(), attackZones);
     arena->addItem(player2);
     player2->setPos(arena->initPos2().first, arena->initPos2().second);
+
     // Создание контроллера для 2-го игрока
     player2Controller = new PlayerController(1, player2);
     view->installEventFilter(player2Controller); // Подключение контроллера к виджету
     connect(this, &Game::updateTick, player2Controller, &PlayerController::update);
+      
+    connect(player2, &Character::death, this, &Game::gameEnded);
+
 
 
 
@@ -59,10 +69,16 @@ void Game::updateGame()
     emit(updateTick());
 }
 
+void Game::gameEnded(int id)
+{
+    qDebug() << "Player " << id << " died!";
+    endGame();
+}
+
 void Game::endGameButtonClicked()
 {
-    qDebug() << "Game ended!";
-    emit endGameSignal();
+    qDebug() << "End game button clicked!";
+    endGame();
 }
 
 void Game::keyPressEvent(QKeyEvent *event)
@@ -94,7 +110,8 @@ void Game::resumeGame()
 
 void Game::endGame()
 {
-    // End game here
+    qDebug() << "Game ended!";
+    emit endGameSignal();
 }
 
 Game::~Game()

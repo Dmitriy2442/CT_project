@@ -51,10 +51,10 @@ QVector<QRectF> Arena::getPlatforms() {
 }
 
 QPair<qreal, qreal> Arena::initPos1() {
-    return QPair(0, 340);
+    return QPair<qreal, qreal>(0, 340);
 }
 QPair<qreal, qreal> Arena::initPos2() {
-    return QPair(879, 340);
+    return QPair<qreal, qreal>(879, 340);
 }
 
 void Arena::addPlatform(qreal x, qreal y, qreal width, qreal height) {

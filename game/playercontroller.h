@@ -12,7 +12,7 @@ public:
     explicit PlayerController(int playerId, Character* character, QObject* parent = nullptr);
 
 public slots:
-    // Установка флагов обновления состояния персонажа
+    // Обработка состояния персонажа
     void update();
 
 protected:

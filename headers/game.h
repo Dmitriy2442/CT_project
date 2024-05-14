@@ -35,6 +35,7 @@ public:
 
 public slots:
     void updateGame();
+    void gameEnded(int id);
     void endGameButtonClicked();
 
 protected:
