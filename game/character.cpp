@@ -264,7 +264,7 @@ void Character::setHealth(int value) {
     }
 }
 
-void Character::damaged(int power=20) {
+void Character::damaged(int power) {
     damage += abs(power);
-    speedX *= (damage / 10);
+    speedX = damage * power/abs(power);
 }
