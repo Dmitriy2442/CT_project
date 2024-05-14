@@ -48,6 +48,7 @@ public:
 
     int getHealth() const;
     void setHealth(int value);
+    void damaged(int power);
 
     QVector<QString> State {
         "Attacking",
@@ -80,6 +81,8 @@ protected:
     int currentFrame = 0;
 
     int blockRadius = 25; // Default value, assigned dynamically in constructor
+
+    int damage = 0;
 
     short lookDirection = 1;
     bool isBlocking = false;
