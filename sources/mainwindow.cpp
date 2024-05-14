@@ -10,9 +10,14 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     // Инициализация базы данных приложения
-    DBController db;
-    palette = db.getColorPalette("pink");
-    charSelect = new CharSelect(db.getCharactersData());
+    db = new DBController();
+    manager = new DataManager();
+    QThread* dbThread = new QThread();
+    db->moveToThread(dbThread);
+    dbThread->start();
+
+    palette = db->getColorPalette("pink");
+    charSelect = new CharSelect(db->getCharactersData());
 
     // Задание интерфейсных форм:
     Ui::MainMenuForm* mainMenuUi = new Ui::MainMenuForm();
@@ -50,7 +55,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(charSelect, &CharSelect::beginGame, this, &MainWindow::beginGame);
     connect(charSelect, &CharSelect::beginGame, ui->game, &Game::startGame);
 
-    connect(ui->game, &Game::endGameSignal, this, &MainWindow::goToMainMenuPage);
+    connect(ui->game, &Game::endGameSignal, this, &MainWindow::gameEnded);
 }
 
 QString updateStyleSheet(const QString &styleSheet, const QString &field, const QString &value)
@@ -129,6 +134,15 @@ void MainWindow::beginGame()
     updateAllColors(ui->game->pauseMenu);
     updateAllColors(ui->game->endGameMenu);
     ui->stackedWidget->setCurrentIndex(ui2idx["game"]);
+}
+
+void MainWindow::gameEnded(QString name1, QString name2, QString winner)
+{
+    if (!winner.isEmpty()) {
+        // qDebug() << name1 << " vs " << name2 << " winner: " << winner;
+        db->insertMatchResults(name1, name2, winner);
+    }
+    goToMainMenuPage();
 }
 
 MainWindow::~MainWindow()

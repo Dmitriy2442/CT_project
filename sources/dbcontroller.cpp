@@ -70,3 +70,38 @@ QVector<QString> DBController::getColorPalette(QString color)
     db.close();
     return palette;
 }
+
+void DBController::insertMatchResults(const QString &name1, const QString &name2, const QString &winner)
+{
+    db.open();
+    QSqlQuery query;
+    query.prepare("INSERT INTO results (name1, name2, winner) VALUES (:name1, :name2, :winner)");
+    query.bindValue(":name1", name1);
+    query.bindValue(":name2", name2);
+    query.bindValue(":winner", winner);
+
+    if (!query.exec()) {
+        qDebug() << "Query failed:" << query.lastError().text();
+    }
+
+    db.close();
+    qDebug() << "Inserted match results: " << name1 << " vs " << name2 << " winner: " << winner;
+}
+
+void DBController::handleCharactersDataRequest(QVector<QString> names)
+{
+    QVector<QPair<QString, QString>> result = getCharactersData(names);
+    emit charactersDataReceived(result);
+}
+
+void DBController::handleColorPaletteRequest(QString color)
+{
+    QVector<QString> result = getColorPalette(color);
+    emit colorPaletteReceived(result);
+}
+
+void DBController::handleInsertMatchResultsRequest(QString name1, QString name2, QString winner)
+{
+    insertMatchResults(name1, name2, winner);
+    emit matchResultsInserted();
+}

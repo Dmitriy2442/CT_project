@@ -80,7 +80,7 @@ Game::Game(QWidget *parent)
 
     player->play();
       
-    connect(ui->homeIcon, &QPushButton::clicked, this, &Game::endGame);
+    connect(ui->homeIcon, &QPushButton::clicked, this, &Game::endGameButtonClicked);
 }
 
 void Game::updateGame()
@@ -90,7 +90,8 @@ void Game::updateGame()
 
 void Game::playerDead(int id)
 {
-    ui->winnerLabel->setText(names[(id+1)%2] + " wins!");
+    winner = names[(id+1)%2];
+    ui->winnerLabel->setText(winner + " wins!");
     gameTimer->stop();
     endGameMenu->show();
     endGameMenu->raise();
@@ -98,7 +99,7 @@ void Game::playerDead(int id)
 
 void Game::endGameButtonClicked()
 {
-    qDebug() << "End game button clicked!";
+    // qDebug() << "End game button clicked!";
     endGame();
 }
 
@@ -139,8 +140,8 @@ void Game::resumeGame()
 
 void Game::endGame()
 {
-    qDebug() << "Game ended!";
-    emit endGameSignal();
+    // qDebug() << "Game ended!";
+    emit endGameSignal(names[0], names[1], winner);
     setupClear();
 }
 
@@ -160,6 +161,9 @@ void Game::setupClear() {
     // Show PressToStart interface
     ui->pressToStart->show();
     ui->pressToStart->raise();
+
+    // Reset winner field
+    winner = "";
 }
 
 Game::~Game()

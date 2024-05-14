@@ -12,6 +12,7 @@
 #include <QFontDatabase>
 #include <QStackedWidget>
 #include <QRegularExpression>
+#include <QThread>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -36,6 +37,7 @@ public slots:
     void goToAuthorsPage();
     void goToSettingsPage();
     void beginGame();
+    void gameEnded(QString name1, QString name2, QString winner);
 
 private:
     QHash<QString, int> const ui2idx = {{"mainMenu", 0}, {"authors", 1}, {"settings", 2},
@@ -43,6 +45,9 @@ private:
 
     QVector<QString> palette;
     int paletteIterator = 0;
+
+    DBController *db;
+    DataManager *manager;
 
     Ui::MainWindow *ui;
     CharSelect *charSelect;
