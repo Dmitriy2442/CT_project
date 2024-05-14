@@ -252,8 +252,13 @@ void Character::movement() {
 
 void Character::attackUpdate() {
     QRectF current_hitbox(x()+hitbox.x(), y()+hitbox.y(), hitbox.width(), hitbox.height());
-    if (current_hitbox.intersects((*attackZones)[!id].hitbox))
-        damaged((*attackZones)[!id].attackPower);
+    if (current_hitbox.intersects((*attackZones)[!id].hitbox)) {
+        qDebug() << currentState;
+        if (currentState != "Blocking")
+            damaged((*attackZones)[!id].attackPower);
+        else
+            damaged((*attackZones)[!id].attackPower/2);
+    }
 }
 
 int Character::getHealth() const {
