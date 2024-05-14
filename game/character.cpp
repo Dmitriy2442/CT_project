@@ -136,6 +136,22 @@ void Character::fixPosition() {
     }
 }
 
+void Character::deathConditions() {
+    if (x() + hitbox.x() < -500) {
+        health = health - 100; // менять здоровье перса
+        // setPos(определиться с начальным положением)
+    } else if (x() + hitbox.x() + hitbox.width() > 1780) {
+        health = health - 100; // менять здоровье перса
+        // setPos(определиться с начальным положением)
+    } else if (y() + hitbox.y() < -500) {
+        health = health - 100; // менять здоровье перса
+        // setPos(определиться с начальным положением)
+    } else if (y() + hitbox.y() + hitbox.height() > 1220) {
+        health = health - 100; // менять здоровье перса
+        // setPos(определиться с начальным положением)
+    }
+}
+
 void Character::accLeft() {
     lookDirection = -1;
     if (speedX > (-1) * maxSpeedX)

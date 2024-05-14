@@ -32,7 +32,7 @@ Game::Game(QWidget *parent)
     // Создание 1-го игрока
     player1 = new Character(0, ":/samurai_blue", arena->getPlatforms(), attackZones);
     arena->addItem(player1);
-    player1->setPos(640, 360);
+    player1->setPos(arena->initPos1().first, arena->initPos1().second);
     // Создание контроллера для 1-го игрока
     player1Controller = new PlayerController(player1);
     view->installEventFilter(player1Controller); // Подключение контроллера к виджету
@@ -41,7 +41,7 @@ Game::Game(QWidget *parent)
     // Создание 2-го игрока
     player2 = new Character(1, ":/samurai_red", arena->getPlatforms(), attackZones);
     arena->addItem(player2);
-    player2->setPos(300, 360);
+    player2->setPos(arena->initPos2().first, arena->initPos2().second);
 
 
 

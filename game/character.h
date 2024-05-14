@@ -32,6 +32,7 @@ public:
 
     void fixPosition(); // Костыль метод
 
+    void deathConditions();
     void jump();
     void accLeft();
     void accRight();
@@ -75,7 +76,7 @@ protected:
 
     int blockRadius = 25; // Default value, assigned dynamically in constructor
 
-    int health = 100;
+    int health = 300;
     short lookDirection = 1;
     bool isBlocking = false;
     qreal accelerationX = 2;
