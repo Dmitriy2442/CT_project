@@ -48,6 +48,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, &MainWindow::updateHistory, history, &HistoryForm::updateHistory);
 
     connect(settingsUi->backIcon, SIGNAL(clicked()), this, SLOT(goToMainMenuPage()));
+    connect(settingsUi->volumeSlider, SIGNAL(valueChanged(int)), ui->game, SLOT(updateVolume(int)));
 
     connect(charSelect, SIGNAL(on_backIcon_clicked()), this, SLOT(goToMainMenuPage()));
     connect(charSelect, &CharSelect::playersChose, ui->game, &Game::getNames);

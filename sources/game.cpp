@@ -69,14 +69,11 @@ Game::Game(QWidget *parent)
     connect(pauseMenuUi->resumeButton, &QPushButton::clicked, this, &Game::resumeGame);
     connect(pauseMenuUi->endGameButton, &QPushButton::clicked, this, &Game::endGameButtonClicked);
 
-    QMediaPlayer * player = new QMediaPlayer;
-    QAudioOutput * output = new QAudioOutput;
+    player = new QMediaPlayer;
+    output = new QAudioOutput;
 
     player->setAudioOutput(output);
     player->setSource(QUrl("qrc:/sounds/music.mp3"));
-
-    output->setVolume(100);
-    output->setMuted(false);
 
     player->play();
       
@@ -101,6 +98,10 @@ void Game::endGameButtonClicked()
 {
     // qDebug() << "End game button clicked!";
     endGame();
+}
+
+void Game::updateVolume(int value) {
+    output->setVolume(((qreal) value) / 100);
 }
 
 void Game::getNames(const QString &name1, const QString &name2)
