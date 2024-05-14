@@ -261,10 +261,7 @@ int Character::getHealth() const {
 }
 
 void Character::setHealth(int value) {
-    damage = 100 - value;
-    if (damage >= 100) {
-        // Обработка смерти персонажа, возможно, отправка сигнала
-    }
+    health = value;
 }
 
 void Character::damaged(int power) {
