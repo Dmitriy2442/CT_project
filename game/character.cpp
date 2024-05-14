@@ -176,7 +176,7 @@ void Character::attack() {
     currentFrame = 0;
     attackZone charAttackZone;
     charAttackZone.attackPower = attackDamage * lookDirection;
-    charAttackZone.hitbox = QRectF(x() + hitbox.x() + hitbox.width()/2 + lookDirection * 70 + (lookDirection - 1)/2*50, y() + hitbox.y() + hitbox.height()/2 - 25, 50, 50);
+    charAttackZone.hitbox = QRectF(x() + hitbox.x() + hitbox.width()/2 + lookDirection * 70 + (lookDirection - 1)/2*100, y() + hitbox.y() + hitbox.height()/2 - 25, 100, 100);
     (*attackZones)[id] = charAttackZone;
 }
 
@@ -215,13 +215,13 @@ int Character::checkCollision() {
 }
 
 bool Character::standingCondition() {
-    setPos(x(), y() + 20);
+    setPos(x(), y() + 15);
     if (checkCollision() > -1) {
-        setPos(x(), y() - 20);
+        setPos(x(), y() - 15);
         return 1;
     }
     else {
-	setPos(x(), y() - 20);
+    setPos(x(), y() - 15);
         return 0;
     }
 }
