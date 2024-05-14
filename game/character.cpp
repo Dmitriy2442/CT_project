@@ -136,6 +136,18 @@ void Character::fixPosition() {
     }
 }
 
+void Character::deathConditions() {
+    if ((x() + hitbox.x() < -500) || (x() + hitbox.x() + hitbox.width() > 1780) || (y() + hitbox.y() < -500) || (y() + hitbox.y() + hitbox.height() > 1220)) {
+        health -= 100; // менять здоровье перса
+        setPos(640 - hitbox.x() - hitbox.width()/2, 200);
+        speedX = 0;
+        speedY = 0;
+
+        if (health <= 0)
+            emit death(id);
+    }
+}
+
 void Character::accLeft() {
     lookDirection = -1;
     if (speedX > (-1) * maxSpeedX)
@@ -207,7 +219,7 @@ bool Character::standingCondition() {
 
 void Character::movement() {
     qreal varSpeedX, varSpeedY;
-    qDebug() << x() << y();
+    // qDebug() << x() << y();
     varSpeedX = speedX;
     varSpeedY = speedY;
 
