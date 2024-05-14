@@ -223,6 +223,7 @@ bool Character::standingCondition() {
     else {
 	setPos(x(), y() - 20);
         return 0;
+    }
 }
 
 void Character::movement() {
