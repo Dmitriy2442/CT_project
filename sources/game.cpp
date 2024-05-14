@@ -39,7 +39,7 @@ Game::Game(QWidget *parent)
     connect(this, &Game::updateTick, player1Controller, &PlayerController::update);
 
     // Создание 2-го игрока
-    player2 = new Character(1, ":/icons/amogus.png", arena->getPlatforms(), attackZones);
+    player2 = new Character(1, ":/samurai_red", arena->getPlatforms(), attackZones);
     arena->addItem(player2);
     player2->setPos(300, 360);
 
