@@ -27,8 +27,6 @@ signals:
 public:
     explicit Game(QWidget *parent = nullptr);
     ~Game();
-
-    void startGame();
     void pauseGame();
     void resumeGame();
     void endGame();
@@ -39,6 +37,7 @@ public:
     QWidget *endGameMenu;
 
 public slots:
+    void startGame();
     void updateGame();
     void playerDead(int id);
     void endGameButtonClicked();

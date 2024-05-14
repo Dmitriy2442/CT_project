@@ -48,6 +48,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(charSelect, SIGNAL(on_backIcon_clicked()), this, SLOT(goToMainMenuPage()));
     connect(charSelect, &CharSelect::playersChose, ui->game, &Game::getNames);
     connect(charSelect, &CharSelect::beginGame, this, &MainWindow::beginGame);
+    connect(charSelect, &CharSelect::beginGame, ui->game, &Game::startGame);
 
     connect(ui->game, &Game::endGameSignal, this, &MainWindow::goToMainMenuPage);
 }

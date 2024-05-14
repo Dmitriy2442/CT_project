@@ -105,10 +105,6 @@ void Game::keyPressEvent(QKeyEvent *event)
 }
 
 void Game::startGame() {
-    // Hide all interfaces
-    endGameMenu->hide();
-    pauseMenu->hide();
-
     // Start game timer
     gameTimer->start();
 }
@@ -134,13 +130,17 @@ void Game::endGame()
 }
 
 void Game::setupClear() {
-    // Reset all character locations and health
+    // Reset all character locations, speed and health
     player1->setPos(arena->initPos1().first, arena->initPos1().second);
+    player1->setVelocity(0, 0);
     player1->setHealth(300);
     player2->setPos(arena->initPos2().first, arena->initPos2().second);
+    player2->setVelocity(0, 0);
     player2->setHealth(300);
 
-    startGame();
+    // Hide all interfaces
+    endGameMenu->hide();
+    pauseMenu->hide();
 }
 
 Game::~Game()

@@ -39,6 +39,7 @@ public:
     void attack();
     void block(bool value);
     void acceleration();
+    void setVelocity(qreal vx, qreal vy);
 
     int checkCollision();
     bool standingCondition();

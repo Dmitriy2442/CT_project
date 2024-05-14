@@ -197,6 +197,11 @@ void Character::acceleration() {
     }
 }
 
+void Character::setVelocity(qreal speedX, qreal speedY) {
+    this->speedX = speedX;
+    this->speedY = speedY;
+}
+
 int Character::checkCollision() {
     for (int i = 0; i < platforms.size(); i++) {
         QRectF current_hitbox(x()+hitbox.x(), y()+hitbox.y(), hitbox.width(), hitbox.height());
