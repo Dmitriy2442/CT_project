@@ -27,7 +27,7 @@ Game::Game(QWidget *parent)
     // Создание 1-го игрока
     player1 = new Character(":/samurai", arena->getPlatforms());
     arena->addItem(player1);
-    player1->setPos(initPos1().first, initPos1().second);
+    player1->setPos(arena->initPos1().first, arena->initPos1().second);
     // Создание контроллера для 1-го игрока
     player1Controller = new PlayerController(player1);
     view->installEventFilter(player1Controller); // Подключение контроллера к виджету
@@ -36,7 +36,7 @@ Game::Game(QWidget *parent)
     // Создание 2-го игрока
     player2 = new Character(":/icons/amogus.png", arena->getPlatforms());
     arena->addItem(player2);
-    player2->setPos(initPos2().first, initPos2().second);
+    player2->setPos(arena->initPos2().first, arena->initPos2().second);
 
 
 

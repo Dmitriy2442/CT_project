@@ -27,6 +27,7 @@ public:
 
     void fixPosition(); // Костыль метод
 
+    void deathConditions();
     void jump();
     void accLeft();
     void accRight();
