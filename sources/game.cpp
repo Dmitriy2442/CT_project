@@ -24,8 +24,13 @@ Game::Game(QWidget *parent)
     view->setScene(arena);
     arena->setupArena(QSize(1280, 720));
 
+    //Настройка зон атаки
+    QVector<attackZone> *attackZones = new QVector<attackZone>(2);
+    (*attackZones)[0] = {QRectF(), 0};
+    (*attackZones)[1] = {QRectF(), 0};
+
     // Создание 1-го игрока
-    player1 = new Character(":/samurai", arena->getPlatforms());
+    player1 = new Character(0, ":/samurai", arena->getPlatforms(), attackZones);
     arena->addItem(player1);
     player1->setPos(640, 360);
     // Создание контроллера для 1-го игрока
@@ -34,7 +39,7 @@ Game::Game(QWidget *parent)
     connect(this, &Game::updateTick, player1Controller, &PlayerController::update);
 
     // Создание 2-го игрока
-    player2 = new Character(":/icons/amogus.png", arena->getPlatforms());
+    player2 = new Character(1, ":/icons/amogus.png", arena->getPlatforms(), attackZones);
     arena->addItem(player2);
     player2->setPos(300, 360);
 

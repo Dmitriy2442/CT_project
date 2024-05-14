@@ -1,7 +1,6 @@
 #include "game/character.h"
 
-
-Character::Character(QString imagePath, QVector<QRectF> arena_platforms, QGraphicsItem *parent) :
+Character::Character(int char_id, QString imagePath, QVector<QRectF> arena_platforms, QVector<attackZone> *attackZonesVec, QGraphicsItem *parent) :
     QGraphicsPixmapItem(parent)
 {
     for (int i = 0; i < State.size(); ++i) {
@@ -19,6 +18,8 @@ Character::Character(QString imagePath, QVector<QRectF> arena_platforms, QGraphi
     setZValue(1); // Устанавливаем слой отрисовки
 
     platforms = arena_platforms;
+    attackZones = attackZonesVec;
+    id = char_id;
 }
 
 
@@ -26,6 +27,12 @@ void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     QGraphicsPixmapItem::paint(painter, option, widget);  // Рисуем изображение персонажа
     painter->setPen(Qt::red);  // Устанавливаем красный цвет для хитбокса
     painter->drawRect(hitbox);  // Рисуем хитбокс вокруг персонажа
+    if (currentState == "Attacking") {
+        painter->drawRect((*attackZones)[id].hitbox);   //Хитбокс атаки
+        qDebug() << (*attackZones)[id].hitbox;
+    }
+
+    painter->drawRect(boundingRect());
 
     if (currentState == "Blocking") {
         painter->setPen(QPen(Qt::red, 3));
@@ -65,10 +72,12 @@ void Character::updateState() {
         currentFrame = 0;
         attackCooldownCounter = attackCooldown;
         currentState = "Standing";
+        (*attackZones)[id].hitbox = QRectF();
+        (*attackZones)[id].attackPower = 0;
     }
     attackCooldownCounter = qMax(0, attackCooldownCounter - 1);
 
-    if (speedY > 0) {
+    if (speedY > 2) {
         currentState = "Falling";
         return;
     }
@@ -95,7 +104,6 @@ void Character::updateState() {
         currentState = "Blocking";
         return;
     }
-
     currentState = "Standing";
 }
 
@@ -149,10 +157,13 @@ void Character::attack() {
     if (attackCooldownCounter > 0 || currentState == "Attacking") {
         return;
     }
+
     currentState = "Attacking";
     currentFrame = 0;
-    // Реализация атаки
-    // Это может включать изменение изображения на анимацию атаки и проверку попадания
+    attackZone charAttackZone;
+    charAttackZone.attackPower = attackDamage * lookDirection;
+    charAttackZone.hitbox = QRectF(x() + hitbox.x() + hitbox.width()/2 + lookDirection * 70 + (lookDirection - 1)/2*50, y() + hitbox.y() + hitbox.height()/2 - 25, 50, 50);
+    (*attackZones)[id] = charAttackZone;
 }
 
 void Character::block(bool value) {
@@ -196,16 +207,14 @@ bool Character::standingCondition() {
 
 void Character::movement() {
     qreal varSpeedX, varSpeedY;
+    qDebug() << x() << y();
     varSpeedX = speedX;
     varSpeedY = speedY;
 
-    qDebug() << x() << varSpeedX;
     setPos(x() + varSpeedX, y());
-    qDebug() << x() << varSpeedX;
     if (checkCollision() > -1) {
         setPos(x() - varSpeedX, y());
         varSpeedX = 0;
-        qDebug() << x() << varSpeedX;
     }
     setPos(x(), y() + varSpeedY);
     if (checkCollision() > -1) {
@@ -215,8 +224,15 @@ void Character::movement() {
     speedX = varSpeedX;
     speedY = varSpeedY;
 
+    //Pos correction in case of getting stuck in the platform
     while (checkCollision() > -1)
         setPos(x(), y() - 1);
+}
+
+void Character::attackUpdate() {
+    QRectF current_hitbox(x()+hitbox.x(), y()+hitbox.y(), hitbox.width(), hitbox.height());
+    if (current_hitbox.intersects((*attackZones)[!id].hitbox))
+        return;   //Место для функции Кирпича
 }
 
 int Character::getHealth() const {
