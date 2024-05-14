@@ -94,7 +94,7 @@ protected:
     int maxSpeedY = 20;
     int jumpSpeed = 20;
     qreal gravAcc = 0.6;
-    int attackDamage = 20;
+    int attackDamage = 2;
 
     QVector<QRectF> platforms;
     QVector<attackZone> *attackZones;

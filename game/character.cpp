@@ -143,6 +143,7 @@ void Character::deathConditions() {
         setPos(640 - hitbox.x() - hitbox.width()/2, 200);
         speedX = 0;
         speedY = 0;
+	damage = 0;
 
         if (health <= 0)
             emit death(id);
@@ -214,12 +215,13 @@ int Character::checkCollision() {
 }
 
 bool Character::standingCondition() {
-    setPos(x(), y() + 1);
+    setPos(x(), y() + 20);
     if (checkCollision() > -1) {
-        setPos(x(), y() - 1);
+        setPos(x(), y() - 20);
         return 1;
     }
-    else
+    else {
+	setPos(x(), y() - 20);
         return 0;
 }
 
