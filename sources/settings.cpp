@@ -6,6 +6,10 @@ SettingsForm::SettingsForm(QWidget *parent)
     , ui(new Ui::SettingsForm)
 {
     ui->setupUi(this);
+
+    ui->volumeSlider->setRange(0, 100);
+    ui->volumeSlider->setValue(100);
+    volume = ui->volumeSlider->sliderPosition();
 }
 
 SettingsForm::~SettingsForm()

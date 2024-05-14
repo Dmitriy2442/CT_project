@@ -43,6 +43,7 @@ public slots:
     void updateGame();
     void playerDead(int id);
     void endGameButtonClicked();
+    void updateVolume(int value);
 
     void getNames(const QString &name1, const QString &name2);
 
@@ -63,6 +64,9 @@ private:
     QGraphicsView *view;
 
     Ui::Game *ui;
+
+    QMediaPlayer *player;
+    QAudioOutput *output;
 };
 
 #endif // GAME_H

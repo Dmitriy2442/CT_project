@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>SettingsForm</class>
  <widget class="QWidget" name="SettingsForm">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -54,17 +57,65 @@
     <string/>
    </property>
   </widget>
-  <widget class="QSlider" name="verticalSlider">
+  <widget class="QSlider" name="volumeSlider">
    <property name="geometry">
     <rect>
-     <x>150</x>
+     <x>340</x>
      <y>170</y>
-     <width>211</width>
-     <height>371</height>
+     <width>601</width>
+     <height>231</height>
     </rect>
    </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="sizeIncrement">
+    <size>
+     <width>0</width>
+     <height>0</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">Slider {
+        id: volumeBar
+        maximumValue: 100.0
+        stepSize: 10
+        value: 0.0
+        tickmarksEnabled: true
+        anchors.verticalCenter: parent.verticalCenter
+        onValueChanged: audio.on_sliderVolume_sliderMoved(volumeBar.value)
+    }</string>
+   </property>
+   <property name="sliderPosition">
+    <number>99</number>
+   </property>
    <property name="orientation">
-    <enum>Qt::Vertical</enum>
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>370</y>
+     <width>611</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+	font-size: 128px;
+	color: #ffffff;
+}</string>
+   </property>
+   <property name="text">
+    <string>VOLUME</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
  </widget>
