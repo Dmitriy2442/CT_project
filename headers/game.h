@@ -28,6 +28,7 @@ public:
     explicit Game(QWidget *parent = nullptr);
     ~Game();
 
+    void startGame();
     void pauseGame();
     void resumeGame();
     void endGame();

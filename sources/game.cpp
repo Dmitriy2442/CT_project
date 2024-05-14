@@ -15,7 +15,7 @@ Game::Game(QWidget *parent)
     pauseMenu->hide();
 
     endGameMenu = ui->endGameMenu;
-    ui->endGameMenu->hide();
+    endGameMenu->hide();
 
     view = new QGraphicsView(this);
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -77,8 +77,8 @@ void Game::playerDead(int id)
 {
     ui->winnerLabel->setText(names[(id+1)%2] + " wins!");
     gameTimer->stop();
-    ui->endGameMenu->show();
-    ui->endGameMenu->raise();
+    endGameMenu->show();
+    endGameMenu->raise();
 }
 
 void Game::endGameButtonClicked()
@@ -104,6 +104,15 @@ void Game::keyPressEvent(QKeyEvent *event)
     }
 }
 
+void Game::startGame() {
+    // Hide all interfaces
+    endGameMenu->hide();
+    pauseMenu->hide();
+
+    // Start game timer
+    gameTimer->start();
+}
+
 void Game::pauseGame()
 {
     pauseMenu->show();
@@ -121,6 +130,7 @@ void Game::endGame()
 {
     qDebug() << "Game ended!";
     emit endGameSignal();
+    setupClear();
 }
 
 void Game::setupClear() {
@@ -129,6 +139,8 @@ void Game::setupClear() {
     player1->setHealth(300);
     player2->setPos(arena->initPos2().first, arena->initPos2().second);
     player2->setHealth(300);
+
+    startGame();
 }
 
 Game::~Game()
