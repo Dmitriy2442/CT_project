@@ -2,6 +2,7 @@
 #define SETTINGS_H
 
 #include <QWidget>
+#include <QSlider>
 
 namespace Ui {
 class SettingsForm;
@@ -17,6 +18,8 @@ public:
 
 private:
     Ui::SettingsForm *ui;
+
+    int volume;
 };
 
 #endif // SETTINGS_H
