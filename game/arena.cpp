@@ -50,10 +50,10 @@ QVector<QRectF> Arena::getPlatforms() {
     return platforms;
 }
 
-QPair<qreal, qreal> initPos1() {
+QPair<qreal, qreal> Arena::initPos1() {
     return QPair(0, 340);
 }
-QPair<qreal, qreal> initPos2() {
+QPair<qreal, qreal> Arena::initPos2() {
     return QPair(879, 340);
 }
 

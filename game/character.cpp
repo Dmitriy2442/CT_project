@@ -129,18 +129,14 @@ void Character::fixPosition() {
 }
 
 void Character::deathConditions() {
-    if (x() + hitbox.x() < -500) {
+    if ((x() + hitbox.x() < -500) || (x() + hitbox.x() + hitbox.width() > 1780) || (y() + hitbox.y() < -500) || (y() + hitbox.y() + hitbox.height() > 1220)) {
         health = health - 100; // менять здоровье перса
-        // setPos(определиться с начальным положением)
-    } else if (x() + hitbox.x() + hitbox.width() > 1780) {
-        health = health - 100; // менять здоровье перса
-        // setPos(определиться с начальным положением)
-    } else if (y() + hitbox.y() < -500) {
-        health = health - 100; // менять здоровье перса
-        // setPos(определиться с начальным положением)
-    } else if (y() + hitbox.y() + hitbox.height() > 1220) {
-        health = health - 100; // менять здоровье перса
-        // setPos(определиться с начальным положением)
+        setPos(640 - hitbox.x() - hitbox.width()/2, 200);
+        speedX = 0;
+        speedY = 0;
+
+        if (health == 0)
+            return; //Вызов конца игры
     }
 }
 
@@ -215,13 +211,10 @@ void Character::movement() {
     varSpeedX = speedX;
     varSpeedY = speedY;
 
-    qDebug() << x() << varSpeedX;
     setPos(x() + varSpeedX, y());
-    qDebug() << x() << varSpeedX;
     if (checkCollision() > -1) {
         setPos(x() - varSpeedX, y());
         varSpeedX = 0;
-        qDebug() << x() << varSpeedX;
     }
     setPos(x(), y() + varSpeedY);
     if (checkCollision() > -1) {

@@ -30,8 +30,9 @@ void PlayerController::update() {
 
     character->acceleration();
     character->movement();
+    character->deathConditions();
 //    character->updateImage();
-    character->fixPosition(); // ЭТО ЧЕРТОВ КОСТЫЛЬ, НО ПУСТЬ ПЕРСОНАЖ ХОТЯ БЫ БУДЕТ НА ЭКРАНЕ
+//    character->fixPosition(); // ЭТО ЧЕРТОВ КОСТЫЛЬ, НО ПУСТЬ ПЕРСОНАЖ ХОТЯ БЫ БУДЕТ НА ЭКРАНЕ
 }
 
 bool PlayerController::eventFilter(QObject* obj, QEvent* event) {
