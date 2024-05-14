@@ -80,7 +80,7 @@ void MainWindow::updateAllColors(QWidget *page)
         QWidget* widget = qobject_cast<QWidget*>(object);
         if ((strcmp(objectType, "QLabel") == 0) || (strcmp(objectType, "QPushButton") == 0))
         {
-
+            if (object->objectName() == "pressToStart") continue;
             widget->setStyleSheet(updateStyleSheet(widget->styleSheet(), QString("color"), palette[paletteIterator]));
             widget->update();
 
@@ -124,6 +124,7 @@ void MainWindow::goToSettingsPage()
 
 void MainWindow::beginGame()
 {
+    ui->game->setupClear();
     updateAllColors(ui->game);
     updateAllColors(ui->game->pauseMenu);
     updateAllColors(ui->game->endGameMenu);

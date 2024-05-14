@@ -17,6 +17,9 @@ Game::Game(QWidget *parent)
     endGameMenu = ui->endGameMenu;
     endGameMenu->hide();
 
+    ui->pressToStart->show();
+    ui->pressToStart->raise();
+
     view = new QGraphicsView(this);
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -141,6 +144,10 @@ void Game::setupClear() {
     // Hide all interfaces
     endGameMenu->hide();
     pauseMenu->hide();
+
+    // Show PressToStart interface
+    ui->pressToStart->show();
+    ui->pressToStart->raise();
 }
 
 Game::~Game()

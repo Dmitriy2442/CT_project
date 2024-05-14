@@ -28,7 +28,7 @@
       <x>0</x>
       <y>0</y>
       <width>1280</width>
-      <height>481</height>
+      <height>720</height>
      </rect>
     </property>
     <property name="font">
@@ -92,6 +92,27 @@
     </property>
    </widget>
   </widget>
+  <widget class="QPushButton" name="pressToStart">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1280</width>
+     <height>720</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+	border: none;
+	font-size: 80px;
+	color: #ffffff;
+	background-color: transparent;
+}</string>
+   </property>
+   <property name="text">
+    <string>Press to start!</string>
+   </property>
+  </widget>
  </widget>
  <customwidgets>
   <customwidget>
@@ -101,5 +122,22 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pressToStart</sender>
+   <signal>clicked()</signal>
+   <receiver>pressToStart</receiver>
+   <slot>hide()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>310</x>
+     <y>328</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>218</x>
+     <y>201</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
