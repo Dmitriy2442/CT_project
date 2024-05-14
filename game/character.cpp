@@ -26,14 +26,14 @@ Character::Character(int char_id, QString imagePath, QVector<QRectF> arena_platf
 
 void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     QGraphicsPixmapItem::paint(painter, option, widget);  // Рисуем изображение персонажа
-    painter->setPen(Qt::red);  // Устанавливаем красный цвет для хитбокса
-    painter->drawRect(hitbox);  // Рисуем хитбокс вокруг персонажа
-    if (currentState == "Attacking") {
-        painter->drawRect((*attackZones)[id].hitbox);   //Хитбокс атаки
-        // qDebug() << (*attackZones)[id].hitbox;
-    }
+    // painter->setPen(Qt::red);  // Устанавливаем красный цвет для хитбокса
+    // painter->drawRect(hitbox);  // Рисуем хитбокс вокруг персонажа
+    // if (currentState == "Attacking") {
+    //     painter->drawRect((*attackZones)[id].hitbox);   //Хитбокс атаки
+    //     // qDebug() << (*attackZones)[id].hitbox;
+    // }
 
-    painter->drawRect(boundingRect());
+    // painter->drawRect(boundingRect());
 
     if (currentState == "Blocking") {
         painter->setPen(QPen(Qt::red, 3));
