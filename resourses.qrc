@@ -5,6 +5,7 @@
         <file alias="scroll.svg">assets/icons/scroll.svg</file>
         <file alias="x.svg">assets/icons/x.svg</file>
         <file alias="arrow.svg">assets/icons/arrow.svg</file>
+        <file alias="home.svg">assets/icons/home.svg</file>
     </qresource>
     <qresource prefix="/fonts">
         <file alias="bangers.ttf">assets/fonts/Bangers-Regular.ttf</file>

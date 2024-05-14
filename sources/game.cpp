@@ -14,6 +14,8 @@ Game::Game(QWidget *parent)
     pauseMenuUi->setupUi(pauseMenu);
     pauseMenu->hide();
 
+    ui->endGameMenu->hide();
+
     view = new QGraphicsView(this);
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -33,7 +35,7 @@ Game::Game(QWidget *parent)
     player1 = new Character(0, ":/samurai_blue", arena->getPlatforms(), attackZones);
     arena->addItem(player1);
     player1->setPos(arena->initPos1().first, arena->initPos1().second);
-    connect(player1, &Character::death, this, &Game::gameEnded);
+    connect(player1, &Character::death, this, &Game::playerDead);
     // Создание контроллера для 1-го игрока
     player1Controller = new PlayerController(player1);
     view->installEventFilter(player1Controller); // Подключение контроллера к виджету
@@ -43,7 +45,7 @@ Game::Game(QWidget *parent)
     player2 = new Character(1, ":/samurai_red", arena->getPlatforms(), attackZones);
     arena->addItem(player2);
     player2->setPos(arena->initPos2().first, arena->initPos2().second);
-    connect(player2, &Character::death, this, &Game::gameEnded);
+    connect(player2, &Character::death, this, &Game::playerDead);
 
 
 
@@ -55,6 +57,7 @@ Game::Game(QWidget *parent)
     // Подключение кнопок
     connect(pauseMenuUi->resumeButton, &QPushButton::clicked, this, &Game::resumeGame);
     connect(pauseMenuUi->endGameButton, &QPushButton::clicked, this, &Game::endGameButtonClicked);
+    connect(ui->homeIcon, &QPushButton::clicked, this, &Game::endGame);
 }
 
 void Game::updateGame()
@@ -62,10 +65,12 @@ void Game::updateGame()
     emit(updateTick());
 }
 
-void Game::gameEnded(int id)
+void Game::playerDead(int id)
 {
     qDebug() << "Player " << id << " died!";
-    endGame();
+    gameTimer->stop();
+    ui->endGameMenu->show();
+    ui->endGameMenu->raise();
 }
 
 void Game::endGameButtonClicked()
@@ -94,11 +99,13 @@ void Game::pauseGame()
 {
     pauseMenu->show();
     pauseMenu->raise();
+    gameTimer->stop();
 }
 
 void Game::resumeGame()
 {
     pauseMenu->hide();
+    gameTimer->start();
 }
 
 void Game::endGame()
