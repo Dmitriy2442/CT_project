@@ -88,7 +88,8 @@ void Character::updateState() {
         return;
     }
 
-    if (speedX != 0) {
+    // qDebug() << speedX;
+    if (abs(speedX) > 0.5) {
         if (currentState != "Running1" && currentState != "Running2") {
             currentState = "Running1";
             currentFrame = 0;
@@ -253,11 +254,8 @@ void Character::movement() {
 void Character::attackUpdate() {
     QRectF current_hitbox(x()+hitbox.x(), y()+hitbox.y(), hitbox.width(), hitbox.height());
     if (current_hitbox.intersects((*attackZones)[!id].hitbox)) {
-        qDebug() << currentState;
-        if (currentState != "Blocking")
-            damaged((*attackZones)[!id].attackPower);
-        else
-            damaged((*attackZones)[!id].attackPower/2);
+        // qDebug() << currentState;
+        damaged((*attackZones)[!id].attackPower);
     }
 }
 
@@ -269,7 +267,10 @@ void Character::setHealth(int value) {
     health = value;
 }
 
-void Character::damaged(int power) {
+void Character::damaged(qreal power) {
+    if (currentState == "Blocking") {
+        power /= 4;
+    }
     damage += abs(power);
     speedX = damage * power/abs(power);
 }

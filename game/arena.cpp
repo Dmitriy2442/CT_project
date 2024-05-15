@@ -12,9 +12,15 @@ Platform::Platform(int x, int y, int width, int height, QGraphicsItem *parent)
     setPos(x, y);
 
     // Стиль заливки и границы
-    QPen pen(Qt::black, 1);  // Черная граница толщиной 1 пиксель
-    QBrush brush(Qt::gray); // Серый цвет заливки
+    QPen pen(Qt::black, 0);
     setPen(pen);
+    // QPixmap texture(":/images/texture.jpg");
+    // QBrush brush(texture);
+    // setBrush(brush);
+    QLinearGradient gradient(0, 0, width, height);
+    gradient.setColorAt(0, QColor("#720474"));
+    gradient.setColorAt(1, QColor("#3E0E7C"));
+    QBrush brush(gradient);
     setBrush(brush);
 
 
@@ -23,8 +29,11 @@ Platform::Platform(int x, int y, int width, int height, QGraphicsItem *parent)
     effect->setBlurRadius(10);
     effect->setOffset(5, 5);
     setGraphicsEffect(effect);
-}
 
+    QGraphicsBlurEffect *glowEffect = new QGraphicsBlurEffect();
+    glowEffect->setBlurRadius(7);
+    setGraphicsEffect(glowEffect);
+}
 
 
 Arena::Arena(QObject *parent) : QGraphicsScene(parent), background(nullptr),

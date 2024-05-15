@@ -113,5 +113,7 @@ bool PlayerController::eventFilter(QObject* obj, QEvent* event) {
         } else {
             return QObject::eventFilter(obj, event);
         }
+    } else {
+        return false;
     }
 }
