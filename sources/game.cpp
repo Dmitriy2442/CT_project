@@ -76,6 +76,8 @@ Game::Game(QWidget *parent)
     player->setSource(QUrl("qrc:/sounds/music.mp3"));
 
     player->play();
+
+    player->setLoops(QMediaPlayer::Infinite);
       
     connect(ui->homeIcon, &QPushButton::clicked, this, &Game::endGameButtonClicked);
 }
