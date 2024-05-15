@@ -35,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->setFixedSize(1280, 720);
     setStyleSheet("background-color: #222222");
     updateAllFonts();
+    mainMenuUi->title->setFont({"Bauhaus 93", 18});
     updateAllColors(ui->mainMenu);
 
     QMovie *movie = new QMovie(":/images/menuback.gif");
@@ -104,7 +105,6 @@ void MainWindow::updateAllColors(QWidget *page)
         if ((strcmp(objectType, "QLabel") == 0) || (strcmp(objectType, "QPushButton") == 0))
         {
             widget->setStyleSheet(updateStyleSheet(widget->styleSheet(), QString("color"), palette[paletteIterator]));
-            qDebug() << widget->styleSheet();
             widget->update();
 
         } else if (strcmp(objectType, "IconButton") == 0) {

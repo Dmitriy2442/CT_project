@@ -25,7 +25,7 @@
      <x>0</x>
      <y>0</y>
      <width>1280</width>
-     <height>401</height>
+     <height>471</height>
     </rect>
    </property>
    <property name="font">
@@ -36,13 +36,13 @@
    </property>
    <property name="styleSheet">
     <string notr="true">QLabel {
-	font-size: 128px;
+	font-size: 160px;
 	background-color: transparent;
 	color: #ffffff;
 }</string>
    </property>
    <property name="text">
-    <string>SAY GEX</string>
+    <string>Ronin</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
