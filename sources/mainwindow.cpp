@@ -37,6 +37,10 @@ MainWindow::MainWindow(QWidget *parent)
     updateAllFonts();
     updateAllColors(ui->mainMenu);
 
+    QMovie *movie = new QMovie(":/images/menuback.gif");
+    mainMenuUi->backgroundLabel->setMovie(movie);
+    movie->start();
+
 
     // Задание функций кнопкам:
     connect(mainMenuUi->gameButton, SIGNAL(clicked()), this, SLOT(goToCharSelectPage()));
@@ -60,11 +64,25 @@ MainWindow::MainWindow(QWidget *parent)
 
 QString updateStyleSheet(const QString &styleSheet, const QString &field, const QString &value)
 {
-    QRegularExpression regExp(field + "\\s*:\\s*[^;]+;");
-    QString replacement = field + ": " + value + ";";
+    QRegularExpression bgColorRegExp("\\bbackground-color\\s*:\\s*([^;]+);");
+    QRegularExpressionMatch bgColorMatch = bgColorRegExp.match(styleSheet);
+    QString bgColorValue;
+    if (bgColorMatch.hasMatch()) {
+        bgColorValue = bgColorMatch.captured(1); // Сохраняем найденное значение background-color
+    }
 
+    // Изменяем значение color
+    QRegularExpression colorRegExp("\\b" + QRegularExpression::escape(field) + "\\s*:\\s*([^;]+);");
+    QString colorReplacement = field + ": " + value + ";";
     QString updatedStyleSheet = styleSheet;
-    updatedStyleSheet.replace(regExp, replacement);
+    updatedStyleSheet.replace(colorRegExp, colorReplacement);
+
+    // Возвращаем background-color обратно, если он был изменён
+    if (!bgColorValue.isEmpty()) {
+        QRegularExpression replaceBgColorRegExp("\\bbackground-color\\s*:\\s*([^;]+);");
+        QString bgColorReplacement = "background-color: " + bgColorValue + ";";
+        updatedStyleSheet.replace(replaceBgColorRegExp, bgColorReplacement);
+    }
 
     return updatedStyleSheet;
 }
@@ -85,8 +103,8 @@ void MainWindow::updateAllColors(QWidget *page)
         QWidget* widget = qobject_cast<QWidget*>(object);
         if ((strcmp(objectType, "QLabel") == 0) || (strcmp(objectType, "QPushButton") == 0))
         {
-            if (object->objectName() == "pressToStart") continue;
             widget->setStyleSheet(updateStyleSheet(widget->styleSheet(), QString("color"), palette[paletteIterator]));
+            qDebug() << widget->styleSheet();
             widget->update();
 
         } else if (strcmp(objectType, "IconButton") == 0) {

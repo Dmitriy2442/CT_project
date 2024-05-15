@@ -21,6 +21,7 @@
     </qresource>
     <qresource prefix="/images">
         <file alias="background.jpg">assets/images/background.jpg</file>
+        <file alias="menuback.gif">assets/images/menuback.gif</file>
     </qresource>
     <qresource prefix="/samurai_blue">
         <file alias="Attacking.png">assets/chars/samurai_blue/Attacking.png</file>

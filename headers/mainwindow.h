@@ -14,6 +14,7 @@
 #include <QStackedWidget>
 #include <QRegularExpression>
 #include <QThread>
+#include <QMovie>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
